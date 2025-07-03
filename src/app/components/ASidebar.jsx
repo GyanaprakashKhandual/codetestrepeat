@@ -1,29 +1,19 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Menu,
-  X,
-  Github,
-  Linkedin,
-  Code2,
-  User,
-  Video,
-  Bookmark,
-  Trophy,
-  Briefcase,
-  FileText,
-  Star,
-  Heart,
-  Share2,
-  Rss,
-  Mic,
-  Camera,
-  Plus
+  Menu, X, Github, Linkedin, Code2, User, Video,
+  Bookmark, Trophy, Briefcase, FileText, Star, Heart,
+  Share2, Rss, Mic, Camera, Plus
 } from 'lucide-react';
 
 const ASidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const menuItems = [
     { icon: Github, text: 'GitHub', color: 'text-gray-800', bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100', link: 'https://github.com' },
@@ -42,6 +32,8 @@ const ASidebar = () => {
     { icon: Mic, text: 'Podcasts', color: 'text-lime-600', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', link: '/podcasts' },
     { icon: Camera, text: 'Gallery', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100', link: '/gallery' },
   ];
+
+  if (!mounted) return null; // ✅ Prevent hydration mismatch
 
   return (
     <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen">
@@ -69,34 +61,39 @@ const ASidebar = () => {
             </button>
           </div>
         </div>
+
         {/* Menu Items */}
         <div className="flex-1 py-4 overflow-y-auto">
           <nav className="space-y-2 px-3">
-            {menuItems.map((item) => (
-              <a
-                key={item.text}
-                href={item.link}
-                target={item.link.startsWith('http') ? '_blank' : undefined}
-                rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
-              >
-                <div className="flex items-center p-3 space-x-3">
-                  <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
-                    <item.icon size={20} strokeWidth={1.5} />
-                  </div>
-                  {isOpen && (
-                    <div className="flex-1">
-                      <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                        {item.text}
-                      </span>
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.text}
+                  href={item.link}
+                  target={item.link.startsWith('http') ? '_blank' : undefined}
+                  rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                >
+                  <div className="flex items-center p-3 space-x-3">
+                    <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
+                      <Icon size={20} strokeWidth={1.5} />
                     </div>
-                  )}
-                </div>
-              </a>
-            ))}
+                    {isOpen && (
+                      <div className="flex-1">
+                        <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                          {item.text}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </a>
+              );
+            })}
           </nav>
         </div>
-        {/* Add More Section */}
+
+        {/* Add More */}
         <div className="border-t border-cyan-200/50 p-4">
           <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200">
             <div className="flex items-center p-3 space-x-3">
@@ -112,7 +109,8 @@ const ASidebar = () => {
           </div>
         </div>
       </div>
-      {/* Main Content Area */}
+
+      {/* Main Content */}
       <div className="flex-1 p-6 overflow-auto">
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-white/90 via-cyan-50/80 to-indigo-50/90 rounded-xl shadow-lg p-8 border border-cyan-200/30">
@@ -122,7 +120,6 @@ const ASidebar = () => {
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
               Explore personal links, achievements, and more. Click on any item to visit the respective page or resource.
             </p>
-            {/* You can add a grid or cards here similar to SSidebar if needed */}
           </div>
         </div>
       </div>

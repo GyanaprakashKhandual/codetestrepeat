@@ -1,6 +1,5 @@
 'use client';
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import {
   Menu,
   X,
@@ -19,6 +18,13 @@ import {
 
 const WSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [mounted, setMounted] = useState(false); // ✅ hydration-safe flag
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // ✅ SSR-safe rendering
 
   const avidusItems = [
     { icon: Rocket, text: 'Innovation Lab', color: 'text-amber-600', bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100' },
@@ -59,30 +65,35 @@ const WSidebar = () => {
             </button>
           </div>
         </div>
+
         {/* Avidus Items */}
         <div className="flex-1 py-4 overflow-y-auto">
           <nav className="space-y-2 px-3">
-            {avidusItems.map((item) => (
-              <div
-                key={item.text}
-                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
-              >
-                <div className="flex items-center p-3 space-x-3">
-                  <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
-                    <item.icon size={20} strokeWidth={1.5} />
-                  </div>
-                  {isOpen && (
-                    <div className="flex-1">
-                      <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                        {item.text}
-                      </span>
+            {avidusItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.text}
+                  className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                >
+                  <div className="flex items-center p-3 space-x-3">
+                    <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
+                      <Icon size={20} strokeWidth={1.5} />
                     </div>
-                  )}
+                    {isOpen && (
+                      <div className="flex-1">
+                        <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                          {item.text}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </nav>
         </div>
+
         {/* Add More Section */}
         <div className="border-t border-cyan-200/50 p-4">
           <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200">
@@ -99,6 +110,7 @@ const WSidebar = () => {
           </div>
         </div>
       </div>
+
       {/* Main Content Area */}
       <div className="flex-1 p-6 overflow-auto">
         <div className="max-w-4xl mx-auto">
@@ -109,7 +121,6 @@ const WSidebar = () => {
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
               Explore Avidus features and innovations. Click on any item to learn more about the area or technology.
             </p>
-            {/* You can add a grid or cards here similar to SSidebar if needed */}
           </div>
         </div>
       </div>

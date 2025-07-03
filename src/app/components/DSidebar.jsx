@@ -1,6 +1,5 @@
 'use client';
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react'; // ✅ useEffect imported
 import {
   Menu,
   X,
@@ -18,19 +17,19 @@ import {
   Package,
   Settings,
   Plus,
-  Sparkles,
   HardDrive,
-  Server,
-  GitPullRequest,
-  GitCommit,
-  GitMerge,
-  GitCompare,
-  GitFork,
-  GitPullRequestClosed
+  Server
 } from 'lucide-react';
 
 const DSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [mounted, setMounted] = useState(false); // ✅ hydration flag
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // ✅ prevents hydration mismatch
 
   const menuItems = [
     { icon: Code, text: 'HTML5', color: 'text-orange-600', bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100' },
@@ -76,30 +75,35 @@ const DSidebar = () => {
             </button>
           </div>
         </div>
+
         {/* Menu Items */}
         <div className="flex-1 py-4 overflow-y-auto">
           <nav className="space-y-2 px-3">
-            {menuItems.map((item) => (
-              <div
-                key={item.text}
-                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
-              >
-                <div className="flex items-center p-3 space-x-3">
-                  <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
-                    <item.icon size={20} strokeWidth={1.5} />
-                  </div>
-                  {isOpen && (
-                    <div className="flex-1">
-                      <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                        {item.text}
-                      </span>
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.text}
+                  className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                >
+                  <div className="flex items-center p-3 space-x-3">
+                    <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
+                      <Icon size={20} strokeWidth={1.5} />
                     </div>
-                  )}
+                    {isOpen && (
+                      <div className="flex-1">
+                        <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                          {item.text}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </nav>
         </div>
+
         {/* Add More Section */}
         <div className="border-t border-cyan-200/50 p-4">
           <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200">
@@ -116,7 +120,8 @@ const DSidebar = () => {
           </div>
         </div>
       </div>
-      {/* Main Content Area */}
+
+      {/* Main Content */}
       <div className="flex-1 p-6 overflow-auto">
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-white/90 via-cyan-50/80 to-indigo-50/90 rounded-xl shadow-lg p-8 border border-cyan-200/30">
@@ -126,7 +131,6 @@ const DSidebar = () => {
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
               Explore the development stack and tools. Click on any item to learn more about the technology or tool.
             </p>
-            {/* You can add a grid or cards here similar to SSidebar if needed */}
           </div>
         </div>
       </div>

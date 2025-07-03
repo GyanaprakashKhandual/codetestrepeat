@@ -1,16 +1,16 @@
 'use client';
-import React, { useState } from 'react';
-import { 
-  Menu, 
-  X, 
-  Code, 
-  Bug, 
-  Database, 
-  Shield, 
-  Gamepad, 
-  Cpu, 
-  Brain, 
-  Network, 
+import React, { useState, useEffect } from 'react';
+import {
+  Menu,
+  X,
+  Code,
+  Bug,
+  Database,
+  Shield,
+  Gamepad,
+  Cpu,
+  Brain,
+  Network,
   Cloud,
   Server,
   Plus,
@@ -23,6 +23,13 @@ import {
 
 const ProfessionalSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [mounted, setMounted] = useState(false); // ✅ hydration-safe rendering
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // ✅ SSR-safe rendering
 
   const skillItems = [
     { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100' },
@@ -42,6 +49,15 @@ const ProfessionalSidebar = () => {
     { icon: Lock, text: 'Security Engineer', color: 'text-rose-600', bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100' },
   ];
 
+  const cardItems = [
+    { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code },
+    { title: "Quality Assurance", desc: "Manual & Automated Testing", gradient: "from-emerald-100 to-green-100", border: "border-emerald-200", icon: Bug },
+    { title: "Data Science", desc: "Analysis, Visualization & ML", gradient: "from-purple-100 to-violet-100", border: "border-purple-200", icon: BarChart3 },
+    { title: "Cyber Security", desc: "Ethical Hacking & Defense", gradient: "from-red-100 to-rose-100", border: "border-red-200", icon: Shield },
+    { title: "Game Development", desc: "Engines & Graphics Programming", gradient: "from-yellow-100 to-amber-100", border: "border-yellow-200", icon: Gamepad },
+    { title: "Cloud Engineering", desc: "AWS, Azure & GCP Solutions", gradient: "from-sky-100 to-cyan-100", border: "border-sky-200", icon: Cloud }
+  ];
+
   return (
     <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen">
       <div
@@ -54,45 +70,42 @@ const ProfessionalSidebar = () => {
         <div className="p-4 border-b border-cyan-200/50">
           <div className="flex items-center justify-between">
             {isOpen && (
-              <div className="space-y-1">
-                <h2 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  Tech Roles & Skills
-                </h2>
-              </div>
+              <h2 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                Tech Roles & Skills
+              </h2>
             )}
-            
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className=" ml-1  mt-1 p-2 rounded-lg bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white  hover:shadow-lg transition-shadow duration-200"
+              className="ml-1 mt-1 p-2 rounded-lg bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white hover:shadow-lg transition-shadow duration-200"
             >
               {isOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
           </div>
         </div>
 
-        {/* Skill Items */}
+        {/* Sidebar Items */}
         <div className="flex-1 py-4 overflow-y-auto">
           <nav className="space-y-2 px-3">
-            {skillItems.map((item, index) => (
-              <div
-                key={item.text}
-                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
-              >
-                <div className="flex items-center p-3 space-x-3">
-                  <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
-                    <item.icon size={20} strokeWidth={1.5} />
-                  </div>
-                  
-                  {isOpen && (
-                    <div className="flex-1">
+            {skillItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.text}
+                  className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                >
+                  <div className="flex items-center p-3 space-x-3">
+                    <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
+                      <Icon size={20} strokeWidth={1.5} />
+                    </div>
+                    {isOpen && (
                       <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
                         {item.text}
                       </span>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </nav>
         </div>
 
@@ -103,7 +116,6 @@ const ProfessionalSidebar = () => {
               <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
                 <Plus size={20} strokeWidth={1.5} />
               </div>
-              
               {isOpen && (
                 <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
                   Add New Skill
@@ -121,32 +133,26 @@ const ProfessionalSidebar = () => {
             <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
               Technical Skills Explorer
             </h1>
-            
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
               Explore various technical roles and their required skill sets. Click on any role to discover learning paths,
               recommended resources, and career opportunities in each specialization.
             </p>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code },
-                { title: "Quality Assurance", desc: "Manual & Automated Testing", gradient: "from-emerald-100 to-green-100", border: "border-emerald-200", icon: Bug },
-                { title: "Data Science", desc: "Analysis, Visualization & ML", gradient: "from-purple-100 to-violet-100", border: "border-purple-200", icon: BarChart3 },
-                { title: "Cyber Security", desc: "Ethical Hacking & Defense", gradient: "from-red-100 to-rose-100", border: "border-red-200", icon: Shield },
-                { title: "Game Development", desc: "Engines & Graphics Programming", gradient: "from-yellow-100 to-amber-100", border: "border-yellow-200", icon: Gamepad },
-                { title: "Cloud Engineering", desc: "AWS, Azure & GCP Solutions", gradient: "from-sky-100 to-cyan-100", border: "border-sky-200", icon: Cloud }
-              ].map((item, index) => (
-                <div
-                  key={item.title}
-                  className={`bg-gradient-to-br ${item.gradient} p-6 rounded-lg border ${item.border} hover:shadow-md transition-shadow duration-200 cursor-pointer group`}
-                >
-                  <div className="flex items-center mb-3">
-                    <item.icon className="text-cyan-600 mr-3 group-hover:scale-105 transition-transform duration-200" size={24} />
-                    <h3 className="font-semibold text-slate-700 text-lg">{item.title}</h3>
+              {cardItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.title}
+                    className={`bg-gradient-to-br ${item.gradient} p-6 rounded-lg border ${item.border} hover:shadow-md transition-shadow duration-200 cursor-pointer group`}
+                  >
+                    <div className="flex items-center mb-3">
+                      <Icon className="text-cyan-600 mr-3 group-hover:scale-105 transition-transform duration-200" size={24} />
+                      <h3 className="font-semibold text-slate-700 text-lg">{item.title}</h3>
+                    </div>
+                    <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
                   </div>
-                  <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
