@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaHome, FaUser, FaGraduationCap, FaTools, FaBriefcase,
-  FaBars, FaTimes, FaGuilded, FaBlog, FaSun, FaMoon,
+  FaBars, FaTimes, FaGuilded, FaBlog, FaSun, FaMoon, FaUserAlt,
   FaCode, FaSpinner, FaCoffee, FaCheck
 } from 'react-icons/fa';
-import { SiTestinglibrary } from 'react-icons/si';
+import { SiTestinglibrary, SiSuperuser } from 'react-icons/si';
 import { useRouter, usePathname } from 'next/navigation';
 
 export default function Navbar() {
@@ -16,6 +16,7 @@ export default function Navbar() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [pathname, setPathname] = useState(null);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const router = useRouter();
   const actualPathname = usePathname();
@@ -74,7 +75,6 @@ export default function Navbar() {
       className={`w-full flex items-center justify-between px-6 py-3 fixed top-0 z-50 ${bgGradient} ${darkBgGradient} backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80`}
     >
       <motion.div
-        whileHover={{ scale: 1.05 }}
         className="flex items-center gap-2 cursor-pointer"
         onClick={() => handleNavigation('/')}
       >
@@ -125,16 +125,54 @@ export default function Navbar() {
         ) : (
           <motion.div
             key="theme-toggle"
+            className="relative"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="p-2 rounded-full bg-amber-200 dark:bg-amber-700 text-amber-800 dark:text-amber-100 cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600 transition-colors duration-200"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Theme toggle"
           >
-            <FaSun size={16} />
+            <motion.div
+              className="p-2 rounded-full bg-amber-200 dark:bg-amber-700 text-amber-800 dark:text-amber-100 cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600 transition-colors duration-200"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="User options"
+              onClick={() => setShowUserDropdown(!showUserDropdown)}
+            >
+              <FaUser size={16} />
+            </motion.div>
+
+            <AnimatePresence>
+              {showUserDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50"
+                >
+                  <div className="py-1">
+                    <button
+                      onClick={() => {
+                        handleNavigation('/login');
+                        setShowUserDropdown(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-amber-700"
+                    >
+                      Login
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleNavigation('/register');
+                        setShowUserDropdown(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-amber-700"
+                    >
+                      Register
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
