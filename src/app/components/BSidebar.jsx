@@ -22,7 +22,7 @@ import {
 
 const BSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [mounted, setMounted] = useState(false); // ✅ added
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
