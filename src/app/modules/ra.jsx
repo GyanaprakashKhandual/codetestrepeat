@@ -13,8 +13,11 @@ import {
   X,
   Loader2,
   Shield,
-  Zap
+  Zap,
+  Filter,
+  Search
 } from 'lucide-react';
+import { FaCode } from 'react-icons/fa';
 
 const Toast = ({ message, type = 'success', isVisible, onClose }) => {
   useEffect(() => {
@@ -63,6 +66,46 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [toast, setToast] = useState({ message: '', type: 'success', isVisible: false });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  const filterOptions = [
+    { value: 'all', label: 'All Topics' },
+    { value: 'cypress', label: 'Cypress' },
+    { value: 'selenium', label: 'Selenium' },
+    { value: 'rest-assured', label: 'Rest Assured' },
+    { value: 'playwright', label: 'Playwright' },
+    { value: 'appium', label: 'Appium' },
+    { value: 'postman', label: 'Postman' },
+    { value: 'jest', label: 'Jest' },
+    { value: 'testng', label: 'TestNG' },
+    { value: 'junit', label: 'JUnit' },
+    { value: 'cucumber', label: 'Cucumber' },
+    { value: 'api-testing', label: 'API Testing' },
+    { value: 'ui-testing', label: 'UI Testing' },
+    { value: 'mobile-testing', label: 'Mobile Testing' }
+  ];
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      console.log('Searching for:', searchTerm);
+      // Here you would typically trigger your search functionality
+      alert(`Searching for: "${searchTerm}" with filter: "${selectedFilter}"`);
+    }
+  };
+
+  const handleFilterChange = (value) => {
+    setSelectedFilter(value);
+    setIsFilterOpen(false);
+    console.log('Filter changed to:', value);
+    // Here you would typically trigger your filter functionality
+  };
+
+  const clearSearch = () => {
+    setSearchTerm('');
+  };
 
   useEffect(() => {
     fetchData();
@@ -71,7 +114,7 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/rest-assured');
+      const response = await fetch('http://localhost:5000/api/qa-engineer');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -195,26 +238,114 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
       <motion.header
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white border-b border-green-200"
+        className="sticky top-0 z-50 bg-white border-b border-green-200"
       >
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-3">
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="p-2 bg-green-100 rounded-lg"
-            >
-              <Shield className="w-6 h-6 text-green-600" />
-            </motion.div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-800">Rest Assured Hub</h1>
-              <p className="text-sm text-gray-600 mt-0.5">Your comprehensive guide to API testing with Rest Assured</p>
+        <div className="w-full px-3 sm:px-6 lg:px-8 py-[12px]">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo and Title Section */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="p-2 bg-green-100 rounded-lg"
+              >
+                <Shield className="w-6 h-6 text-green-600" />
+              </motion.div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-800">QA Engineer Hub</h1>
+              </div>
+            </div>
+
+            {/* Search and Filter Section */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              {/* Filter Dropdown */}
+              <div className="relative">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  className="flex items-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 transition-colors"
+                >
+                  <Filter className="w-4 h-4" />
+                  {filterOptions.find(opt => opt.value === selectedFilter)?.label}
+                </motion.button>
+
+                {/* Filter Dropdown Menu */}
+                {isFilterOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+                  >
+                    <div className="py-2 max-h-64 overflow-y-auto">
+                      {filterOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => handleFilterChange(option.value)}
+                          className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                            selectedFilter === option.value 
+                              ? 'bg-green-50 text-green-700 font-medium' 
+                              : 'text-gray-700'
+                          }`}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Search Bar */}
+              <div className="relative">
+                <div className="flex items-center">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)}
+                      placeholder="Search tutorials, guides..."
+                      className="w-64 pl-10 pr-8 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                    />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    
+                    {/* Clear Search Button */}
+                    {searchTerm && (
+                      <button
+                        type="button"
+                        onClick={clearSearch}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors"
+                      >
+                        <X className="w-3 h-3 text-gray-400" />
+                      </button>
+                    )}
+                  </div>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleSearch}
+                    className="ml-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-sm"
+                  >
+                    Search
+                  </motion.button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </motion.header>
 
+      {/* Click overlay to close filter dropdown */}
+      {isFilterOpen && (
+        <div 
+          className="fixed inset-0 z-40" 
+          onClick={() => setIsFilterOpen(false)}
+        />
+      )}
+
       {/* Main Content */}
-      <main className="w-full px-4 sm:px-6 lg:px-8 py-6">
+      <main className="w-full">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -253,7 +384,7 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
                       whileHover={{ scale: 1.1 }}
                       className="p-2 bg-white bg-opacity-20 rounded-lg"
                     >
-                      <Code className="w-5 h-5" />
+                      <Code className="w-5 h-5 text-green-800" />
                     </motion.div>
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold mb-2">{item.workName}</h3>

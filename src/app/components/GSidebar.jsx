@@ -130,7 +130,7 @@ const GSidebar = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 overflow-auto">
+      <div className="flex-1 p-1 rounded-2xl overflow-auto">
         {selectedSkill ? (
           selectedSkill.component || (
             <div className="max-w-4xl mx-auto">
