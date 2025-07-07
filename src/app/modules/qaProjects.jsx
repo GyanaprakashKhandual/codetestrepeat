@@ -87,7 +87,7 @@ const QAProject = () => {
       {projects.map((project, index) => (
         <motion.div
           key={index}
-          className="bg-white rounded-xl shadow-lg overflow-hidden border border-purple-100 hover:shadow-purple-200 transition-all duration-300"
+          className="bg-white overflow-hidden border border-purple-100 hover:shadow-purple-200 transition-all duration-300"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
