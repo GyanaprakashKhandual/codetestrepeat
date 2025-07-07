@@ -238,7 +238,7 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
       <motion.header
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-50 bg-white border-b border-green-200"
+        className="bg-white border-b border-green-200"
       >
         <div className="w-full px-3 sm:px-6 lg:px-8 py-[12px]">
           <div className="flex items-center justify-between gap-4">
