@@ -6,32 +6,146 @@ import {
   Bookmark, Trophy, Briefcase, FileText, Star, Heart,
   Share2, Rss, Mic, Camera, Plus
 } from 'lucide-react';
+import About from '../modules/about.jsx';
+// import Vlogs from '../modules/vlogs.jsx';
+// import Bookmarks from '../modules/bookmarks.jsx';
+// import Achievements from '../modules/achievements.jsx';
+// import Projects from '../modules/projects.jsx';
+// import Resume from '../modules/resume.jsx';
+// import Skills from '../modules/skills.jsx';
+// import Interests from '../modules/interests.jsx';
+// import Social from '../modules/social.jsx';
+// import Blog from '../modules/blog.jsx';
+// import Podcasts from '../modules/podcasts.jsx';
+// import Gallery from '../modules/gallery.jsx';
 
 const ASidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const menuItems = [
-    { icon: Github, text: 'GitHub', color: 'text-gray-800', bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100', link: 'https://github.com' },
-    { icon: Linkedin, text: 'LinkedIn', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', link: 'https://linkedin.com' },
-    { icon: Code2, text: 'LeetCode', color: 'text-yellow-600', bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100', link: 'https://leetcode.com' },
-    { icon: User, text: 'Personal Info', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100', link: '/about' },
-    { icon: Video, text: 'Vlogs', color: 'text-red-600', bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100', link: '/vlogs' },
-    { icon: Bookmark, text: 'Bookmarks', color: 'text-green-600', bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100', link: '/bookmarks' },
-    { icon: Trophy, text: 'Achievements', color: 'text-amber-600', bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100', link: '/achievements' },
-    { icon: Briefcase, text: 'Projects', color: 'text-indigo-600', bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100', link: '/projects' },
-    { icon: FileText, text: 'Resume', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-sky-100', link: '/resume' },
-    { icon: Star, text: 'Skills', color: 'text-pink-600', bgGradient: 'bg-gradient-to-r from-pink-50 to-rose-100', link: '/skills' },
-    { icon: Heart, text: 'Interests', color: 'text-rose-600', bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100', link: '/interests' },
-    { icon: Share2, text: 'Social Media', color: 'text-sky-600', bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100', link: '/social' },
-    { icon: Rss, text: 'Blog', color: 'text-orange-600', bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100', link: '/blog' },
-    { icon: Mic, text: 'Podcasts', color: 'text-lime-600', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', link: '/podcasts' },
-    { icon: Camera, text: 'Gallery', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100', link: '/gallery' },
+    { 
+      icon: Github, 
+      text: 'GitHub', 
+      color: 'text-gray-800', 
+      bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100', 
+      link: 'https://github.com',
+      external: true
+    },
+    { 
+      icon: Linkedin, 
+      text: 'LinkedIn', 
+      color: 'text-blue-600', 
+      bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', 
+      link: 'https://linkedin.com',
+      external: true
+    },
+    { 
+      icon: Code2, 
+      text: 'LeetCode', 
+      color: 'text-yellow-600', 
+      bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100', 
+      link: 'https://leetcode.com',
+      external: true
+    },
+    { 
+      icon: User, 
+      text: 'Personal Info', 
+      color: 'text-purple-600', 
+      bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100', 
+      component: <About /> 
+    },
+    { 
+      icon: Video, 
+      text: 'Vlogs', 
+      color: 'text-red-600', 
+      bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100', 
+      // component: <Vlogs /> 
+    },
+    { 
+      icon: Bookmark, 
+      text: 'Bookmarks', 
+      color: 'text-green-600', 
+      bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100', 
+      // component: <Bookmarks /> 
+    },
+    { 
+      icon: Trophy, 
+      text: 'Achievements', 
+      color: 'text-amber-600', 
+      bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100', 
+      // component: <Achievements /> 
+    },
+    { 
+      icon: Briefcase, 
+      text: 'Projects', 
+      color: 'text-indigo-600', 
+      bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100', 
+      // component: <Projects /> 
+    },
+    { 
+      icon: FileText, 
+      text: 'Resume', 
+      color: 'text-cyan-600', 
+      bgGradient: 'bg-gradient-to-r from-cyan-50 to-sky-100', 
+      // component: <Resume /> 
+    },
+    { 
+      icon: Star, 
+      text: 'Skills', 
+      color: 'text-pink-600', 
+      bgGradient: 'bg-gradient-to-r from-pink-50 to-rose-100', 
+      // component: <Skills /> 
+    },
+    { 
+      icon: Heart, 
+      text: 'Interests', 
+      color: 'text-rose-600', 
+      bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100', 
+      // component: <Interests /> 
+    },
+    { 
+      icon: Share2, 
+      text: 'Social Media', 
+      color: 'text-sky-600', 
+      bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100', 
+      // component: <Social /> 
+    },
+    { 
+      icon: Rss, 
+      text: 'Blog', 
+      color: 'text-orange-600', 
+      bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100', 
+      // component: <Blog /> 
+    },
+    { 
+      icon: Mic, 
+      text: 'Podcasts', 
+      color: 'text-lime-600', 
+      bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', 
+      // component: <Podcasts /> 
+    },
+    { 
+      icon: Camera, 
+      text: 'Gallery', 
+      color: 'text-cyan-600', 
+      bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100', 
+      // component: <Gallery /> 
+    },
   ];
+
+  const handleItemClick = (item) => {
+    if (item.external) {
+      window.open(item.link, '_blank');
+    } else {
+      setSelectedItem(item);
+    }
+  };
 
   if (!mounted) return null;
 
@@ -70,11 +184,9 @@ const ASidebar = () => {
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <a
+                  <div
                     key={item.text}
-                    href={item.link}
-                    target={item.link.startsWith('http') ? '_blank' : undefined}
-                    rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    onClick={() => handleItemClick(item)}
                     className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
                   >
                     <div className="flex items-center p-3 space-x-3">
@@ -89,7 +201,7 @@ const ASidebar = () => {
                         </div>
                       )}
                     </div>
-                  </a>
+                  </div>
                 );
               })}
             </nav>
@@ -115,16 +227,38 @@ const ASidebar = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-6 overflow-auto">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-white/90 via-cyan-50/80 to-indigo-50/90 rounded-xl shadow-lg p-8 border border-cyan-200/30">
-            <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Personal Explorer
-            </h1>
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Explore personal links, achievements, and more. Click on any item to visit the respective page or resource.
-            </p>
-          </div>
-        </div>
+        <AnimatePresence mode="wait">
+          {selectedItem ? (
+            <motion.div
+              key={selectedItem.text}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {selectedItem.component}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="default-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-gradient-to-br from-white/90 via-cyan-50/80 to-indigo-50/90 rounded-xl shadow-lg p-8 border border-cyan-200/30">
+                  <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    Personal Explorer
+                  </h1>
+                  <p className="text-slate-600 text-lg leading-relaxed mb-8">
+                    Explore personal links, achievements, and more. Click on any item to visit the respective page or resource.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

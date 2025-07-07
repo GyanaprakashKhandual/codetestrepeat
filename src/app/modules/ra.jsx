@@ -170,7 +170,7 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
   if (loading) {
     return (
       <div className={`min-h-screen bg-gradient-to-br from-green-50 to-white transition-all duration-300 ${
-        sidebarOpen ? 'ml-80' : 'ml-20'
+        sidebarOpen ? 'ml-0' : 'ml-0'
       }`}>
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center min-h-[60vh]">
@@ -198,7 +198,7 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
   if (error) {
     return (
       <div className={`min-h-screen bg-gradient-to-br from-green-50 to-white transition-all duration-300 ${
-        sidebarOpen ? 'ml-80' : 'ml-20'
+        sidebarOpen ? 'ml-0' : 'ml-0'
       }`}>
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center min-h-[60vh]">
