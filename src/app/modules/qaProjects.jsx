@@ -12,7 +12,7 @@ const QAProject = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/qa-projects');
+        const response = await fetch('https://port-backend-lh99.onrender.com/api/qa-projects');
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
