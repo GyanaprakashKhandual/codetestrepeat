@@ -7,7 +7,7 @@ import {
   Share2, Rss, Mic, Camera, Plus
 } from 'lucide-react';
 import About from '../modules/about.jsx';
-// import Vlogs from '../modules/vlogs.jsx';
+import GitHubPortfolio from '../modules/git.jsx';
 // import Bookmarks from '../modules/bookmarks.jsx';
 // import Achievements from '../modules/achievements.jsx';
 // import Projects from '../modules/projects.jsx';
@@ -35,7 +35,7 @@ const ASidebar = () => {
       color: 'text-gray-800', 
       bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100', 
       link: 'https://github.com',
-      external: true
+      component: <GitHubPortfolio/>
     },
     { 
       icon: Linkedin, 
@@ -226,7 +226,7 @@ const ASidebar = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 overflow-auto">
+      <div className="flex-1 overflow-auto">
         <AnimatePresence mode="wait">
           {selectedItem ? (
             <motion.div
