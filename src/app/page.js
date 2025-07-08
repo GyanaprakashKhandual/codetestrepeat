@@ -6,7 +6,6 @@ function page() {
   return (
     <>
     <Home/>
-    <Footer/>
     </>
   )
 }

@@ -192,7 +192,6 @@ export default function Portfolio() {
     />
   );
 
-
   const projectStats = [
     { number: 1, title: "MERN Stack Projects", description: "Full-stack web applications" },
     { number: 4, title: "Full Stack Projects", description: "Complete web solutions" },
@@ -222,10 +221,6 @@ export default function Portfolio() {
     { Icon: FaInstagram, href: "https://instagram.com", label: "Instagram" }
   ];
 
-
-
-
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-sky-100 relative overflow-hidden">
       {/* Floating Particles */}
@@ -234,6 +229,21 @@ export default function Portfolio() {
       <ParticleFloat className="w-12 h-12 top-1/2 left-1/4" delay={1} />
       <ParticleFloat className="w-24 h-24 bottom-1/4 right-10" delay={1.5} />
       <ParticleFloat className="w-14 h-14 bottom-10 left-1/3" delay={2} />
+
+      {/* SVG Background Wave */}
+      <div className="absolute inset-0 z-0">
+        <svg
+          className="w-full h-full"
+          viewBox="0 0 1440 600"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="rgba(34, 197, 94, 0.1)"
+            d="M0,400L48,373.3C96,347,192,293,288,266.7C384,240,480,240,576,266.7C672,293,768,347,864,360C960,373,1056,347,1152,320C1248,293,1344,267,1392,253.3L1440,240L1440,600L1392,600C1344,600,1248,600,1152,600C1056,600,960,600,864,600C768,600,672,600,576,600C480,600,384,600,288,600C192,600,96,600,48,600L0,600Z"
+          ></path>
+        </svg>
+      </div>
 
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-0 relative">
@@ -373,8 +383,21 @@ export default function Portfolio() {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-white via-lime-50 to-green-50">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-white via-lime-50 to-green-50 relative">
+        <div className="absolute inset-0 z-0">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 1440 400"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="rgba(34, 197, 94, 0.1)"
+              d="M0,320L48,293.3C96,267,192,213,288,186.7C384,160,480,160,576,186.7C672,213,768,267,864,280C960,293,1056,267,1152,240C1248,213,1344,187,1392,173.3L1440,160L1440,400L1392,400C1344,400,1248,400,1152,400C1056,400,960,400,864,400C768,400,672,400,576,400C480,400,384,400,288,400C192,400,96,400,48,400L0,400Z"
+            ></path>
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <TextReveal>
             <div className="text-center mb-16">
               <motion.h2 
@@ -418,8 +441,21 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-green-50 via-white to-sky-50">
-        <div className="max-w-7xl mx-auto">
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-green-50 via-white to-sky-50 relative">
+        <div className="absolute inset-0 z-0">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 1440 400"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="rgba(34, 197, 94, 0.1)"
+              d="M0,300L48,280C96,260,192,220,288,200C384,180,480,180,576,200C672,220,768,260,864,280C960,300,1056,300,1152,280C1248,260,1344,220,1392,200L1440,180L1440,400L1392,400C1344,400,1248,400,1152,400C1056,400,960,400,864,400C768,400,672,400,576,400C480,400,384,400,288,400C192,400,96,400,48,400L0,400Z"
+            ></path>
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <TextReveal>
             <div className="text-center mb-16">
               <motion.h2 
@@ -444,8 +480,21 @@ export default function Portfolio() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-white via-green-50 to-lime-100">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-white via-green-50 to-lime-100 relative">
+        <div className="absolute inset-0 z-0">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 1440 400"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="rgba(34, 197, 94, 0.1)"
+              d="M0,320L48,293.3C96,267,192,213,288,186.7C384,160,480,160,576,186.7C672,213,768,267,864,280C960,293,1056,267,1152,240C1248,213,1344,187,1392,173.3L1440,160L1440,400L1392,400C1344,400,1248,400,1152,400C1056,400,960,400,864,400C768,400,672,400,576,400C480,400,384,400,288,400C192,400,96,400,48,400L0,400Z"
+            ></path>
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <TextReveal>
             <div className="text-center mb-16">
               <motion.h2 
@@ -503,8 +552,21 @@ export default function Portfolio() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-sky-50 via-white to-green-50">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-sky-50 via-white to-green-50 relative">
+        <div className="absolute inset-0 z-0">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 1440 400"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="rgba(34, 197, 94, 0.1)"
+              d="M0,300L48,280C96,260,192,220,288,200C384,180,480,180,576,200C672,220,768,260,864,280C960,300,1056,300,1152,280C1248,260,1344,220,1392,200L1440,180L1440,400L1392,400C1344,400,1248,400,1152,400C1056,400,960,400,864,400C768,400,672,400,576,400C480,400,384,400,288,400C192,400,96,400,48,400L0,400Z"
+            ></path>
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <TextReveal>
             <div className="text-center mb-16">
               <motion.h2 
@@ -564,8 +626,21 @@ export default function Portfolio() {
       </section>
 
       {/* Project Stats Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/30">
-        <div className="max-w-7xl mx-auto">
+      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/30 relative">
+        <div className="absolute inset-0 z-0">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 1440 400"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="rgba(34, 197, 94, 0.1)"
+              d="M0,320L48,293.3C96,267,192,213,288,186.7C384,160,480,160,576,186.7C672,213,768,267,864,280C960,293,1056,267,1152,240C1248,213,1344,187,1392,173.3L1440,160L1440,400L1392,400C1344,400,1248,400,1152,400C1056,400,960,400,864,400C768,400,672,400,576,400C480,400,384,400,288,400C192,400,96,400,48,400L0,400Z"
+            ></path>
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -589,8 +664,21 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 relative">
+        <div className="absolute inset-0 z-0">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 1440 400"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="rgba(34, 197, 94, 0.1)"
+              d="M0,300L48,280C96,260,192,220,288,200C384,180,480,180,576,200C672,220,768,260,864,280C960,300,1056,300,1152,280C1248,260,1344,220,1392,200L1440,180L1440,400L1392,400C1344,400,1248,400,1152,400C1056,400,960,400,864,400C768,400,672,400,576,400C480,400,384,400,288,400C192,400,96,400,48,400L0,400Z"
+            ></path>
+          </svg>
+        </div>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
