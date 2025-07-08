@@ -222,7 +222,7 @@ export default function Portfolio() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-sky-100 relative overflow-hidden">
+    <div className="min-h-full mt-[30px] bg-gradient-to-br from-green-100 via-white to-sky-100 relative overflow-hidden">
       {/* Floating Particles */}
       <ParticleFloat className="w-20 h-20 top-10 left-10" delay={0} />
       <ParticleFloat className="w-16 h-16 top-1/4 right-20" delay={0.5} />
@@ -251,12 +251,34 @@ export default function Portfolio() {
           <div className="absolute inset-0 bg-gradient-to-r from-lime-100/30 to-green-200/30 rounded-full blur-3xl transform -rotate-12 scale-150"></div>
         </motion.div>
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Left Side - Image */}
             <motion.div
-              initial={{ opacity: 0, y: 100, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, x: -100, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 1.2, type: "spring", stiffness: 100 }}
-              className="mb-8"
+              className="flex justify-self-start lg:justify-end"
+            >
+              <div className="relative">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0 bg-gradient-to-r from-green-500 via-lime-400 to-sky-500 rounded-full blur-sm opacity-75"
+                />
+                <img
+                  src="https://res.cloudinary.com/dvytvjplt/image/upload/v1751987213/ChatGPT_Image_Jul_8_2025_08_34_59_PM_abltqo.png"
+                  alt="Gyana Prakash (Chris)"
+                  className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4 border-white/50 shadow-2xl"
+                />
+              </div>
+            </motion.div>
+
+            {/* Right Side - Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 100, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 1.2, type: "spring", stiffness: 100 }}
+              className="text-center lg:text-left"
             >
               <motion.h1 
                 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
@@ -282,101 +304,101 @@ export default function Portfolio() {
                 </motion.span>
               </motion.h1>
               <motion.p 
-                className="text-xl md:text-2xl text-gray-600 mb-2"
+                className="text-xl md:text-2xl text-gray-600 mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.1 }}
               >
                 Also known as <span className="text-green-600 font-semibold">Chris</span>
               </motion.p>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.3 }}
-              className="mb-8"
-            >
-              <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-lg md:text-xl text-gray-700">
-                <motion.div 
-                  className="flex items-center gap-2"
-                  whileHover={{ scale: 1.1, rotate: 2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <FaBug className="text-green-600" />
-                  <span>QA Tester</span>
-                </motion.div>
-                <motion.div 
-                  className="flex items-center gap-2"
-                  whileHover={{ scale: 1.1, rotate: -2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <FaCode className="text-sky-600" />
-                  <span>Full Stack Developer</span>
-                </motion.div>
-                <motion.div 
-                  className="flex items-center gap-2"
-                  whileHover={{ scale: 1.1, rotate: 2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <FaShieldAlt className="text-red-600" />
-                  <span>Ethical Hacker</span>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.5 }}
-              className="mb-12"
-            >
-              <motion.p 
-                className="text-lg text-gray-600 max-w-2xl mx-auto mb-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1.7 }}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.3 }}
+                className="mb-8"
               >
-                Passionate about creating robust web applications, ensuring quality through comprehensive testing, 
-                and securing digital environments through ethical hacking practices.
-              </motion.p>
-              
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                {socialLinks.map(({ Icon, href, label }, index) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0, rotate: 180 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: 1.9 + index * 0.1,
-                      type: "spring",
-                      stiffness: 200
-                    }}
-                    whileHover={{ 
-                      scale: 1.2, 
-                      rotate: 360,
-                      transition: { duration: 0.3 }
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/40 hover:bg-gradient-to-r hover:from-green-500 hover:to-sky-500 hover:text-white transition-all duration-500 hover:shadow-lg hover:shadow-green-500/25"
+                <div className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-8 text-lg md:text-xl text-gray-700">
+                  <motion.div 
+                    className="flex items-center gap-2"
+                    whileHover={{ scale: 1.1, rotate: 2 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <Icon size={20} />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
+                    <FaBug className="text-green-600" />
+                    <span>QA Tester</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex items-center gap-2"
+                    whileHover={{ scale: 1.1, rotate: -2 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <FaCode className="text-sky-600" />
+                    <span>Full Stack Developer</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex items-center gap-2"
+                    whileHover={{ scale: 1.1, rotate: 2 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <FaShieldAlt className="text-red-600" />
+                    <span>Ethical Hacker</span>
+                  </motion.div>
+                </div>
+              </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 2.3 }}
-              className="animate-bounce"
-            >
-              <FaChevronDown size={32} className="text-green-600 hover:text-green-700 transition-colors mx-auto" />
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.5 }}
+                className="mb-12"
+              >
+                <motion.p 
+                  className="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 mb-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 1.7 }}
+                >
+                  Passionate about creating robust web applications, ensuring quality through comprehensive testing, 
+                  and securing digital environments through ethical hacking practices.
+                </motion.p>
+                
+                <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
+                  {socialLinks.map(({ Icon, href, label }, index) => (
+                    <motion.a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, scale: 0, rotate: 180 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      transition={{ 
+                        duration: 0.6, 
+                        delay: 1.9 + index * 0.1,
+                        type: "spring",
+                        stiffness: 200
+                      }}
+                      whileHover={{ 
+                        scale: 1.2, 
+                        rotate: 360,
+                        transition: { duration: 0.3 }
+                      }}
+                      whileTap={{ scale: 0.9 }}
+                      className="w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/40 hover:bg-gradient-to-r hover:from-green-500 hover:to-sky-500 hover:text-white transition-all duration-500 hover:shadow-lg hover:shadow-green-500/25"
+                    >
+                      <Icon size={20} />
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 2.3 }}
+                className="animate-bounce flex justify-center lg:justify-start"
+              >
+                <FaChevronDown size={32} className="text-green-600 hover:text-green-700 transition-colors" />
+              </motion.div>
             </motion.div>
           </div>
         </div>
