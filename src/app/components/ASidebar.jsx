@@ -2,27 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Menu, X, Github, Linkedin, Code2, User, Video,
-  Bookmark, Trophy, Briefcase, FileText, Star, Heart,
+  Menu, X, User, Video, Github,
+  Bookmark, Trophy, FileText, Heart,
   Share2, Rss, Mic, Camera, Plus
 } from 'lucide-react';
+import { showSuccess, showError } from '../utils/alert.jsx';
 import About from '../modules/about.jsx';
 import GitHubPortfolio from '../modules/git.jsx';
-// import Bookmarks from '../modules/bookmarks.jsx';
-// import Achievements from '../modules/achievements.jsx';
-// import Projects from '../modules/projects.jsx';
-// import Resume from '../modules/resume.jsx';
-// import Skills from '../modules/skills.jsx';
-// import Interests from '../modules/interests.jsx';
-// import Social from '../modules/social.jsx';
-// import Blog from '../modules/blog.jsx';
-// import Podcasts from '../modules/podcasts.jsx';
-// import Gallery from '../modules/gallery.jsx';
 
 const ASidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const triggerToast = () => {
+    showSuccess("This is a success alert!", 3000); // Show for 3 seconds
+    setTimeout(() => {
+      showError("Now an error alert appears", 4000);
+    }, 4000);
+  }
 
   useEffect(() => {
     setMounted(true);
@@ -36,22 +34,6 @@ const ASidebar = () => {
       bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100', 
       link: 'https://github.com',
       component: <GitHubPortfolio/>
-    },
-    { 
-      icon: Linkedin, 
-      text: 'LinkedIn', 
-      color: 'text-blue-600', 
-      bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', 
-      link: 'https://linkedin.com',
-      external: true
-    },
-    { 
-      icon: Code2, 
-      text: 'LeetCode', 
-      color: 'text-yellow-600', 
-      bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100', 
-      link: 'https://leetcode.com',
-      external: true
     },
     { 
       icon: User, 
@@ -82,25 +64,11 @@ const ASidebar = () => {
       // component: <Achievements /> 
     },
     { 
-      icon: Briefcase, 
-      text: 'Projects', 
-      color: 'text-indigo-600', 
-      bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100', 
-      // component: <Projects /> 
-    },
-    { 
       icon: FileText, 
       text: 'Resume', 
       color: 'text-cyan-600', 
       bgGradient: 'bg-gradient-to-r from-cyan-50 to-sky-100', 
       // component: <Resume /> 
-    },
-    { 
-      icon: Star, 
-      text: 'Skills', 
-      color: 'text-pink-600', 
-      bgGradient: 'bg-gradient-to-r from-pink-50 to-rose-100', 
-      // component: <Skills /> 
     },
     { 
       icon: Heart, 
@@ -209,18 +177,18 @@ const ASidebar = () => {
 
           {/* Add More */}
           <div className="border-t border-cyan-200/50 p-4">
-            <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200">
-              <div className="flex items-center p-3 space-x-3">
-                <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
-                  <Plus size={20} strokeWidth={1.5} />
-                </div>
-                {isOpen && (
-                  <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                    Add New Link
-                  </span>
-                )}
-              </div>
-            </div>
+            <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200" onClick={triggerToast}>
+  <div className="flex items-center p-3 space-x-3">
+    <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
+      <Plus size={20} strokeWidth={1.5} />
+    </div>
+    {isOpen && (
+      <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+        Add New Link
+      </span>
+    )}
+  </div>
+</div>
           </div>
         </div>
       </div>
