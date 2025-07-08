@@ -22,19 +22,6 @@ import {
 } from 'lucide-react';
 import QAProject from '../modules/qaProjects';
 import WebProjects from '../modules/webProjects';
-// import DataAnalyst from '../modules/data-analyst.jsx';
-// import CyberSecurity from '../modules/cyber-security.jsx';
-// import GameEngineer from '../modules/game-engineer.jsx';
-// import ComputerEngineer from '../modules/computer-engineer.jsx';
-// import MachineLearning from '../modules/machine-learning.jsx';
-// import DeepLearning from '../modules/deep-learning.jsx';
-// import CloudComputing from '../modules/cloud-computing.jsx';
-// import DevOps from '../modules/devops.jsx';
-// import SystemEngineer from '../modules/system-engineer.jsx';
-// import EmbeddedSystems from '../modules/embedded-systems.jsx';
-// import DatabaseAdmin from '../modules/database-admin.jsx';
-// import SDET from '../modules/sdet.jsx';
-// import SecurityEngineer from '../modules/security-engineer.jsx';
 
 const ProjectSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -43,37 +30,57 @@ const ProjectSidebar = () => {
 
   useEffect(() => {
     setMounted(true);
+    // Retrieve selected skill from localStorage if it exists
+    const savedSkill = localStorage.getItem('selectedSkill');
+    if (savedSkill) {
+      try {
+        const parsedSkill = JSON.parse(savedSkill);
+        // Find the matching skill in our items
+        const foundSkill = [...skillItems, ...cardItems].find(
+          item => item.text === parsedSkill.text || item.title === parsedSkill.text
+        );
+        if (foundSkill) {
+          setSelectedSkill(foundSkill);
+        }
+      } catch (e) {
+        console.error('Failed to parse saved skill', e);
+      }
+    }
   }, []);
 
   const skillItems = [
-    { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <WebProjects/>}, // component: <WebDeveloper /> 
+    { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <WebProjects/>},
     { icon: Bug, text: 'QA Engineer', color: 'text-emerald-600', bgGradient: 'bg-gradient-to-r from-emerald-50 to-green-100', component: <QAProject/>},
-    { icon: BarChart3, text: 'Data Analyst', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100' }, // component: <DataAnalyst /> 
-    { icon: Shield, text: 'Cyber Security', color: 'text-red-600', bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100' }, // component: <CyberSecurity /> 
-    { icon: Gamepad, text: 'Game Engineer', color: 'text-yellow-600', bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100' }, // component: <GameEngineer /> 
-    { icon: Cpu, text: 'Computer Engineer', color: 'text-gray-600', bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100' }, // component: <ComputerEngineer /> 
-    { icon: Brain, text: 'Machine Learning', color: 'text-pink-600', bgGradient: 'bg-gradient-to-r from-pink-50 to-rose-100' }, // component: <MachineLearning /> 
-    { icon: Network, text: 'Deep Learning', color: 'text-indigo-600', bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100' }, // component: <DeepLearning /> 
-    { icon: Cloud, text: 'Cloud Computing', color: 'text-sky-600', bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100' }, // component: <CloudComputing /> 
-    { icon: Terminal, text: 'DevOps', color: 'text-orange-600', bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100' }, // component: <DevOps /> 
-    { icon: Server, text: 'System Engineer', color: 'text-green-600', bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100' }, // component: <SystemEngineer /> 
-    { icon: CircuitBoard, text: 'Embedded Systems', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' }, // component: <EmbeddedSystems /> 
-    { icon: Database, text: 'Database Admin', color: 'text-violet-600', bgGradient: 'bg-gradient-to-r from-violet-50 to-purple-100' }, // component: <DatabaseAdmin /> 
-    { icon: TestTube2, text: 'SDET', color: 'text-lime-600', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100' }, // component: <SDET /> 
-    { icon: Lock, text: 'Security Engineer', color: 'text-rose-600', bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100' }, // component: <SecurityEngineer /> 
+    { icon: BarChart3, text: 'Data Analyst', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100' },
+    { icon: Shield, text: 'Cyber Security', color: 'text-red-600', bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100' },
+    { icon: Gamepad, text: 'Game Engineer', color: 'text-yellow-600', bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100' },
+    { icon: Cpu, text: 'Computer Engineer', color: 'text-gray-600', bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100' },
+    { icon: Brain, text: 'Machine Learning', color: 'text-pink-600', bgGradient: 'bg-gradient-to-r from-pink-50 to-rose-100' },
+    { icon: Network, text: 'Deep Learning', color: 'text-indigo-600', bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100' },
+    { icon: Cloud, text: 'Cloud Computing', color: 'text-sky-600', bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100' },
+    { icon: Terminal, text: 'DevOps', color: 'text-orange-600', bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100' },
+    { icon: Server, text: 'System Engineer', color: 'text-green-600', bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100' },
+    { icon: CircuitBoard, text: 'Embedded Systems', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' },
+    { icon: Database, text: 'Database Admin', color: 'text-violet-600', bgGradient: 'bg-gradient-to-r from-violet-50 to-purple-100' },
+    { icon: TestTube2, text: 'SDET', color: 'text-lime-600', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100' },
+    { icon: Lock, text: 'Security Engineer', color: 'text-rose-600', bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100' },
   ];
 
   const cardItems = [
-    { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code, component: <WebProjects/>}, // component: <WebDeveloper /> },
-    { title: "Quality Assurance", desc: "Manual & Automated Testing", gradient: "from-emerald-100 to-green-100", border: "border-emerald-200", icon: Bug, component: <QAProject/>},
-    { title: "Data Science", desc: "Analysis, Visualization & ML", gradient: "from-purple-100 to-violet-100", border: "border-purple-200", icon: BarChart3}, //component: <DataAnalyst /> },
-    { title: "Cyber Security", desc: "Ethical Hacking & Defense", gradient: "from-red-100 to-rose-100", border: "border-red-200", icon: Shield}, //component: //<CyberSecurity /> },
-    { title: "Game Development", desc: "Engines & Graphics Programming", gradient: "from-yellow-100 to-amber-100", border: "border-yellow-200", icon: Gamepad},// component: <GameEngineer /> },
-    { title: "Cloud Engineering", desc: "AWS, Azure & GCP Solutions", gradient: "from-sky-100 to-cyan-100", border: "border-sky-200", icon: Cloud},// component: // <CloudComputing /> }
+    { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code, component: <WebProjects/>, text: "Web Developer" },
+    { title: "Quality Assurance", desc: "Manual & Automated Testing", gradient: "from-emerald-100 to-green-100", border: "border-emerald-200", icon: Bug, component: <QAProject/>, text: "QA Engineer" },
+    { title: "Data Science", desc: "Analysis, Visualization & ML", gradient: "from-purple-100 to-violet-100", border: "border-purple-200", icon: BarChart3, text: "Data Analyst" },
+    { title: "Cyber Security", desc: "Ethical Hacking & Defense", gradient: "from-red-100 to-rose-100", border: "border-red-200", icon: Shield, text: "Cyber Security" },
+    { title: "Game Development", desc: "Engines & Graphics Programming", gradient: "from-yellow-100 to-amber-100", border: "border-yellow-200", icon: Gamepad, text: "Game Engineer" },
+    { title: "Cloud Engineering", desc: "AWS, Azure & GCP Solutions", gradient: "from-sky-100 to-cyan-100", border: "border-sky-200", icon: Cloud, text: "Cloud Computing" }
   ];
 
   const handleSkillClick = (skill) => {
     setSelectedSkill(skill);
+    // Save the selected skill to localStorage
+    localStorage.setItem('selectedSkill', JSON.stringify({
+      text: skill.text || skill.title
+    }));
   };
 
   if (!mounted) return null;
@@ -109,18 +116,27 @@ const ProjectSidebar = () => {
             <nav className="space-y-2 px-3">
               {skillItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = selectedSkill && (selectedSkill.text === item.text || selectedSkill.title === item.text);
                 return (
                   <div
                     key={item.text}
                     onClick={() => handleSkillClick(item)}
-                    className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                    className={`rounded-lg cursor-pointer group transition-colors duration-200 ${
+                      isActive 
+                        ? 'bg-white shadow-sm border border-cyan-200/70' 
+                        : 'hover:bg-white/50'
+                    }`}
                   >
                     <div className="flex items-center p-3 space-x-3">
-                      <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
+                      <div className={`${isActive ? 'text-cyan-600 scale-110' : item.color} group-hover:scale-105 transition-transform duration-200`}>
                         <Icon size={20} strokeWidth={1.5} />
                       </div>
                       {isOpen && (
-                        <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                        <span className={`font-medium text-sm transition-colors duration-200 ${
+                          isActive 
+                            ? 'text-cyan-700 font-semibold' 
+                            : 'text-slate-700 group-hover:text-cyan-700'
+                        }`}>
                           {item.text}
                         </span>
                       )}
@@ -166,14 +182,23 @@ const ProjectSidebar = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {cardItems.map((item) => {
                   const Icon = item.icon;
+                  const isActive = selectedSkill && (selectedSkill.text === item.text || selectedSkill.title === item.title);
                   return (
                     <div
                       key={item.title}
                       onClick={() => handleSkillClick(item)}
-                      className={`bg-gradient-to-br ${item.gradient} p-6 rounded-lg border ${item.border} hover:shadow-md transition-shadow duration-200 cursor-pointer group`}
+                      className={`bg-gradient-to-br ${item.gradient} p-6 rounded-lg border ${
+                        isActive 
+                          ? 'border-cyan-400 shadow-md ring-1 ring-cyan-200' 
+                          : item.border
+                      } hover:shadow-md transition-shadow duration-200 cursor-pointer group`}
                     >
                       <div className="flex items-center mb-3">
-                        <Icon className="text-cyan-600 mr-3 group-hover:scale-105 transition-transform duration-200" size={24} />
+                        <Icon className={`${
+                          isActive 
+                            ? 'text-cyan-600 scale-110' 
+                            : 'text-cyan-600'
+                        } mr-3 group-hover:scale-105 transition-transform duration-200`} size={24} />
                         <h3 className="font-semibold text-slate-700 text-lg">{item.title}</h3>
                       </div>
                       <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
