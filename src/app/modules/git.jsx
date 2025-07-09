@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Star, 
-  Code, 
-  ExternalLink, 
+import {
+  Star,
+  Code,
+  ExternalLink,
   Eye,
   BarChart3,
   Flame,
@@ -76,7 +76,7 @@ const GitHubPortfolio = () => {
     }
   };
 
-if (loading) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
@@ -94,7 +94,7 @@ if (loading) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-100 via-pink-50 via-sky-100 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-100 via-pink-50 to-blue-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"
@@ -106,11 +106,11 @@ if (loading) {
           {/* GitHub Stats Section */}
           <motion.div variants={itemVariants} className="mb-12">
             <div className="bg-white/40 backdrop-blur-sm rounded-3xl p-6  border border-white/20">
-              
+
               {/* Activity Graph */}
               <div className="mb-6">
-                <img 
-                  src="https://github-readme-activity-graph.vercel.app/graph?username=gyanaprakashkhandual&theme=tokyo-night&hide_border=true&bg_color=0D1117&color=58A6FF&line=58A6FF&point=FF7B72&area=true&area_color=58A6FF" 
+                <img
+                  src="https://github-readme-activity-graph.vercel.app/graph?username=gyanaprakashkhandual&theme=tokyo-night&hide_border=true&bg_color=0D1117&color=58A6FF&line=58A6FF&point=FF7B72&area=true&area_color=58A6FF"
                   alt="GitHub Activity Graph"
                   className="w-full rounded-xl"
                 />
@@ -120,7 +120,7 @@ if (loading) {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                 {/* GitHub Streak */}
                 <div className="flex justify-center">
-                  <img 
+                  <img
                     src="https://github-readme-streak-stats.herokuapp.com/?user=gyanaprakashkhandual&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=FF7B72&currStreakLabel=C9D1D9"
                     alt="GitHub Streak"
                     className="rounded-xl"
@@ -129,7 +129,7 @@ if (loading) {
 
                 {/* GitHub Stats */}
                 <div className="flex justify-center">
-                  <img 
+                  <img
                     src="https://github-readme-stats.vercel.app/api?username=gyanaprakashkhandual&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9&icon_color=79C0FF"
                     alt="GitHub Stats"
                     className="rounded-xl "
@@ -138,7 +138,7 @@ if (loading) {
 
                 {/* Top Languages */}
                 <div className="flex justify-center">
-                  <img 
+                  <img
                     src="https://github-readme-stats.vercel.app/api/top-langs/?username=gyanaprakashkhandual&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9"
                     alt="Top Languages"
                     className="rounded-xl "
@@ -153,7 +153,7 @@ if (loading) {
             <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
               Featured Repositories
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {repos.map((repo, index) => (
                 <motion.div
@@ -164,7 +164,7 @@ if (loading) {
                 >
                   {/* Gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
+
                   <div className="relative p-6">
                     {/* Repository Header */}
                     <div className="flex items-start justify-between mb-6">
@@ -268,7 +268,7 @@ if (loading) {
                           <span>Updated recently</span>
                         </div>
                       </div>
-                      
+
                       <motion.a
                         href={repo.repoLink}
                         target="_blank"
