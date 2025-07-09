@@ -40,10 +40,26 @@ const ProfessionalSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  
+    useEffect(() => {
+      setMounted(true);
+      // Retrieve selected skill from localStorage if it exists
+      const savedSkill = localStorage.getItem('selectedSkill');
+      if (savedSkill) {
+        try {
+          const parsedSkill = JSON.parse(savedSkill);
+          // Find the matching skill in our items
+          const foundSkill = [...skillItems, ...cardItems].find(
+            item => item.text === parsedSkill.text || item.title === parsedSkill.text
+          );
+          if (foundSkill) {
+            setSelectedSkill(foundSkill);
+          }
+        } catch (e) {
+          console.error('Failed to parse saved skill', e);
+        }
+      }
+    }, []);
 
   const skillItems = [
     { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100' }, // component: <WebDeveloper /> 
