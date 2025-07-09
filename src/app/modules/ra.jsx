@@ -169,56 +169,17 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
 
   if (loading) {
     return (
-      <div className={`min-h-screen bg-gradient-to-br from-green-50 to-white transition-all duration-300 ${
-        sidebarOpen ? 'ml-0' : 'ml-0'
-      }`}>
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center min-h-[60vh]">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="w-12 h-12 mx-auto mb-3"
-              >
-                <Loader2 className="w-12 h-12 text-green-600" />
-              </motion.div>
-              <h2 className="text-lg font-semibold text-gray-700">Loading Rest Assured Resources...</h2>
-              <p className="text-sm text-gray-500 mt-1">Please wait while we fetch the latest content</p>
-            </motion.div>
-          </div>
-        </div>
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className={`min-h-screen bg-gradient-to-br from-green-50 to-white transition-all duration-300 ${
-        sidebarOpen ? 'ml-0' : 'ml-0'
-      }`}>
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center min-h-[60vh]">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center"
-            >
-              <AlertCircle className="w-12 h-12 mx-auto mb-3 text-red-500" />
-              <h2 className="text-lg font-semibold text-gray-700">Error Loading Data</h2>
-              <p className="text-sm text-gray-500 mt-1">{error}</p>
-              <button
-                onClick={fetchData}
-                className="mt-3 px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors"
-              >
-                Retry
-              </button>
-            </motion.div>
-          </div>
-        </div>
+      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong className="font-bold">Error: </strong>
+        <span className="block sm:inline">{error}</span>
       </div>
     );
   }
