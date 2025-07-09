@@ -28,5 +28,19 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "^4"
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GyanaprakashKhandual/codetestrepeat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/GyanaprakashKhandual/codetestrepeat/issues"
+  },
+  "homepage": "https://github.com/GyanaprakashKhandual/codetestrepeat#readme"
 }

@@ -1,13 +1,12 @@
 import React from 'react'
 import Home from './components/Home'
-import Footer from './components/Footer'
 
 function page() {
   return (
     <>
-    <Home/>
+      <Home />
     </>
   )
 }
 
-export default page
+export default page;
