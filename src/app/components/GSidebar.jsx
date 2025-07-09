@@ -24,7 +24,7 @@ import {
 import RestAssured from '../modules/ra';
 
 const GSidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null); // Track selected skill
 

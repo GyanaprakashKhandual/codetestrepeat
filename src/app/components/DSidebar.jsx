@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 const DSidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // ✅ hydration flag
 
   useEffect(() => {

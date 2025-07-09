@@ -24,7 +24,7 @@ import QAProject from '../modules/qaProjects';
 import WebProjects from '../modules/webProjects';
 
 const ProjectSidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null);
 

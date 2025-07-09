@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 const BSidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

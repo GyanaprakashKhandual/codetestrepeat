@@ -37,7 +37,7 @@ import QAEngineer from '../modules/qaSkills';
 // import SecurityEngineer from '../modules/security-engineer.jsx';
 
 const ProfessionalSidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null);
   

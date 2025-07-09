@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 const WSidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // ✅ hydration-safe flag
 
   useEffect(() => {

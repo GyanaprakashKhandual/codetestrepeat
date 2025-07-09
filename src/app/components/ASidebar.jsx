@@ -11,9 +11,10 @@ import About from '../modules/about.jsx';
 import GitHubPortfolio from '../modules/git.jsx';
 
 const ASidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false); // Always start collapsed
   const [mounted, setMounted] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const triggerToast = () => {
     showSuccess("This is a success alert!", 3000); // Show for 3 seconds
@@ -119,7 +120,7 @@ const ASidebar = () => {
 
   return (
     <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen">
-      {/* Sticky Sidebar */}
+      {/* Sticky Sidebar - Always Collapsed */}
       <div className="sticky top-14 self-start">
         <div
           className={`flex flex-col bg-gradient-to-b from-white/95 via-cyan-50/90 to-indigo-50/95 border-r border-cyan-200/50 shadow-lg transition-all duration-300 ${
@@ -154,21 +155,48 @@ const ASidebar = () => {
                 return (
                   <div
                     key={item.text}
-                    onClick={() => handleItemClick(item)}
-                    className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                    className="relative"
+                    onMouseEnter={() => setHoveredItem(item.text)}
+                    onMouseLeave={() => setHoveredItem(null)}
                   >
-                    <div className="flex items-center p-3 space-x-3">
-                      <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
-                        <Icon size={20} strokeWidth={1.5} />
-                      </div>
-                      {isOpen && (
-                        <div className="flex-1">
-                          <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                            {item.text}
-                          </span>
+                    <div
+                      onClick={() => handleItemClick(item)}
+                      className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                    >
+                      <div className="flex items-center p-3 space-x-3">
+                        <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
+                          <Icon size={20} strokeWidth={1.5} />
                         </div>
-                      )}
+                        {isOpen && (
+                          <div className="flex-1">
+                            <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                              {item.text}
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
+                    
+                    {/* Tooltip - Only show when collapsed */}
+                    <AnimatePresence>
+                      {!isOpen && hoveredItem === item.text && (
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 z-[9999]"
+                        >
+                          <div className="bg-slate-800 text-white text-sm px-3 py-2 rounded-lg shadow-xl whitespace-nowrap">
+                            {item.text}
+                            {/* Arrow */}
+                            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1">
+                              <div className="w-2 h-2 bg-slate-800 rotate-45"></div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 );
               })}
@@ -177,18 +205,48 @@ const ASidebar = () => {
 
           {/* Add More */}
           <div className="border-t border-cyan-200/50 p-4">
-            <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200" onClick={triggerToast}>
-  <div className="flex items-center p-3 space-x-3">
-    <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
-      <Plus size={20} strokeWidth={1.5} />
-    </div>
-    {isOpen && (
-      <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-        Add New Link
-      </span>
-    )}
-  </div>
-</div>
+            <div 
+              className="relative"
+              onMouseEnter={() => setHoveredItem('Add New Link')}
+              onMouseLeave={() => setHoveredItem(null)}
+            >
+              <div 
+                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200" 
+                onClick={triggerToast}
+              >
+                <div className="flex items-center p-3 space-x-3">
+                  <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
+                    <Plus size={20} strokeWidth={1.5} />
+                  </div>
+                  {isOpen && (
+                    <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                      Add New Link
+                    </span>
+                  )}
+                </div>
+              </div>
+              
+              {/* Tooltip for Add New Link - Only show when collapsed */}
+              <AnimatePresence>
+                {!isOpen && hoveredItem === 'Add New Link' && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 z-[9999]"
+                  >
+                    <div className="bg-slate-800 text-white text-sm px-3 py-2 rounded-lg shadow-xl whitespace-nowrap">
+                      Add New Link
+                      {/* Arrow */}
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1">
+                        <div className="w-2 h-2 bg-slate-800 rotate-45"></div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
