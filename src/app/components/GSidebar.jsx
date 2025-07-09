@@ -57,7 +57,7 @@ const GSidebar = () => {
   };
 
   return (
-    <div className="flex mt-14 bg-gradient-to-br from-sky-50 via-white to-lime-50 min-h-screen">
+    <div className="flex mt-14 bg-gradient-to-br from-sky-50 via-white to-lime-50 min-h-screen select-none">
       <div className='sticky top-14 self-start'>
         <div
           className={`flex flex-col bg-gradient-to-b from-white/95 via-sky-50/90 to-lime-50/95 border-r border-sky-200/50 shadow-lg transition-all duration-300 ${

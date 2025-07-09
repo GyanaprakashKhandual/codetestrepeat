@@ -119,7 +119,7 @@ const ASidebar = () => {
   if (!mounted) return null;
 
   return (
-    <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen">
+    <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen select-none">
       {/* Sticky Sidebar - Always Collapsed */}
       <div className="sticky top-14 self-start">
         <div

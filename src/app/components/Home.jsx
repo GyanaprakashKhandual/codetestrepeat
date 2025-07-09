@@ -99,9 +99,9 @@ export default function Portfolio() {
 
   const achievements = [
     { icon: FaAward, title: "Bug Bounty Hunter", desc: "Found 50+ critical vulnerabilities" },
-    { icon: FaUsers, title: "Team Lead", desc: "Led 5+ successful projects" },
+    { icon: FaUsers, title: "QA Analyst", desc: "Fetch 6+ successful projects" },
     { icon: FaCoffee, title: "Code Enthusiast", desc: "10,000+ lines of code written" },
-    { icon: FaGraduationCap, title: "Certified Tester", desc: "ISTQB & Selenium certified" }
+    { icon: FaGraduationCap, title: "Performance Engineering ", desc: "Compact Testing with 5+ Tools" }
   ];
 
   const services = [
@@ -127,21 +127,21 @@ export default function Portfolio() {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
+      name: "Mukul Ramdev",
       role: "Product Manager",
-      company: "TechCorp",
+      company: "Avidus Interactive",
       message: "Chris's attention to detail in testing saved us from major production issues. His expertise in both development and security is invaluable.",
       rating: 5
     },
     {
-      name: "Michael Chen",
-      role: "CTO",
-      company: "StartupXYZ",
+      name: "Geetika Kommuru",
+      role: "Tech Lead",
+      company: "MASAI",
       message: "Working with Chris was a game-changer. His full-stack skills and ethical hacking background provide a unique perspective on security.",
       rating: 5
     },
     {
-      name: "Emily Rodriguez",
+      name: "Anjali Shaw",
       role: "Development Team Lead",
       company: "InnovateLabs",
       message: "Chris combines technical excellence with great communication. His automation frameworks significantly improved our testing efficiency.",
