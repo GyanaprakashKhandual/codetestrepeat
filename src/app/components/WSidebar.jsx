@@ -16,6 +16,8 @@ import {
   Sparkles
 } from 'lucide-react';
 
+import { SiTestinglibrary } from 'react-icons/si';
+
 const WSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // ✅ hydration-safe flag
@@ -27,16 +29,7 @@ const WSidebar = () => {
   if (!mounted) return null; // ✅ SSR-safe rendering
 
   const avidusItems = [
-    { icon: Rocket, text: 'Innovation Lab', color: 'text-amber-600', bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100' },
-    { icon: Cpu, text: 'Tech Solutions', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-indigo-100' },
-    { icon: Code, text: 'Dev Frameworks', color: 'text-green-600', bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100' },
-    { icon: BrainCircuit, text: 'AI Research', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100' },
-    { icon: Network, text: 'Connectivity', color: 'text-red-600', bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100' },
-    { icon: BarChart3, text: 'Data Insights', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-sky-100' },
-    { icon: Shield, text: 'Cyber Security', color: 'text-lime-600', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100' },
-    { icon: Globe, text: 'Global Reach', color: 'text-pink-600', bgGradient: 'bg-gradient-to-r from-pink-50 to-rose-100' },
-    { icon: Server, text: 'Cloud Systems', color: 'text-indigo-600', bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100' },
-    { icon: Sparkles, text: 'Emerging Tech', color: 'text-orange-600', bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100' },
+    { icon: SiTestinglibrary, text: 'QA Analyst', color: 'text-amber-600', bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100' },
   ];
 
   return (
@@ -54,7 +47,7 @@ const WSidebar = () => {
             {isOpen && (
               <div className="space-y-1">
                 <h2 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  Avidus
+                  Work Experience 
                 </h2>
               </div>
             )}

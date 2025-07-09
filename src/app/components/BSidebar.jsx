@@ -28,7 +28,7 @@ const BSidebar = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // ✅ Prevent hydration mismatch
+  if (!mounted) return null;
 
   const industryItems = [
     { icon: Code, text: 'Software Industry', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-indigo-100' },
@@ -36,15 +36,12 @@ const BSidebar = () => {
     { icon: Car, text: 'Automobile Industry', color: 'text-red-600', bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100' },
     { icon: Shirt, text: 'Fashion Industry', color: 'text-pink-600', bgGradient: 'bg-gradient-to-r from-pink-50 to-rose-100' },
     { icon: Film, text: 'Film Industry', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100' },
-    { icon: Plane, text: 'Travel Industry', color: 'text-sky-600', bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100' },
     { icon: Brain, text: 'Psychology', color: 'text-indigo-600', bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100' },
     { icon: Wand2, text: 'Imagination', color: 'text-yellow-600', bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100' },
     { icon: Factory, text: 'Manufacturing', color: 'text-gray-600', bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100' },
-    { icon: ShoppingBag, text: 'Retail', color: 'text-green-600', bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100' },
-    { icon: Camera, text: 'Photography', color: 'text-violet-600', bgGradient: 'bg-gradient-to-r from-violet-50 to-purple-100' },
-    { icon: Globe, text: 'Tourism', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' },
+    { icon: Camera, text: 'Modeling', color: 'text-violet-600', bgGradient: 'bg-gradient-to-r from-violet-50 to-purple-100' },
+    { icon: Globe, text: 'Traveling', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' },
     { icon: Cpu, text: 'Electronics', color: 'text-amber-600', bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100' },
-    { icon: Rocket, text: 'Aerospace', color: 'text-rose-600', bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100' },
   ];
 
   return (

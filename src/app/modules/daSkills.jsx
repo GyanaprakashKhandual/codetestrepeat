@@ -1,78 +1,22 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { FaCode, FaProjectDiagram, FaTools, FaClock } from 'react-icons/fa';
-import { SiTestinglibrary } from 'react-icons/si';
+import { Code, Zap, Trophy, TrendingUp, Star, Globe, Layers, Palette, Database, Settings } from 'lucide-react';
+import { FaMicrosoft, FaDatabase, FaDashcube } from 'react-icons/fa';
 
-// Icon mapping for QA technologies
-const getIcon = (tech) => {
-  const iconMap = {
-    'Selenium': FaTools,
-    'Cypress': FaCode,
-    'Playwright': FaCode,
-    'Postman': FaTools,
-    'JMeter': FaTools,
-    'Appium': FaTools,
-    'TestNG': SiTestinglibrary,
-    'JUnit': SiTestinglibrary,
-    'Cucumber': FaTools,
-    'RestAssured': FaTools,
-    'SoapUI': FaTools
-  };
-  return iconMap[tech] || SiTestinglibrary;
-};
-
-// Get color based on experience
-const getExperienceColor = (experience) => {
-  const years = parseInt(experience) || 0;
-  if (years >= 5) return 'from-green-400 to-emerald-500';
-  if (years >= 3) return 'from-blue-400 to-cyan-500';
-  if (years >= 1) return 'from-yellow-400 to-orange-500';
-  return 'from-red-400 to-pink-500';
-};
-
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
-};
-
-const cardVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 50,
-    scale: 0.9
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 15
-    }
-  }
-};
-
-const Skills = () => {
+const DataAnalyiticsSkills = () => {
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch skills data from API
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/qa-skills');
+        const response = await fetch('http://localhost:5000/api/da-skills');
         if (!response.ok) {
-          throw new Error('Failed to fetch QA skills data');
+          throw new Error('Failed to fetch skills data');
         }
         const data = await response.json();
         setSkills(data);
@@ -85,6 +29,68 @@ const Skills = () => {
 
     fetchSkills();
   }, []);
+
+  // Icon mapping for different technologies
+  const getIcon = (tech) => {
+    const iconMap = {
+      'Microsoft Office': FaMicrosoft,
+      'Power BI': FaDashcube,
+      'MySQL': FaDatabase,
+      'Mongo DB': FaDatabase
+    };
+    return iconMap[tech] || Code;
+  };
+
+  // Get color based on coverage percentage
+  const getCoverageColor = (covered) => {
+    const percentage = parseInt(covered);
+    if (percentage >= 90) return 'from-green-400 to-emerald-500';
+    if (percentage >= 80) return 'from-blue-400 to-cyan-500';
+    if (percentage >= 70) return 'from-yellow-400 to-orange-500';
+    return 'from-red-400 to-pink-500';
+  };
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  const progressVariants = {
+    hidden: { width: 0 },
+    visible: (covered) => ({
+      width: covered,
+      transition: {
+        duration: 1.5,
+        ease: "easeOut",
+        delay: 0.5
+      }
+    })
+  };
 
   if (loading) {
     return (
@@ -102,7 +108,7 @@ const Skills = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
-          <div className="text-red-500 text-xl mb-4">Error loading QA skills</div>
+          <div className="text-red-500 text-xl mb-4">Error loading skills</div>
           <div className="text-gray-600">{error}</div>
         </div>
       </div>
@@ -167,14 +173,14 @@ const Skills = () => {
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               className="mr-3"
             >
-              <SiTestinglibrary className="w-8 h-8 text-blue-500" />
+              <Trophy className="w-8 h-8 text-yellow-500" />
             </motion.div>
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              QA Skills Dashboard
+              Web Development Skills
             </h1>
           </div>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Explore my expertise in Quality Assurance tools and technologies
+            Explore my technical expertise and experience across various web technologies
           </p>
         </motion.div>
 
@@ -186,12 +192,12 @@ const Skills = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           {skills.map((skill, index) => {
-            const IconComponent = getIcon(Object.keys(skill)[1]);
-            const experienceYears = parseInt(skill.Experience || skill.Expricence) || 0;
-
+            const IconComponent = getIcon(skill.tech);
+            const coveragePercentage = parseInt(skill.covered);
+            
             return (
               <motion.div
-                key={index}
+                key={skill.tech}
                 variants={cardVariants}
                 whileHover={{ 
                   scale: 1.05,
@@ -201,35 +207,41 @@ const Skills = () => {
               >
                 {/* Tech Icon and Name */}
                 <div className="flex items-center mb-4">
-                  <div className={`p-3 rounded-xl bg-gradient-to-r ${getExperienceColor(skill.Experience || skill.Expricence)} mr-3`}>
+                  <div className={`p-3 rounded-xl bg-gradient-to-r ${getCoverageColor(skill.covered)} mr-3`}>
                     <IconComponent className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800 text-lg">{Object.keys(skill)[1]}</h3>
-                    <p className="text-sm text-gray-600">{skill[Object.keys(skill)[1]]}</p>
+                    <h3 className="font-semibold text-gray-800 text-lg">{skill.tech}</h3>
                   </div>
                 </div>
 
                 {/* Stats */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Command</span>
-                    <span className="font-semibold text-blue-600">{skill.Command}</span>
+                    <span className="text-sm text-gray-600">Projects</span>
+                    <span className="font-semibold text-blue-600">{skill.project}</span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Integration</span>
-                    <span className="font-semibold text-green-600">{skill.Integration}</span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Projects</span>
-                    <span className="font-semibold text-purple-600">{skill.Project}</span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Experience</span>
-                    <span className="font-semibold text-orange-600">{skill.Experience || skill.Expricence} years</span>
+                    <span className="font-semibold text-green-600">{skill.experience}</span>
+                  </div>
+
+                  {/* Coverage Progress Bar */}
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-gray-600">Coverage</span>
+                      <span className="font-semibold text-purple-600">{skill.covered}</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                      <motion.div
+                        variants={progressVariants}
+                        initial="hidden"
+                        animate="visible"
+                        custom={`${coveragePercentage}%`}
+                        className={`h-full bg-gradient-to-r ${getCoverageColor(skill.covered)} rounded-full`}
+                      />
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -254,19 +266,19 @@ const Skills = () => {
               </div>
               <div>
                 <div className="text-3xl font-bold text-green-600 mb-2">
-                  {skills.reduce((acc, skill) => acc + parseInt(skill.Project.replace('+', '') || 0), 0)}+
+                  {skills.reduce((acc, skill) => acc + parseInt(skill.project.replace('+', '')), 0)}+
                 </div>
                 <div className="text-gray-600">Total Projects</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-purple-600 mb-2">
-                  {Math.round(skills.reduce((acc, skill) => acc + (parseInt(skill.Experience || skill.Expricence) || 0), 0) / skills.length)}
+                  {Math.round(skills.reduce((acc, skill) => acc + parseInt(skill.covered), 0) / skills.length)}%
                 </div>
-                <div className="text-gray-600">Avg Years</div>
+                <div className="text-gray-600">Avg Coverage</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-orange-600 mb-2">
-                  {skills.filter(skill => (parseInt(skill.Experience || skill.Expricence) || 0) >= 5).length}
+                  {skills.filter(skill => parseInt(skill.covered) >= 90).length}
                 </div>
                 <div className="text-gray-600">Expert Level</div>
               </div>
@@ -278,4 +290,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default DataAnalyiticsSkills;

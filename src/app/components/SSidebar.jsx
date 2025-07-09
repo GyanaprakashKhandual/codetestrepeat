@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 // import WebDeveloper from '../modules/web-developer.jsx';
 import QAEngineer from '../modules/qaSkills';
+import WebSkils from '../modules/webskills';
+import DASkills from '../modules/daSkills';
 // import DataAnalyst from '../modules/data-analyst.jsx';
 // import CyberSecurity from '../modules/cyber-security.jsx';
 // import GameEngineer from '../modules/game-engineer.jsx';
@@ -62,9 +64,9 @@ const ProfessionalSidebar = () => {
     }, []);
 
   const skillItems = [
-    { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100' }, // component: <WebDeveloper /> 
+    { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <WebSkils/> }, // component: <WebDeveloper /> 
     { icon: Bug, text: 'QA Engineer', color: 'text-emerald-600', bgGradient: 'bg-gradient-to-r from-emerald-50 to-green-100', component: <QAEngineer /> },
-    { icon: BarChart3, text: 'Data Analyst', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100' }, // component: <DataAnalyst /> 
+    { icon: BarChart3, text: 'Data Analyst', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100', component: <DASkills/>}, // component: <DataAnalyst /> 
     { icon: Shield, text: 'Cyber Security', color: 'text-red-600', bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100' }, // component: <CyberSecurity /> 
     { icon: Gamepad, text: 'Game Engineer', color: 'text-yellow-600', bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100' }, // component: <GameEngineer /> 
     { icon: Cpu, text: 'Computer Engineer', color: 'text-gray-600', bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100' }, // component: <ComputerEngineer /> 
@@ -80,9 +82,9 @@ const ProfessionalSidebar = () => {
   ];
 
   const cardItems = [
-    { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code}, // component: <WebDeveloper /> },
+    { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code, component: <WebSkils/>}, // component: <WebDeveloper /> },
     { title: "Quality Assurance", desc: "Manual & Automated Testing", gradient: "from-emerald-100 to-green-100", border: "border-emerald-200", icon: Bug, component: <QAEngineer /> },
-    { title: "Data Science", desc: "Analysis, Visualization & ML", gradient: "from-purple-100 to-violet-100", border: "border-purple-200", icon: BarChart3}, //component: <DataAnalyst /> },
+    { title: "Data Science", desc: "Analysis, Visualization & ML", gradient: "from-purple-100 to-violet-100", border: "border-purple-200", icon: BarChart3, component: <DASkills/>}, //component: <DataAnalyst /> },
     { title: "Cyber Security", desc: "Ethical Hacking & Defense", gradient: "from-red-100 to-rose-100", border: "border-red-200", icon: Shield}, //component: //<CyberSecurity /> },
     { title: "Game Development", desc: "Engines & Graphics Programming", gradient: "from-yellow-100 to-amber-100", border: "border-yellow-200", icon: Gamepad},// component: <GameEngineer /> },
     { title: "Cloud Engineering", desc: "AWS, Azure & GCP Solutions", gradient: "from-sky-100 to-cyan-100", border: "border-sky-200", icon: Cloud},// component: // <CloudComputing /> }
