@@ -4,7 +4,7 @@ import Sidebar from '../components/GSidebar'
 function page() {
   return (
     <>
-   <div className=''>
+   <div>
      <Sidebar/>
    </div>
     </>

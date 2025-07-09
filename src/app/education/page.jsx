@@ -148,28 +148,26 @@ const page = () => {
               viewport={{ once: true }}
               className={`bg-gradient-to-br ${getColor(
                 item.type
-              )} rounded-xl shadow-md overflow-hidden border border-opacity-20 ${
-                item.type === "professional"
+              )} rounded-xl shadow-md overflow-hidden border border-opacity-20 ${item.type === "professional"
                   ? "border-blue-200"
                   : item.type === "academic"
-                  ? "border-pink-200"
-                  : item.type === "planned"
-                  ? "border-sky-200"
-                  : "border-purple-200"
-              }`}
+                    ? "border-pink-200"
+                    : item.type === "planned"
+                      ? "border-sky-200"
+                      : "border-purple-200"
+                }`}
             >
               <div className="p-6">
                 <div className="flex items-center mb-4">
                   <div
-                    className={`p-3 rounded-full mr-4 ${
-                      item.type === "professional"
+                    className={`p-3 rounded-full mr-4 ${item.type === "professional"
                         ? "bg-blue-100 text-blue-600"
                         : item.type === "academic"
-                        ? "bg-pink-100 text-pink-600"
-                        : item.type === "planned"
-                        ? "bg-sky-100 text-sky-600"
-                        : "bg-purple-100 text-purple-600"
-                    }`}
+                          ? "bg-pink-100 text-pink-600"
+                          : item.type === "planned"
+                            ? "bg-sky-100 text-sky-600"
+                            : "bg-purple-100 text-purple-600"
+                      }`}
                   >
                     {item.icon}
                   </div>
