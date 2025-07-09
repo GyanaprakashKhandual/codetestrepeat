@@ -43,7 +43,7 @@ export default function ContactPage() {
                       id="name"
                       name="name"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                      placeholder="Your name"
+                      placeholder="Enter Your Name"
                     />
                   </div>
                   <div>
@@ -55,7 +55,7 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                      placeholder="your.email@example.com"
+                      placeholder="Enter Your Email Id"
                     />
                   </div>
                 </div>
@@ -78,7 +78,7 @@ export default function ContactPage() {
                   <textarea
                     id="message"
                     name="message"
-                    rows={5}
+                    rows={25}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                     placeholder="Your message here..."
                   ></textarea>
@@ -113,8 +113,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-800">Email</h3>
-                    <p className="text-gray-600">contact@example.com</p>
-                    <p className="text-gray-600">support@example.com</p>
+                    <p className="text-gray-600">gyanaprakashkhnadual@gmail.com</p>
+                    <p className="text-gray-600">gyan@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -123,8 +123,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-800">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                    <p className="text-gray-600">+1 (555) 987-6543 (Support)</p>
+                    <p className="text-gray-600">+91 7606939833</p>
+                    <p className="text-gray-600">+91 7894174893 (Support)</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -133,8 +133,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-800">Address</h3>
-                    <p className="text-gray-600">123 Tech Park Avenue</p>
-                    <p className="text-gray-600">San Francisco, CA 94107</p>
+                    <p className="text-gray-600">Jajpur, Bhubaneswar</p>
+                    <p className="text-gray-600">Odisha, India</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -159,7 +159,7 @@ export default function ContactPage() {
               </p>
               <div className="bg-white p-6 rounded-xl border border-blue-100">
                 <h3 className="font-bold text-blue-600 mb-2">Emergency Support</h3>
-                <p className="text-gray-700 mb-3">+1 (555) 789-0123</p>
+                <p className="text-gray-700 mb-3">+91 7606939833</p>
                 <p className="text-sm text-gray-500">Available 24 hours, 7 days a week</p>
               </div>
             </div>
