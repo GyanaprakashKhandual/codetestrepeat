@@ -176,11 +176,11 @@ const DataAnalyiticsSkills = () => {
               <Trophy className="w-8 h-8 text-yellow-500" />
             </motion.div>
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Web Development Skills
+              Data Analytics Skills
             </h1>
           </div>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Explore my technical expertise and experience across various web technologies
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto ">
+            Explore my technical expertise and experience across various data refine technologies
           </p>
         </motion.div>
 

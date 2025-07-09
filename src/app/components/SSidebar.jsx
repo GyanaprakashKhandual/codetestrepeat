@@ -64,9 +64,9 @@ const ProfessionalSidebar = () => {
     }, []);
 
   const skillItems = [
-    { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <WebSkils/> }, // component: <WebDeveloper /> 
+    { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <WebSkils/> },
     { icon: Bug, text: 'QA Engineer', color: 'text-emerald-600', bgGradient: 'bg-gradient-to-r from-emerald-50 to-green-100', component: <QAEngineer /> },
-    { icon: BarChart3, text: 'Data Analyst', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100', component: <DASkills/>}, // component: <DataAnalyst /> 
+    { icon: BarChart3, text: 'Data Analyst', color: 'text-purple-600', bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100', component: <DASkills/>}, 
     { icon: Shield, text: 'Cyber Security', color: 'text-red-600', bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100' }, // component: <CyberSecurity /> 
     { icon: Gamepad, text: 'Game Engineer', color: 'text-yellow-600', bgGradient: 'bg-gradient-to-r from-yellow-50 to-amber-100' }, // component: <GameEngineer /> 
     { icon: Cpu, text: 'Computer Engineer', color: 'text-gray-600', bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100' }, // component: <ComputerEngineer /> 
@@ -74,10 +74,6 @@ const ProfessionalSidebar = () => {
     { icon: Network, text: 'Deep Learning', color: 'text-indigo-600', bgGradient: 'bg-gradient-to-r from-indigo-50 to-blue-100' }, // component: <DeepLearning /> 
     { icon: Cloud, text: 'Cloud Computing', color: 'text-sky-600', bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100' }, // component: <CloudComputing /> 
     { icon: Terminal, text: 'DevOps', color: 'text-orange-600', bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100' }, // component: <DevOps /> 
-    { icon: Server, text: 'System Engineer', color: 'text-green-600', bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100' }, // component: <SystemEngineer /> 
-    { icon: CircuitBoard, text: 'Embedded Systems', color: 'text-cyan-600', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' }, // component: <EmbeddedSystems /> 
-    { icon: Database, text: 'Database Admin', color: 'text-violet-600', bgGradient: 'bg-gradient-to-r from-violet-50 to-purple-100' }, // component: <DatabaseAdmin /> 
-    { icon: TestTube2, text: 'SDET', color: 'text-lime-600', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100' }, // component: <SDET /> 
     { icon: Lock, text: 'Security Engineer', color: 'text-rose-600', bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100' }, // component: <SecurityEngineer /> 
   ];
 
