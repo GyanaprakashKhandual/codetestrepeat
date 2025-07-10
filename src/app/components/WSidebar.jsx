@@ -22,9 +22,26 @@ const WSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // ✅ hydration-safe flag
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+useEffect(() => {
+      setMounted(true);
+      // Retrieve selected skill from localStorage if it exists
+      const savedSkill = localStorage.getItem('selectedSkill');
+      if (savedSkill) {
+        try {
+          const parsedSkill = JSON.parse(savedSkill);
+          // Find the matching skill in our items
+          const foundSkill = [...skillItems, ...cardItems].find(
+            item => item.text === parsedSkill.text || item.title === parsedSkill.text
+          );
+          if (foundSkill) {
+            setSelectedSkill(foundSkill);
+          }
+        } catch (e) {
+          console.error('Failed to parse saved skill', e);
+        }
+      }
+    }, []);
+
 
   if (!mounted) return null; // ✅ SSR-safe rendering
 
