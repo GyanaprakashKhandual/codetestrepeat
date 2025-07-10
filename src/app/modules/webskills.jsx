@@ -13,7 +13,7 @@ const WebSkillsDashboard = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/web-skills');
+        const response = await fetch('https://port-backend-lh99.onrender.com/api/web-skills');
         if (!response.ok) {
           throw new Error('Failed to fetch skills data');
         }

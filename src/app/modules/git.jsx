@@ -25,7 +25,7 @@ const GitHubPortfolio = () => {
 
   const fetchGitHubData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/git-hub');
+      const response = await fetch('https://port-backend-lh99.onrender.com/api/git-hub');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }

@@ -70,7 +70,7 @@ const Skills = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/qa-skills');
+        const response = await fetch('https://port-backend-lh99.onrender.com/api/qa-skills');
         if (!response.ok) {
           throw new Error('Failed to fetch QA skills data');
         }
