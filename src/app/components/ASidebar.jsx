@@ -15,6 +15,7 @@ const ASidebar = () => {
   const [mounted, setMounted] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [selectedAbout, setSelectedAbout] = useState(null);
 
   const triggerToast = () => {
     showSuccess("This is a success alert!", 3000); // Show for 3 seconds
@@ -26,12 +27,12 @@ const ASidebar = () => {
   useEffect(() => {
         setMounted(true);
         // Retrieve selected skill from localStorage if it exists
-        const savedSkill = localStorage.getItem('selectedSkill');
-        if (savedSkill) {
+        const savedAbout = localStorage.getItem('selectedAbout');
+        if (savedAbout) {
           try {
-            const parsedSkill = JSON.parse(savedSkill);
+            const parsedAbout = JSON.parse(savedAbout);
             // Find the matching skill in our items
-            const foundSkill = [...skillItems, ...cardItems].find(
+            const foundAbout = [...skillItems, ...cardItems].find(
               item => item.text === parsedSkill.text || item.title === parsedSkill.text
             );
             if (foundSkill) {
