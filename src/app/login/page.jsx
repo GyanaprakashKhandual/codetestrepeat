@@ -1,264 +1,433 @@
-"use client";
+'use client'
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaGoogle, FaUser, FaLock, FaEnvelope, FaCheck, FaSpinner } from 'react-icons/fa';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Mail, Lock, Eye, EyeOff, Shield, Stars, Waves, Sparkles } from 'lucide-react'
 
-const LoginPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    terms: false
-  });
-  const [loading, setLoading] = useState(false);
+export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+        staggerChildren: 0.2
+      }
+    }
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  }
 
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      toast.success(isLogin ? 'Login successful!' : 'Registration successful!');
-    }, 1500);
-  };
+  const floatingVariants = {
+    animate: {
+      y: [0, -20, 0],
+      rotate: [0, 5, -5, 0],
+      scale: [1, 1.05, 1],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  }
 
   return (
-    <div className="min-h-screen max-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-sky-100 via-green-50 to-blue-50 relative overflow-hidden">
-      <ToastContainer 
-        position="top-center" 
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+    <div className="w-full h-[100vh] mt-8 overflow-hidden bg-gradient-to-br from-green-50 via-blue-50 to-sky-50 relative">
       
-      {/* Animated Card */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="card w-full max-w-md bg-white shadow-2xl rounded-3xl overflow-hidden z-10 mx-auto"
-      >
-        <div className="card-body p-10">
-          {/* Animated Header */}
-          <motion.div 
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 100 }}
-            className="text-center mb-10"
-          >
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-              {isLogin ? 'Welcome Back' : 'Create Account'}
-            </h2>
-            <p className="text-gray-600 text-lg">
-              {isLogin ? 'Sign in to access your account' : 'Join us today and start your journey'}
-            </p>
-          </motion.div>
-
-          {/* Google Login Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="btn btn-outline w-full mb-8 rounded-full border-gray-300 hover:border-gray-400 flex items-center justify-center gap-3 py-4 text-lg"
-          >
-            <FaGoogle className="text-blue-500 text-xl" />
-            {isLogin ? 'Sign in with Google' : 'Sign up with Google'}
-          </motion.button>
-
-          <div className="divider text-gray-400 text-lg">OR</div>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit}>
-            {!isLogin && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                transition={{ duration: 0.3 }}
-                className="mb-6"
-              >
-                <label className="label">
-                  <span className="label-text text-gray-700 text-lg font-medium">Full Name</span>
-                </label>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <FaUser className="text-lg" />
-                  </span>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="John Doe"
-                    className="input input-bordered w-full pl-12 py-3 text-lg rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-500 h-12"
-                    required={!isLogin}
-                  />
-                </div>
-              </motion.div>
-            )}
-
-            <div className="mb-6">
-              <label className="label">
-                <span className="label-text text-gray-700 text-lg font-medium">Email Address</span>
-              </label>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                  <FaEnvelope className="text-lg" />
-                </span>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="your@email.com"
-                  className="input input-bordered w-full pl-12 py-3 text-lg rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-500 h-12"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <label className="label">
-                <span className="label-text text-gray-700 text-lg font-medium">Password</span>
-              </label>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                  <FaLock className="text-lg" />
-                </span>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  className="input input-bordered w-full pl-12 py-3 text-lg rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-500 h-12"
-                  required
-                />
-              </div>
-            </div>
-
-            {!isLogin && (
-              <>
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  transition={{ duration: 0.3 }}
-                  className="mb-6"
-                >
-                  <label className="label">
-                    <span className="label-text text-gray-700 text-lg font-medium">Confirm Password</span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                      <FaLock className="text-lg" />
-                    </span>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      placeholder="••••••••"
-                      className="input input-bordered w-full pl-12 py-3 text-lg rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-500 h-12"
-                      required={!isLogin}
-                    />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="mb-8"
-                >
-                  <label className="label cursor-pointer justify-start">
-                    <input
-                      type="checkbox"
-                      name="terms"
-                      checked={formData.terms}
-                      onChange={handleChange}
-                      className="checkbox checkbox-primary mr-3 h-5 w-5"
-                    />
-                    <span className="label-text text-gray-700 text-lg">
-                      I agree to the <a href="#" className="link link-primary">Terms & Conditions</a>
-                    </span>
-                  </label>
-                </motion.div>
-              </>
-            )}
-
-            <motion.button
-              type="submit"
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className="btn w-full p-3 cursor-pointer rounded-full bg-gradient-to-r from-blue-600 to-green-600 border-none text-white text-lg font-semibold"
-              disabled={loading}
-            >
-              {loading ? (
-                <span className="flex items-center justify-center">
-                  <motion.span
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="mr-3 text-xl"
-                  >
-                    <FaSpinner />
-                  </motion.span>
-                  Processing...
-                </span>
-              ) : (
-                isLogin ? 'Sign In' : 'Sign Up'
-              )}
-            </motion.button>
-          </form>
-
-          {/* Toggle between login/signup */}
-          <div className="text-center mt-8">
-            <p className="text-gray-600 text-lg">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}
-              <button
-                onClick={() => setIsLogin(!isLogin)}
-                className="link link-primary ml-2 text-lg font-medium"
-              >
-                {isLogin ? 'Sign up' : 'Sign in'}
-              </button>
-            </p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Decorative SVG Waves */}
-      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden">
-        <svg
-          className="w-full h-auto"
-          viewBox="0 0 1440 320"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
+      {/* Background Images */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Left decorative image */}
+        <motion.div
+          className="absolute left-0 top-0 w-1/3 h-full opacity-20"
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 0.2 }}
+          transition={{ duration: 1.5 }}
         >
-          <path
-            fill="rgba(56, 182, 255, 0.2)"
-            d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
+          <img
+            src="https://images.unsplash.com/photo-1557683316-973673baf926?w=600&h=800&fit=crop&crop=left"
+            alt="Abstract gradient background"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+        
+        {/* Right decorative image */}
+        <motion.div
+          className="absolute right-0 top-0 w-1/3 h-full opacity-15"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 0.15 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=800&fit=crop&crop=right"
+            alt="Abstract tech background"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </div>
+
+      {/* Animated SVG Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1200 800"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Flowing organic shapes */}
+          <motion.path
+            d="M0,400 Q200,200 400,400 T800,400 T1200,400 V800 H0 Z"
+            fill="url(#organicGradient1)"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 3, ease: "easeInOut" }}
+          />
+          
+          {/* Curved lines */}
+          <motion.path
+            d="M0,200 Q300,100 600,200 T1200,200"
+            stroke="url(#lineGradient1)"
+            strokeWidth="3"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 4, delay: 1 }}
+          />
+          
+          <motion.path
+            d="M0,600 Q400,500 800,600 T1200,600"
+            stroke="url(#lineGradient2)"
+            strokeWidth="4"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 5, delay: 1.5 }}
+          />
+          
+          {/* Geometric patterns */}
+          <motion.circle
+            cx="200"
+            cy="200"
+            r="100"
+            stroke="url(#circleGradient1)"
+            strokeWidth="2"
+            fill="none"
+            initial={{ pathLength: 0, rotate: 0 }}
+            animate={{ pathLength: 1, rotate: 360 }}
+            transition={{ 
+              pathLength: { duration: 2, delay: 2 },
+              rotate: { duration: 20, repeat: Infinity, ease: "linear" }
+            }}
+          />
+          
+          <motion.circle
+            cx="1000"
+            cy="600"
+            r="150"
+            stroke="url(#circleGradient2)"
+            strokeWidth="3"
+            fill="none"
+            initial={{ pathLength: 0, rotate: 0 }}
+            animate={{ pathLength: 1, rotate: -360 }}
+            transition={{ 
+              pathLength: { duration: 3, delay: 2.5 },
+              rotate: { duration: 25, repeat: Infinity, ease: "linear" }
+            }}
+          />
+          
+          {/* Dotted constellation */}
+          {[...Array(30)].map((_, i) => (
+            <motion.circle
+              key={i}
+              cx={100 + (i * 35)}
+              cy={100 + Math.sin(i * 0.5) * 50}
+              r="2"
+              fill="url(#dotGradient)"
+              initial={{ scale: 0 }}
+              animate={{ scale: [0, 1.5, 1] }}
+              transition={{
+                delay: i * 0.05,
+                duration: 1,
+                repeat: Infinity,
+                repeatType: "reverse",
+                repeatDelay: 2
+              }}
+            />
+          ))}
+          
+          {/* Gradient definitions */}
+          <defs>
+            <linearGradient id="organicGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgb(34, 197, 94)" stopOpacity="0.1" />
+              <stop offset="50%" stopColor="rgb(59, 130, 246)" stopOpacity="0.05" />
+              <stop offset="100%" stopColor="rgb(14, 165, 233)" stopOpacity="0.1" />
+            </linearGradient>
+            <linearGradient id="lineGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgb(34, 197, 94)" />
+              <stop offset="50%" stopColor="rgb(59, 130, 246)" />
+              <stop offset="100%" stopColor="rgb(168, 85, 247)" />
+            </linearGradient>
+            <linearGradient id="lineGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgb(168, 85, 247)" />
+              <stop offset="50%" stopColor="rgb(14, 165, 233)" />
+              <stop offset="100%" stopColor="rgb(34, 197, 94)" />
+            </linearGradient>
+            <linearGradient id="circleGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgb(34, 197, 94)" />
+              <stop offset="100%" stopColor="rgb(59, 130, 246)" />
+            </linearGradient>
+            <linearGradient id="circleGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgb(14, 165, 233)" />
+              <stop offset="100%" stopColor="rgb(168, 85, 247)" />
+            </linearGradient>
+            <radialGradient id="dotGradient">
+              <stop offset="0%" stopColor="rgb(59, 130, 246)" />
+              <stop offset="100%" stopColor="rgb(34, 197, 94)" />
+            </radialGradient>
+          </defs>
         </svg>
       </div>
-    </div>
-  );
-};
 
-export default LoginPage;
+      {/* Floating geometric elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-20"
+          variants={floatingVariants}
+          animate="animate"
+        >
+          <Shield className="w-12 h-12 text-green-400/30" />
+        </motion.div>
+        <motion.div
+          className="absolute top-32 right-32"
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 1 }}
+        >
+          <Stars className="w-10 h-10 text-blue-400/30" />
+        </motion.div>
+        <motion.div
+          className="absolute bottom-32 left-32"
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 2 }}
+        >
+          <Waves className="w-14 h-14 text-sky-400/30" />
+        </motion.div>
+        <motion.div
+          className="absolute bottom-20 right-20"
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 1.5 }}
+        >
+          <Sparkles className="w-8 h-8 text-purple-400/30" />
+        </motion.div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 w-full h-full flex items-center justify-center px-4">
+        <motion.div
+          className="w-full max-w-6xl h-full flex items-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Left Section - Hero Content */}
+          <div className="flex-1 flex flex-col justify-center items-start px-8 lg:px-16">
+            <motion.div variants={itemVariants}>
+              <motion.div
+                className="w-20 h-20 bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-2xl"
+                whileHover={{ scale: 1.1, rotate: 10 }}
+                animate={{ 
+                  boxShadow: [
+                    "0 0 20px rgba(34, 197, 94, 0.3)",
+                    "0 0 30px rgba(59, 130, 246, 0.3)",
+                    "0 0 20px rgba(168, 85, 247, 0.3)",
+                    "0 0 30px rgba(34, 197, 94, 0.3)"
+                  ]
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <Sparkles className="w-10 h-10 text-white" />
+              </motion.div>
+              
+              <h1 className="text-6xl lg:text-7xl font-bold bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+                Welcome to
+              </h1>
+              <h2 className="text-7xl lg:text-8xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 bg-clip-text text-transparent mb-6">
+                Nexus
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 max-w-md">
+                Step into the future of digital experiences. Where innovation meets elegance.
+              </p>
+              
+              <div className="flex items-center space-x-4">
+                <motion.div
+                  className="w-12 h-12 rounded-full overflow-hidden shadow-lg"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face"
+                    alt="User avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+                <motion.div
+                  className="w-12 h-12 rounded-full overflow-hidden shadow-lg"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=100&h=100&fit=crop&crop=face"
+                    alt="User avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+                <motion.div
+                  className="w-12 h-12 rounded-full overflow-hidden shadow-lg"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+                    alt="User avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+                <p className="text-gray-600 ml-4">Join 10,000+ creators</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Section - Login Form */}
+          <div className="flex-1 flex justify-center items-center px-8">
+            <motion.div
+              className="w-full max-w-md bg-white/15 backdrop-blur-2xl rounded-3xl p-8 border border-white/30 shadow-2xl"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+            >
+              {/* Form Header */}
+              <motion.div className="text-center mb-8" variants={itemVariants}>
+                <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <Lock className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Sign In</h3>
+                <p className="text-gray-600">Welcome back to your account</p>
+              </motion.div>
+
+              {/* Login Form */}
+              <motion.form className="space-y-6" variants={itemVariants}>
+                {/* Email Input */}
+                <motion.div
+                  className="relative"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-12 pr-4 py-4 bg-white/25 border border-white/40 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent backdrop-blur-sm transition-all duration-300 placeholder-gray-500 text-gray-800"
+                    placeholder="Enter your email"
+                  />
+                </motion.div>
+
+                {/* Password Input */}
+                <motion.div
+                  className="relative"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full pl-12 pr-12 py-4 bg-white/25 border border-white/40 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent backdrop-blur-sm transition-all duration-300 placeholder-gray-500 text-gray-800"
+                    placeholder="Enter your password"
+                  />
+                  <motion.button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </motion.button>
+                </motion.div>
+
+                {/* Remember Me */}
+                <motion.div className="flex items-center justify-between" variants={itemVariants}>
+                  <label className="flex items-center text-gray-600">
+                    <input type="checkbox" className="mr-2 rounded" />
+                    Remember me
+                  </label>
+                  <motion.a
+                    href="#"
+                    className="text-green-600 hover:text-green-500 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    Forgot password?
+                  </motion.a>
+                </motion.div>
+
+                {/* Submit Button */}
+                <motion.button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-green-500 via-blue-500 to-purple-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <span className="relative z-10">Sign In to Nexus</span>
+                </motion.button>
+              </motion.form>
+
+              {/* Social Login */}
+              <motion.div className="mt-8 text-center" variants={itemVariants}>
+                <p className="text-gray-600 mb-4">Or continue with</p>
+                <div className="flex justify-center space-x-4">
+                  <motion.button
+                    className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center border border-white/30"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <img
+                      src="https://cdn.cdnlogo.com/logos/g/35/google-icon.svg"
+                      alt="Google"
+                      className="w-5 h-5"
+                    />
+                  </motion.button>
+                  <motion.button
+                    className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center border border-white/30"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <img
+                      src="https://cdn.cdnlogo.com/logos/a/20/apple.svg"
+                      alt="Apple"
+                      className="w-5 h-5"
+                    />
+                  </motion.button>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  )
+}
