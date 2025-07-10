@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Lock, Eye, EyeOff, Shield, Stars, Waves, Sparkles } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff, Shield, Stars, Waves, Sparkles, Github } from 'lucide-react'
+import { PiMicrosoftTeamsLogo } from 'react-icons/pi'
+import { FaMicrosoft } from 'react-icons/fa'
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -29,18 +31,7 @@ export default function LoginPage() {
     }
   }
 
-  const floatingVariants = {
-    animate: {
-      y: [0, -20, 0],
-      rotate: [0, 5, -5, 0],
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  }
+
 
   return (
     <div className="w-full h-[100vh] mt-8 overflow-hidden bg-gradient-to-br from-green-50 via-blue-50 to-sky-50 relative">
@@ -202,14 +193,14 @@ export default function LoginPage() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-20 left-20"
-          variants={floatingVariants}
+          
           animate="animate"
         >
           <Shield className="w-12 h-12 text-green-400/30" />
         </motion.div>
         <motion.div
           className="absolute top-32 right-32"
-          variants={floatingVariants}
+         
           animate="animate"
           transition={{ delay: 1 }}
         >
@@ -217,7 +208,6 @@ export default function LoginPage() {
         </motion.div>
         <motion.div
           className="absolute bottom-32 left-32"
-          variants={floatingVariants}
           animate="animate"
           transition={{ delay: 2 }}
         >
@@ -225,7 +215,7 @@ export default function LoginPage() {
         </motion.div>
         <motion.div
           className="absolute bottom-20 right-20"
-          variants={floatingVariants}
+          
           animate="animate"
           transition={{ delay: 1.5 }}
         >
@@ -244,27 +234,13 @@ export default function LoginPage() {
           {/* Left Section - Hero Content */}
           <div className="flex-1 flex flex-col justify-center items-start px-8 lg:px-16">
             <motion.div variants={itemVariants}>
-              <motion.div
-                className="w-20 h-20 bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-2xl"
-                whileHover={{ scale: 1.1, rotate: 10 }}
-                animate={{ 
-                  boxShadow: [
-                    "0 0 20px rgba(34, 197, 94, 0.3)",
-                    "0 0 30px rgba(59, 130, 246, 0.3)",
-                    "0 0 20px rgba(168, 85, 247, 0.3)",
-                    "0 0 30px rgba(34, 197, 94, 0.3)"
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <Sparkles className="w-10 h-10 text-white" />
-              </motion.div>
+              
               
               <h1 className="text-6xl lg:text-7xl font-bold bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
                 Welcome to
               </h1>
               <h2 className="text-7xl lg:text-8xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 bg-clip-text text-transparent mb-6">
-                Nexus
+                My Space 
               </h2>
               <p className="text-xl text-gray-600 mb-8 max-w-md">
                 Step into the future of digital experiences. Where innovation meets elegance.
@@ -286,22 +262,12 @@ export default function LoginPage() {
                   whileHover={{ scale: 1.1 }}
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=100&h=100&fit=crop&crop=face"
-                    alt="User avatar"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-                <motion.div
-                  className="w-12 h-12 rounded-full overflow-hidden shadow-lg"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <img
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
                     alt="User avatar"
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
-                <p className="text-gray-600 ml-4">Join 10,000+ creators</p>
+                <p className="text-gray-600 ml-4">Image with all the possibilities</p>
               </div>
             </motion.div>
           </div>
@@ -392,7 +358,7 @@ export default function LoginPage() {
                     animate={{ x: ['-100%', '100%'] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   />
-                  <span className="relative z-10">Sign In to Nexus</span>
+                  <span className="relative z-10">Sign In</span>
                 </motion.button>
               </motion.form>
 
@@ -416,11 +382,14 @@ export default function LoginPage() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <img
-                      src="https://cdn.cdnlogo.com/logos/a/20/apple.svg"
-                      alt="Apple"
-                      className="w-5 h-5"
-                    />
+                    <Github/>
+                  </motion.button>
+                  <motion.button
+                    className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center border border-white/30"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <FaMicrosoft/>
                   </motion.button>
                 </div>
               </motion.div>
