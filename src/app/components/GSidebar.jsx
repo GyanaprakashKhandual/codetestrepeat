@@ -21,7 +21,7 @@ import {
   CircuitBoard,
   Sparkles
 } from 'lucide-react';
-import RestAssured from '../modules/ra';
+import QA from '../../../public/guides/qa';
 
 const GSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +53,7 @@ const GSidebar = () => {
 
   const skillItems = [
     { icon: Code, text: 'Web Developer', color: 'text-sky-500', bgGradient: 'bg-gradient-to-r from-sky-50 to-blue-100' },
-    { icon: Bug, text: 'QA Engineer', color: 'text-lime-500', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', component: <RestAssured /> },
+    { icon: Bug, text: 'QA Engineer', color: 'text-lime-500', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', component: <QA/> },
     { icon: BarChart3, text: 'Data Analyst', color: 'text-cyan-500', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' },
     { icon: Shield, text: 'Cyber Security', color: 'text-blue-500', bgGradient: 'bg-gradient-to-r from-blue-50 to-indigo-100' },
     { icon: Gamepad, text: 'Game Engineer', color: 'text-emerald-500', bgGradient: 'bg-gradient-to-r from-emerald-50 to-teal-100' },

@@ -21,9 +21,9 @@ import {
   CircuitBoard
 } from 'lucide-react';
 // import WebDeveloper from '../modules/web-developer.jsx';
-import QAEngineer from '../modules/qaSkills';
-import WebSkils from '../modules/webskills';
-import DASkills from '../modules/daSkills';
+import QAEngineer from '../../../public/skills/qaSkills';
+import WebSkils from '../../../public/skills/webskills';
+import DASkills from '../../../public/skills/daSkills';
 // import DataAnalyst from '../modules/data-analyst.jsx';
 // import CyberSecurity from '../modules/cyber-security.jsx';
 // import GameEngineer from '../modules/game-engineer.jsx';

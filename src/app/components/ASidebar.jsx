@@ -7,8 +7,8 @@ import {
   Share2, Rss, Mic, Camera, Plus
 } from 'lucide-react';
 import { showSuccess, showError } from '../utils/alert.jsx';
-import About from '../modules/about.jsx';
-import GitHubPortfolio from '../modules/git.jsx';
+import About from '../../../public/about/about.jsx';
+import GitHubPortfolio from '../../../public/about/git.jsx';
 
 const ASidebar = () => {
   const [isOpen, setIsOpen] = useState(false); // Always start collapsed
@@ -42,85 +42,85 @@ const ASidebar = () => {
       }
     }
   }, []);
-  
+
 
   const menuItems = [
-    { 
-      icon: Github, 
-      text: 'GitHub', 
-      color: 'text-gray-800', 
-      bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100', 
+    {
+      icon: Github,
+      text: 'GitHub',
+      color: 'text-gray-800',
+      bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100',
       link: 'https://github.com',
-      component: <GitHubPortfolio/>
+      component: <GitHubPortfolio />
     },
-    { 
-      icon: User, 
-      text: 'Personal Info', 
-      color: 'text-purple-600', 
-      bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100', 
-      component: <About /> 
+    {
+      icon: User,
+      text: 'Personal Info',
+      color: 'text-purple-600',
+      bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100',
+      component: <About />
     },
-    { 
-      icon: Video, 
-      text: 'Vlogs', 
-      color: 'text-red-600', 
-      bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100', 
+    {
+      icon: Video,
+      text: 'Vlogs',
+      color: 'text-red-600',
+      bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100',
       // component: <Vlogs /> 
     },
-    { 
-      icon: Bookmark, 
-      text: 'Bookmarks', 
-      color: 'text-green-600', 
-      bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100', 
+    {
+      icon: Bookmark,
+      text: 'Bookmarks',
+      color: 'text-green-600',
+      bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100',
       // component: <Bookmarks /> 
     },
-    { 
-      icon: Trophy, 
-      text: 'Achievements', 
-      color: 'text-amber-600', 
-      bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100', 
+    {
+      icon: Trophy,
+      text: 'Achievements',
+      color: 'text-amber-600',
+      bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100',
       // component: <Achievements /> 
     },
-    { 
-      icon: FileText, 
-      text: 'Resume', 
-      color: 'text-cyan-600', 
-      bgGradient: 'bg-gradient-to-r from-cyan-50 to-sky-100', 
+    {
+      icon: FileText,
+      text: 'Resume',
+      color: 'text-cyan-600',
+      bgGradient: 'bg-gradient-to-r from-cyan-50 to-sky-100',
       // component: <Resume /> 
     },
-    { 
-      icon: Heart, 
-      text: 'Interests', 
-      color: 'text-rose-600', 
-      bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100', 
+    {
+      icon: Heart,
+      text: 'Interests',
+      color: 'text-rose-600',
+      bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100',
       // component: <Interests /> 
     },
-    { 
-      icon: Share2, 
-      text: 'Social Media', 
-      color: 'text-sky-600', 
-      bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100', 
+    {
+      icon: Share2,
+      text: 'Social Media',
+      color: 'text-sky-600',
+      bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100',
       // component: <Social /> 
     },
-    { 
-      icon: Rss, 
-      text: 'Blog', 
-      color: 'text-orange-600', 
-      bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100', 
+    {
+      icon: Rss,
+      text: 'Blog',
+      color: 'text-orange-600',
+      bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100',
       // component: <Blog /> 
     },
-    { 
-      icon: Mic, 
-      text: 'Podcasts', 
-      color: 'text-lime-600', 
-      bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', 
+    {
+      icon: Mic,
+      text: 'Podcasts',
+      color: 'text-lime-600',
+      bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100',
       // component: <Podcasts /> 
     },
-    { 
-      icon: Camera, 
-      text: 'Gallery', 
-      color: 'text-cyan-600', 
-      bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100', 
+    {
+      icon: Camera,
+      text: 'Gallery',
+      color: 'text-cyan-600',
+      bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100',
       // component: <Gallery /> 
     },
   ];
@@ -142,9 +142,8 @@ const ASidebar = () => {
       {/* Sticky Sidebar - Always Collapsed */}
       <div className="sticky top-14 self-start">
         <div
-          className={`flex flex-col bg-gradient-to-b from-white/95 via-cyan-50/90 to-indigo-50/95 border-r border-cyan-200/50 shadow-lg transition-all duration-300 ${
-            isOpen ? 'w-80' : 'w-20'
-          }`}
+          className={`flex flex-col bg-gradient-to-b from-white/95 via-cyan-50/90 to-indigo-50/95 border-r border-cyan-200/50 shadow-lg transition-all duration-300 ${isOpen ? 'w-80' : 'w-20'
+            }`}
           style={{ height: 'calc(100vh - 56px)' }}
         >
           {/* Header */}
@@ -195,7 +194,7 @@ const ASidebar = () => {
                         )}
                       </div>
                     </div>
-                    
+
                     {/* Tooltip - Only show when collapsed */}
                     <AnimatePresence>
                       {!isOpen && hoveredItem === item.text && (
@@ -224,13 +223,13 @@ const ASidebar = () => {
 
           {/* Add More */}
           <div className="border-t border-cyan-200/50 p-4">
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => setHoveredItem('Add New Link')}
               onMouseLeave={() => setHoveredItem(null)}
             >
-              <div 
-                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200" 
+              <div
+                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
                 onClick={triggerToast}
               >
                 <div className="flex items-center p-3 space-x-3">
@@ -244,7 +243,7 @@ const ASidebar = () => {
                   )}
                 </div>
               </div>
-              
+
               {/* Tooltip for Add New Link - Only show when collapsed */}
               <AnimatePresence>
                 {!isOpen && hoveredItem === 'Add New Link' && (
