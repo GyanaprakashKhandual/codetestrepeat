@@ -114,7 +114,7 @@ const RestAssuredComponent = ({ sidebarOpen = true }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://port-backend-lh99.onrender.com/api/qa-engineer');
+      const response = await fetch('https://port-backend-lh99.onrender.com/api/qa-guide');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
