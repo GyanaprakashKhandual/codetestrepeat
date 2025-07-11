@@ -20,8 +20,8 @@ import {
   TestTube2,
   CircuitBoard
 } from 'lucide-react';
-import QAProject from '../modules/projects/qaProjects';
-import WebProjects from '../modules/projects/webProjects';
+import QAProject from '../modules/qaProjects';
+import WebProjects from '../modules/webProjects';
 
 const ProjectSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);

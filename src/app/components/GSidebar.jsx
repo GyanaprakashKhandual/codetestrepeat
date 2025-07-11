@@ -21,7 +21,7 @@ import {
   CircuitBoard,
   Sparkles
 } from 'lucide-react';
-import QA from '../../../public/guides/qa';
+import QA from '../modules/guides/qa';
 
 const GSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);

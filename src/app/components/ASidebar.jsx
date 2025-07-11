@@ -7,8 +7,8 @@ import {
   Share2, Rss, Mic, Camera, Plus
 } from 'lucide-react';
 import { showSuccess, showError } from '../utils/alert.jsx';
-import About from '../../../public/about/about.jsx';
-import GitHubPortfolio from '../../../public/about/git.jsx';
+import About from '../modules/about/about.jsx';
+import GitHubPortfolio from '../modules/about/git.jsx';
 
 const ASidebar = () => {
   const [isOpen, setIsOpen] = useState(false); // Always start collapsed
