@@ -28,26 +28,6 @@ const ProjectSidebar = () => {
   const [mounted, setMounted] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null);
 
-  useEffect(() => {
-    setMounted(true);
-    // Retrieve selected skill from localStorage if it exists
-    const savedSkill = localStorage.getItem('selectedPSkill');
-    if (savedSkill) {
-      try {
-        const parsedSkill = JSON.parse(savedSkill);
-        // Find the matching skill in skillItems and cardItems
-        const foundSkill = [...skillItems, ...cardItems].find(
-          item => item.text === parsedSkill.text || item.title === parsedSkill.text
-        );
-        if (foundSkill) {
-          setSelectedSkill(foundSkill);
-        }
-      } catch (e) {
-        console.error('Failed to parse saved skill', e);
-      }
-    }
-  }, []);
-
   const skillItems = [
     { icon: Code, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <WebProjects/>},
     { icon: Bug, text: 'QA Engineer', color: 'text-emerald-600', bgGradient: 'bg-gradient-to-r from-emerald-50 to-green-100', component: <QAProject/>},
@@ -75,15 +55,53 @@ const ProjectSidebar = () => {
     { title: "Cloud Engineering", desc: "AWS, Azure & GCP Solutions", gradient: "from-sky-100 to-cyan-100", border: "border-sky-200", icon: Cloud, text: "Cloud Computing" }
   ];
 
+  useEffect(() => {
+    setMounted(true);
+    
+    // Only access localStorage after component is mounted (client-side)
+    if (typeof window !== 'undefined') {
+      try {
+        const savedSkill = localStorage.getItem('selectedPSkill');
+        if (savedSkill) {
+          const parsedSkill = JSON.parse(savedSkill);
+          // Find the matching skill in skillItems and cardItems
+          const foundSkill = [...skillItems, ...cardItems].find(
+            item => item.text === parsedSkill.text || item.title === parsedSkill.text
+          );
+          if (foundSkill) {
+            setSelectedSkill(foundSkill);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to parse saved skill', e);
+      }
+    }
+  }, []);
+
   const handleSkillClick = (skill) => {
     setSelectedSkill(skill);
-    // Save the selected skill to localStorage
-    localStorage.setItem('selectedPSkill', JSON.stringify({
-      text: skill.text || skill.title
-    }));
+    // Save the selected skill to localStorage only on client-side
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('selectedPSkill', JSON.stringify({
+          text: skill.text || skill.title
+        }));
+      } catch (e) {
+        console.error('Failed to save skill to localStorage', e);
+      }
+    }
   };
 
-  if (!mounted) return null;
+  // Don't render anything until mounted to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen">
+        <div className="flex-1 p-8 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen select-none">

@@ -1,11 +1,11 @@
 import React from 'react'
-import Sidebar from '../components/GSidebar'
+import GSidebar from '../components/GSidebar'
 
 function page() {
   return (
     <>
    <div>
-     <Sidebar/>
+     <GSidebar/>
    </div>
     </>
   )

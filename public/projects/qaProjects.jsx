@@ -84,94 +84,110 @@ const QAProject = () => {
 
   return (
     <div className="grid gap-8">
-      {projects.map((project, index) => (
-        <motion.div
-          key={index}
-          className="bg-white overflow-hidden border border-purple-100 hover:shadow-purple-200 transition-all duration-300"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover={{ y: -5 }}
-        >
-          <div className="p-6">
-            <div className="flex justify-between items-start">
-              <motion.h3 
-                className="text-2xl font-bold text-purple-800 mb-2"
-                variants={itemVariants}
-              >
-                {project.name}
-              </motion.h3>
-              {project.githubLink && (
-                <motion.a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-purple-600 hover:text-purple-800 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FiGithub size={24} />
-                </motion.a>
-              )}
-            </div>
-
-            <motion.div 
-              className="flex items-center mb-4"
-              variants={itemVariants}
+      {Array.isArray(projects) && projects.length > 0 ? (
+        projects.filter(Boolean).map((project, index) => (
+          project ? (
+            <motion.div
+              key={project.id || index}
+              className="bg-white overflow-hidden border border-purple-100 hover:shadow-purple-200 transition-all duration-300"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              whileHover={{ y: -5 }}
             >
-              <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-                <FiCheckCircle className="mr-1" />
-                {project.testingType}
-              </span>
-            </motion.div>
-
-            <motion.div className="mb-4" variants={itemVariants}>
-              <h4 className="text-sm font-semibold text-purple-700 mb-2 flex items-center">
-                <FiLayers className="mr-1" /> Test Types:
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {project.testType.map((type, idx) => (
-                  <span
-                    key={idx}
-                    className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full"
+              <div className="p-6">
+                <div className="flex justify-between items-start">
+                  <motion.h3 
+                    className="text-2xl font-bold text-purple-800 mb-2"
+                    variants={itemVariants}
                   >
-                    {type}
-                  </span>
-                ))}
+                    {project.name || 'Untitled Project'}
+                  </motion.h3>
+                  {project.githubLink && (
+                    <motion.a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 hover:text-purple-800 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FiGithub size={24} />
+                    </motion.a>
+                  )}
+                </div>
+
+                {project.testingType && (
+                  <motion.div 
+                    className="flex items-center mb-4"
+                    variants={itemVariants}
+                  >
+                    <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
+                      <FiCheckCircle className="mr-1" />
+                      {project.testingType}
+                    </span>
+                  </motion.div>
+                )}
+
+                {Array.isArray(project.testType) && project.testType.length > 0 && (
+                  <motion.div className="mb-4" variants={itemVariants}>
+                    <h4 className="text-sm font-semibold text-purple-700 mb-2 flex items-center">
+                      <FiLayers className="mr-1" /> Test Types:
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.testType.map((type, idx) => (
+                        <span
+                          key={idx}
+                          className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full"
+                        >
+                          {type}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {Array.isArray(project.techStack) && project.techStack.length > 0 && (
+                  <motion.div className="mb-4" variants={itemVariants}>
+                    <h4 className="text-sm font-semibold text-purple-700 mb-2 flex items-center">
+                      <FiCode className="mr-1" /> Tech Stack:
+                    </h4>
+                    <div className="flex flex-wrap gap-3">
+                      {project.techStack.map((tech, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center bg-white border border-purple-200 rounded-lg px-3 py-1 shadow-sm"
+                        >
+                          {getTechIcon(tech)}
+                          <span className="ml-2 text-sm text-gray-700">{tech}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {Array.isArray(project.work) && project.work.length > 0 && (
+                  <motion.div variants={itemVariants}>
+                    <h4 className="text-sm font-semibold text-purple-700 mb-2">Work Done:</h4>
+                    <ul className="space-y-2">
+                      {project.work.map((item, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <span className="text-green-500 mr-2 mt-1">•</span>
+                          <span className="text-gray-700">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
-
-            <motion.div className="mb-4" variants={itemVariants}>
-              <h4 className="text-sm font-semibold text-purple-700 mb-2 flex items-center">
-                <FiCode className="mr-1" /> Tech Stack:
-              </h4>
-              <div className="flex flex-wrap gap-3">
-                {project.techStack.map((tech, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center bg-white border border-purple-200 rounded-lg px-3 py-1 shadow-sm"
-                  >
-                    {getTechIcon(tech)}
-                    <span className="ml-2 text-sm text-gray-700">{tech}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <h4 className="text-sm font-semibold text-purple-700 mb-2">Work Done:</h4>
-              <ul className="space-y-2">
-                {project.work.map((item, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <span className="text-green-500 mr-2 mt-1">•</span>
-                    <span className="text-gray-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        </motion.div>
-      ))}
+          ) : null
+        ))
+      ) : (
+        <div className="text-center py-8">
+          <p className="text-gray-500">No projects found.</p>
+        </div>
+      )}
     </div>
   );
 };
