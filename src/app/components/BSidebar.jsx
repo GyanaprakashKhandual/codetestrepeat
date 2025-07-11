@@ -23,27 +23,33 @@ import {
 const BSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState(null);
 
- useEffect(() => {
-       setMounted(true);
-       // Retrieve selected skill from localStorage if it exists
-       const savedSkill = localStorage.getItem('selectedSkill');
-       if (savedSkill) {
-         try {
-           const parsedSkill = JSON.parse(savedSkill);
-           // Find the matching skill in our items
-           const foundSkill = [...skillItems, ...cardItems].find(
-             item => item.text === parsedSkill.text || item.title === parsedSkill.text
-           );
-           if (foundSkill) {
-             setSelectedSkill(foundSkill);
-           }
-         } catch (e) {
-           console.error('Failed to parse saved skill', e);
-         }
-       }
-     }, []);
+  useEffect(() => {
+    setMounted(true);
+    // Retrieve selected industry from localStorage if it exists
+    const savedIndustry = localStorage.getItem('selectedIndustry');
+    if (savedIndustry) {
+      try {
+        const parsedIndustry = JSON.parse(savedIndustry);
+        // Find the matching industry in industryItems
+        const foundIndustry = industryItems.find(
+          item => item.text === parsedIndustry.text
+        );
+        if (foundIndustry) {
+          setSelectedIndustry(foundIndustry);
+        }
+      } catch (e) {
+        console.error('Failed to parse saved industry', e);
+      }
+    }
+  }, []);
  
+  const handleIndustryClick = (item) => {
+    setSelectedIndustry(item);
+    localStorage.setItem('selectedIndustry', JSON.stringify({ text: item.text }));
+  };
+
   if (!mounted) return null;
 
   const industryItems = [
@@ -93,17 +99,19 @@ const BSidebar = () => {
           <nav className="space-y-2 px-3">
             {industryItems.map((item) => {
               const Icon = item.icon;
+              const isSelected = selectedIndustry && selectedIndustry.text === item.text;
               return (
                 <div
                   key={item.text}
-                  className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                  className={`rounded-lg cursor-pointer group transition-colors duration-200 ${isSelected ? 'bg-cyan-100/70 border border-cyan-300' : 'hover:bg-white/50'}`}
+                  onClick={() => handleIndustryClick(item)}
                 >
                   <div className="flex items-center p-3 space-x-3">
                     <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
                       <Icon size={20} strokeWidth={1.5} />
                     </div>
                     {isOpen && (
-                      <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                      <span className={`text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200 ${isSelected ? 'text-cyan-700 font-bold' : ''}`}>
                         {item.text}
                       </span>
                     )}

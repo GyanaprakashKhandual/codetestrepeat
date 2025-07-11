@@ -15,7 +15,6 @@ const ASidebar = () => {
   const [mounted, setMounted] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
-  const [selectedAbout, setSelectedAbout] = useState(null);
 
   const triggerToast = () => {
     showSuccess("This is a success alert!", 3000); // Show for 3 seconds
@@ -25,24 +24,24 @@ const ASidebar = () => {
   }
 
   useEffect(() => {
-        setMounted(true);
-        // Retrieve selected skill from localStorage if it exists
-        const savedAbout = localStorage.getItem('selectedAbout');
-        if (savedAbout) {
-          try {
-            const parsedAbout = JSON.parse(savedAbout);
-            // Find the matching skill in our items
-            const foundAbout = [...skillItems, ...cardItems].find(
-              item => item.text === parsedSkill.text || item.title === parsedSkill.text
-            );
-            if (foundSkill) {
-              setSelectedSkill(foundSkill);
-            }
-          } catch (e) {
-            console.error('Failed to parse saved skill', e);
-          }
+    setMounted(true);
+    // Retrieve selected menu item from localStorage if it exists
+    const savedItem = localStorage.getItem('selectedSidebarItem');
+    if (savedItem) {
+      try {
+        const parsedItem = JSON.parse(savedItem);
+        // Find the matching item in menuItems
+        const foundItem = menuItems.find(
+          item => item.text === parsedItem.text
+        );
+        if (foundItem) {
+          setSelectedItem(foundItem);
         }
-      }, []);
+      } catch (e) {
+        console.error('Failed to parse saved sidebar item', e);
+      }
+    }
+  }, []);
   
 
   const menuItems = [
@@ -131,6 +130,8 @@ const ASidebar = () => {
       window.open(item.link, '_blank');
     } else {
       setSelectedItem(item);
+      // Persist selected item in localStorage
+      localStorage.setItem('selectedSidebarItem', JSON.stringify({ text: item.text }));
     }
   };
 

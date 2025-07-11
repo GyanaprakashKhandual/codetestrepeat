@@ -29,24 +29,24 @@ const GSidebar = () => {
   const [selectedSkill, setSelectedSkill] = useState(null); // Track selected skill
 
   useEffect(() => {
-        setMounted(true);
-        // Retrieve selected skill from localStorage if it exists
-        const savedSkill = localStorage.getItem('selectedSkill');
-        if (savedSkill) {
-          try {
-            const parsedSkill = JSON.parse(savedSkill);
-            // Find the matching skill in our items
-            const foundSkill = [...skillItems, ...cardItems].find(
-              item => item.text === parsedSkill.text || item.title === parsedSkill.text
-            );
-            if (foundSkill) {
-              setSelectedSkill(foundSkill);
-            }
-          } catch (e) {
-            console.error('Failed to parse saved skill', e);
-          }
+    setMounted(true);
+    // Retrieve selected skill from localStorage if it exists
+    const savedSkill = localStorage.getItem('selectedGSkill');
+    if (savedSkill) {
+      try {
+        const parsedSkill = JSON.parse(savedSkill);
+        // Find the matching skill in skillItems
+        const foundSkill = skillItems.find(
+          item => item.text === parsedSkill.text
+        );
+        if (foundSkill) {
+          setSelectedSkill(foundSkill);
         }
-      }, []);
+      } catch (e) {
+        console.error('Failed to parse saved skill', e);
+      }
+    }
+  }, []);
   
 
   if (!mounted) return null;
@@ -71,6 +71,7 @@ const GSidebar = () => {
 
   const handleSkillClick = (skill) => {
     setSelectedSkill(skill);
+    localStorage.setItem('selectedGSkill', JSON.stringify({ text: skill.text }));
   };
 
   return (
@@ -106,18 +107,19 @@ const GSidebar = () => {
             <nav className="space-y-2 px-3">
               {skillItems.map((item) => {
                 const Icon = item.icon;
+                const isSelected = selectedSkill && selectedSkill.text === item.text;
                 return (
                   <div
                     key={item.text}
                     onClick={() => handleSkillClick(item)}
-                    className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                    className={`rounded-lg cursor-pointer group transition-colors duration-200 ${isSelected ? 'bg-sky-100/70 border border-sky-300' : 'hover:bg-white/50'}`}
                   >
                     <div className="flex items-center p-3 space-x-3">
                       <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
                         <Icon size={20} strokeWidth={1.5} />
                       </div>
                       {isOpen && (
-                        <span className="text-slate-700 font-medium text-sm group-hover:text-sky-700 transition-colors duration-200">
+                        <span className={`text-slate-700 font-medium text-sm group-hover:text-sky-700 transition-colors duration-200 ${isSelected ? 'text-sky-700 font-bold' : ''}`}>
                           {item.text}
                         </span>
                       )}

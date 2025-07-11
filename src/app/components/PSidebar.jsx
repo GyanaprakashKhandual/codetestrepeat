@@ -31,11 +31,11 @@ const ProjectSidebar = () => {
   useEffect(() => {
     setMounted(true);
     // Retrieve selected skill from localStorage if it exists
-    const savedSkill = localStorage.getItem('selectedSkill');
+    const savedSkill = localStorage.getItem('selectedPSkill');
     if (savedSkill) {
       try {
         const parsedSkill = JSON.parse(savedSkill);
-        // Find the matching skill in our items
+        // Find the matching skill in skillItems and cardItems
         const foundSkill = [...skillItems, ...cardItems].find(
           item => item.text === parsedSkill.text || item.title === parsedSkill.text
         );
@@ -78,7 +78,7 @@ const ProjectSidebar = () => {
   const handleSkillClick = (skill) => {
     setSelectedSkill(skill);
     // Save the selected skill to localStorage
-    localStorage.setItem('selectedSkill', JSON.stringify({
+    localStorage.setItem('selectedPSkill', JSON.stringify({
       text: skill.text || skill.title
     }));
   };

@@ -21,27 +21,32 @@ import { SiTestinglibrary } from 'react-icons/si';
 const WSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // ✅ hydration-safe flag
+  const [selectedAvidus, setSelectedAvidus] = useState(null);
 
-useEffect(() => {
-      setMounted(true);
-      // Retrieve selected skill from localStorage if it exists
-      const savedSkill = localStorage.getItem('selectedSkill');
-      if (savedSkill) {
-        try {
-          const parsedSkill = JSON.parse(savedSkill);
-          // Find the matching skill in our items
-          const foundSkill = [...skillItems, ...cardItems].find(
-            item => item.text === parsedSkill.text || item.title === parsedSkill.text
-          );
-          if (foundSkill) {
-            setSelectedSkill(foundSkill);
-          }
-        } catch (e) {
-          console.error('Failed to parse saved skill', e);
+  useEffect(() => {
+    setMounted(true);
+    // Retrieve selected avidus item from localStorage if it exists
+    const savedAvidus = localStorage.getItem('selectedWAvidus');
+    if (savedAvidus) {
+      try {
+        const parsedAvidus = JSON.parse(savedAvidus);
+        // Find the matching item in avidusItems
+        const foundAvidus = avidusItems.find(
+          item => item.text === parsedAvidus.text
+        );
+        if (foundAvidus) {
+          setSelectedAvidus(foundAvidus);
         }
+      } catch (e) {
+        console.error('Failed to parse saved avidus', e);
       }
-    }, []);
+    }
+  }, []);
 
+  const handleAvidusClick = (item) => {
+    setSelectedAvidus(item);
+    localStorage.setItem('selectedWAvidus', JSON.stringify({ text: item.text }));
+  };
 
   if (!mounted) return null; // ✅ SSR-safe rendering
 
@@ -82,10 +87,12 @@ useEffect(() => {
           <nav className="space-y-2 px-3">
             {avidusItems.map((item) => {
               const Icon = item.icon;
+              const isSelected = selectedAvidus && selectedAvidus.text === item.text;
               return (
                 <div
                   key={item.text}
-                  className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
+                  className={`rounded-lg cursor-pointer group transition-colors duration-200 ${isSelected ? 'bg-cyan-100/70 border border-cyan-300' : 'hover:bg-white/50'}`}
+                  onClick={() => handleAvidusClick(item)}
                 >
                   <div className="flex items-center p-3 space-x-3">
                     <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
@@ -93,7 +100,7 @@ useEffect(() => {
                     </div>
                     {isOpen && (
                       <div className="flex-1">
-                        <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                        <span className={`text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200 ${isSelected ? 'text-cyan-700 font-bold' : ''}`}>
                           {item.text}
                         </span>
                       </div>
