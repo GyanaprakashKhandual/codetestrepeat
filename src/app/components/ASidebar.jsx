@@ -24,6 +24,10 @@ const ASidebar = () => {
   }
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth"});
+  }, []);
+
+  useEffect(() => {
     setMounted(true);
     // Retrieve selected menu item from localStorage if it exists
     const savedItem = localStorage.getItem('selectedSidebarItem');
