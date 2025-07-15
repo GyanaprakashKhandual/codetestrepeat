@@ -128,8 +128,8 @@ const QAProject = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-4">
+      <div className="max-w-full mx-auto">
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: -20 }}
