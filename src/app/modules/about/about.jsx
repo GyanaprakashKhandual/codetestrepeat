@@ -6,7 +6,6 @@ import { useRef } from 'react';
 
 const About = () => {
   const [activeSection, setActiveSection] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -17,27 +16,19 @@ const About = () => {
     }
   }, [controls, isInView]);
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.2,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -51,14 +42,12 @@ const About = () => {
 
   const cardVariants = {
     hidden: { 
-      scale: 0.8, 
-      opacity: 0,
-      rotateX: 45
+      scale: 0.95, 
+      opacity: 0
     },
     visible: {
       scale: 1,
       opacity: 1,
-      rotateX: 0,
       transition: {
         type: "spring",
         stiffness: 100,
@@ -67,238 +56,145 @@ const About = () => {
     }
   };
 
-  const floatingVariants = {
-    animate: {
-      y: [-10, 10, -10],
-      rotate: [0, 5, -5, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
-
   const aboutSections = [
     {
-      emoji: "🌟",
-      title: "Dreamer Turned Creator",
-      content: "Born and raised in the culturally rich state of Odisha, I was always fascinated by how things work. My journey in Physics gave me analytical superpowers that I now apply to technology and quality assurance. I believe every complex system can be understood and improved with the right approach.",
-      gradient: "from-purple-100 via-violet-50 to-white",
-      accentColor: "from-purple-400 to-violet-500"
+      icon: "🎯",
+      title: "Background & Philosophy",
+      content: "With a solid foundation in Physics and over 5 years of experience in the technology sector, I bring analytical precision to quality assurance and software development. My approach combines systematic problem-solving with innovative thinking to deliver reliable, high-quality solutions.",
+      borderColor: "border-blue-200",
+      accentColor: "text-blue-600"
     },
     {
-      emoji: "💻",
-      title: "Code. Test. Repeat.",
-      content: "With over 5 years in the tech industry, I've mastered the art of building robust systems and breaking them (on purpose!). My expertise spans from crafting beautiful front-end experiences to implementing bulletproof test automation frameworks. I thrive in environments where quality and innovation intersect.",
-      gradient: "from-sky-100 via-blue-50 to-white",
-      accentColor: "from-sky-400 to-blue-500"
+      icon: "⚡",
+      title: "Technical Expertise",
+      content: "Specialized in test automation frameworks, quality assurance methodologies, and front-end development. I focus on creating robust systems that maintain excellence at scale, with expertise in modern testing tools and development practices that ensure product reliability.",
+      borderColor: "border-green-200",
+      accentColor: "text-green-600"
     },
     {
-      emoji: "💚",
-      title: "Passion Never Dies",
-      content: "Beyond the screen, I'm an avid learner constantly exploring new technologies and methodologies. I'm passionate about mentoring aspiring QA engineers and contributing to open-source projects. When I'm not debugging code, you'll find me experimenting with new automation tools or sharing knowledge with the tech community.",
-      gradient: "from-green-100 via-emerald-50 to-white",
-      accentColor: "from-green-400 to-emerald-500"
+      icon: "🚀",
+      title: "Professional Growth",
+      content: "Committed to continuous learning and knowledge sharing within the tech community. I actively contribute to open-source projects, mentor emerging QA professionals, and stay current with industry best practices to deliver cutting-edge solutions.",
+      borderColor: "border-purple-200",
+      accentColor: "text-purple-600"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden relative">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-200 to-rose-200 rounded-full opacity-20 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-blue-200 to-sky-200 rounded-full opacity-20 blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-green-200 to-emerald-200 rounded-full opacity-15 blur-2xl"
-          animate={{
-            x: [0, 100, -100, 0],
-            y: [0, -100, 100, 0],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
+    <div className="bg-white min-w-full mx-auto">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,_rgba(0,0,0,0.05)_1px,_transparent_0)] bg-[size:24px_24px] opacity-30" />
       </div>
-
-      {/* Mouse Follower */}
-      <motion.div
-        className="fixed w-6 h-6 bg-gradient-to-r from-pink-400 to-blue-400 rounded-full pointer-events-none z-50 mix-blend-difference"
-        style={{
-          left: mousePosition.x - 12,
-          top: mousePosition.y - 12,
-        }}
-        animate={{
-          scale: [1, 1.5, 1],
-        }}
-        transition={{
-          duration: 0.5,
-          repeat: Infinity,
-        }}
-      />
 
       <div className="relative z-10">
         {/* Header Section */}
         <motion.div
-          className="text-center pt-20 pb-12"
+          className="text-center pt-16 pb-12 px-4 lg:px-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <motion.div
-            className="relative inline-block"
             variants={itemVariants}
+            className="w-full"
           >
-            <h1 className="text-6xl lg:text-8xl font-black bg-gradient-to-r from-pink-600 via-blue-600 to-green-600 bg-clip-text text-transparent mb-6">
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
               About Me
             </h1>
-            <motion.div
-              className="absolute -inset-4 bg-gradient-to-r from-pink-400 via-blue-400 to-green-400 rounded-full opacity-20 blur-xl"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.2, 0.3, 0.2],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
+            <div className="w-16 h-0.5 bg-gray-900 mx-auto mb-6" />
+            <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              QA Engineer & Developer focused on delivering quality solutions through systematic testing and innovative development practices.
+            </p>
           </motion.div>
-          
-          <motion.p
-            className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
-            variants={itemVariants}
-          >
-            Passionate QA Engineer & Developer crafting digital experiences with precision and creativity
-          </motion.p>
         </motion.div>
 
         {/* Main Content */}
-        <div className="container mx-auto px-4 lg:px-8 pb-20" ref={ref}>
+        <div className="w-full px-4 lg:px-8 pb-20" ref={ref}>
           <motion.div
-            className="grid gap-8 lg:gap-12"
+            className="w-full"
             variants={containerVariants}
             initial="hidden"
             animate={controls}
           >
-            {aboutSections.map((section, index) => (
-              <motion.div
-                key={index}
-                className="group relative"
-                variants={cardVariants}
-                whileHover={{ scale: 1.02 }}
-                onHoverStart={() => setActiveSection(index)}
-              >
-                {/* Card Background with Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${section.gradient} rounded-3xl transform group-hover:scale-105 transition-transform duration-500`} />
-                
-                {/* Gradient Border */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${section.accentColor} rounded-3xl p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}>
-                  <div className={`w-full h-full bg-gradient-to-br ${section.gradient} rounded-3xl`} />
-                </div>
-
-                {/* Card Content */}
-                <div className="relative bg-white/40 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20">
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8">
-                    {/* Emoji Icon */}
-                    <motion.div
-                      className="relative"
-                      variants={floatingVariants}
-                      animate="animate"
-                    >
-                      <div className="w-24 h-24 lg:w-32 lg:h-32 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
-                        <span className="text-4xl lg:text-6xl">{section.emoji}</span>
+            <div className="grid gap-6 lg:gap-8 w-full">
+              {aboutSections.map((section, index) => (
+                <motion.div
+                  key={index}
+                  className="group relative w-full"
+                  variants={cardVariants}
+                  whileHover={{ y: -2 }}
+                  onHoverStart={() => setActiveSection(index)}
+                >
+                  <div className={`bg-white rounded-lg border-2 ${section.borderColor} p-6 lg:p-8 shadow-sm hover:shadow-md transition-all duration-300 w-full`}>
+                    <div className="flex items-start gap-4 lg:gap-6 w-full">
+                      {/* Icon */}
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center border border-gray-200">
+                          <span className="text-xl">{section.icon}</span>
+                        </div>
                       </div>
-                      
-                      {/* Pulsing Ring */}
-                      <motion.div
-                        className={`absolute inset-0 rounded-full bg-gradient-to-r ${section.accentColor} opacity-20`}
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.2, 0.4, 0.2],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                    </motion.div>
 
-                    {/* Text Content */}
-                    <div className="flex-1">
-                      <motion.h2
-                        className={`text-3xl lg:text-4xl font-bold mb-6 bg-gradient-to-r ${section.accentColor} bg-clip-text text-transparent`}
-                        layoutId={`title-${index}`}
-                      >
-                        {section.title}
-                      </motion.h2>
-                      
-                      <motion.p
-                        className="text-gray-700 text-lg leading-relaxed"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        {section.content}
-                      </motion.p>
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`text-lg font-semibold ${section.accentColor} mb-3`}>
+                          {section.title}
+                        </h3>
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                          {section.content}
+                        </p>
+                      </div>
                     </div>
                   </div>
+                </motion.div>
+              ))}
+            </div>
 
-                  {/* Decorative Elements */}
-                  <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-white/20 to-white/5 rounded-full blur-xl" />
-                  <div className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-br from-white/20 to-white/5 rounded-full blur-xl" />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Bottom CTA Section */}
-          <motion.div
-            className="mt-20 text-center"
-            variants={itemVariants}
-            initial="hidden"
-            animate={controls}
-          >
+            {/* Skills Summary */}
             <motion.div
-              className="inline-flex items-center gap-4 bg-gradient-to-r from-pink-500 via-blue-500 to-green-500 text-white px-8 py-4 rounded-full font-semibold text-lg"
-              whileHover={{ 
-                scale: 1.05
-              }}
-              whileTap={{ scale: 0.95 }}
+              className="mt-16 bg-gray-50 rounded-lg p-6 lg:p-8 border border-gray-200 w-full"
+              variants={itemVariants}
+              initial="hidden"
+              animate={controls}
             >
-              <span>Let's Create Something Amazing Together</span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1, repeat: Infinity }}
-              >
-                ✨
-              </motion.div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">
+                Core Competencies
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center w-full">
+                {[
+                  'Test Automation',
+                  'Quality Assurance',
+                  'Frontend Development',
+                  'System Analysis',
+                  'Process Optimization',
+                  'Team Leadership',
+                  'Technical Documentation',
+                  'Continuous Integration'
+                ].map((skill, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white px-3 py-2 rounded-md border border-gray-200 text-xs font-medium text-gray-700"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    {skill}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Professional Statement */}
+            <motion.div
+              className="mt-12 text-center w-full"
+              variants={itemVariants}
+              initial="hidden"
+              animate={controls}
+            >
+              <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-4 rounded-lg inline-block">
+                <p className="text-sm font-medium">
+                  Ready to contribute to your team's success through quality-driven development
+                </p>
+              </div>
             </motion.div>
           </motion.div>
         </div>

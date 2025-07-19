@@ -1,224 +1,233 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, Twitter, Linkedin, Facebook, Instagram, Github } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function ContactPage() {
-  return (
-    <div className="min-h-screen mt-15 bg-gradient-to-br from-blue-50 via-white to-emerald-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-emerald-600 to-green-600 bg-clip-text text-transparent mb-4">
-            Get In Touch
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            We'd love to hear from you! Whether you have a question about our services, 
-            need technical support, or want to explore partnership opportunities, our team is ready to help.
-          </p>
-        </motion.div>
+  const number2Copied = () => {
+    navigator.clipboard.writeText('+91 7894174893')
+    toast.success('The number was copied', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    })
+  }
+  const emailIdCopied = () => {
+    navigator.clipboard.writeText('gyanaprakashkhndual@gmail.com')
+    toast.success('The email was copied', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    })
+  }
+  const number1Copied = () => {
+    navigator.clipboard.writeText('+91 7606939833')
+    toast.success('The number was copied', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    })
+  }
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
+  return (
+    <div className="mt-15 h-[calc(100vh-60px)] w-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-4 overflow-hidden">
+      <div className="h-full w-full flex flex-col">
+        {/* Main Content - Full Width Grid */}
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+          
+          {/* Contact Form - Takes 2 columns */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100"
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="lg:col-span-2 bg-white rounded-xl shadow-lg border border-gray-100 flex flex-col"
           >
-            <div className="p-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Send us a message</h2>
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-4 flex-1 flex flex-col">
+              <h2 className="text-lg font-bold text-gray-800 mb-3">Send us a message</h2>
+              <form className="flex-1 flex flex-col">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Name
-                    </label>
+                    <label htmlFor="name" className="block text-xs font-medium text-gray-700 mb-1">Name</label>
                     <input
                       type="text"
                       id="name"
                       name="name"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                      placeholder="Enter Your Name"
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Your Name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
-                    </label>
+                    <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1">Email</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                      placeholder="Enter Your Email Id"
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="your@email.com"
                     />
                   </div>
                 </div>
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                    Subject
-                  </label>
+                <div className="mb-3">
+                  <label htmlFor="subject" className="block text-xs font-medium text-gray-700 mb-1">Subject</label>
                   <input
                     type="text"
                     id="subject"
                     name="subject"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="What's this about?"
                   />
                 </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                    Message
-                  </label>
+                <div className="flex-1 flex flex-col mb-3">
+                  <label htmlFor="message" className="block text-xs font-medium text-gray-700 mb-1">Message</label>
                   <textarea
                     id="message"
                     name="message"
-                    rows={25}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="flex-1 w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none min-h-[150px]"
                     placeholder="Your message here..."
                   ></textarea>
                 </div>
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center space-x-2 hover:shadow-lg transition-all"
+                  className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2.5 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 hover:shadow-md transition-all"
                 >
-                  <Send size={18} />
+                  <Send size={14} />
                   <span>Send Message</span>
                 </motion.button>
               </form>
             </div>
           </motion.div>
 
-          {/* Contact Information */}
+          {/* Contact Information - Single Column */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-8"
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="flex flex-col space-y-3 h-full"
           >
-            {/* Contact Cards */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Contact Information</h2>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-blue-100 rounded-full text-blue-600">
-                    <Mail size={20} />
+            {/* Combined Contact Details & Social Media */}
+            <div className="bg-white rounded-xl shadow-lg p-4 border border-gray-100 flex-1 flex flex-col">
+              <h2 className="text-lg font-bold text-gray-800 mb-3">Contact Info</h2>
+              
+              {/* Contact Details */}
+              <div className="space-y-3 flex-1">
+                <div className="flex items-center space-x-2">
+                  <div className="p-1.5 bg-blue-100 rounded-full text-blue-600 flex-shrink-0">
+                    <Mail size={14} />
                   </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800">Email</h3>
-                    <p className="text-gray-600">gyanaprakashkhnadual@gmail.com</p>
-                    <p className="text-gray-600">gyan@gmail.com</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-emerald-100 rounded-full text-emerald-600">
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800">Phone</h3>
-                    <p className="text-gray-600">+91 7606939833</p>
-                    <p className="text-gray-600">+91 7894174893 (Support)</p>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-xs font-semibold text-gray-800">Email</h3>
+                    <p className="text-xs text-blue-500 truncate cursor-pointer" onClick={emailIdCopied}>gyanaprakashkhnadual@gmail.com</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-purple-100 rounded-full text-purple-600">
-                    <MapPin size={20} />
+                
+                <div className="flex items-center space-x-2">
+                  <div className="p-1.5 bg-emerald-100 rounded-full text-emerald-600 flex-shrink-0">
+                    <Phone size={14} />
                   </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800">Address</h3>
-                    <p className="text-gray-600">Jajpur, Bhubaneswar</p>
-                    <p className="text-gray-600">Odisha, India</p>
+                  <div className="flex-1">
+                    <h3 className="text-xs font-semibold text-gray-800">Phone</h3>
+                    <p className="text-xs text-gray-600 cursor-pointer" onClick={number1Copied}>+91 7606939833</p>
+                    <p className="text-xs text-gray-600 cursor-pointer" onClick={number2Copied}>+91 7894174893 (Support)</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-amber-100 rounded-full text-amber-600">
-                    <Clock size={20} />
+                
+                <div className="flex items-center space-x-2">
+                  <div className="p-1.5 bg-purple-100 rounded-full text-purple-600 flex-shrink-0">
+                    <MapPin size={14} />
                   </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800">Working Hours</h3>
-                    <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
+                  <div className="flex-1">
+                    <h3 className="text-xs font-semibold text-gray-800">Address</h3>
+                    <p className="text-xs text-gray-600">Jajpur, Bhubaneswar</p>
+                    <p className="text-xs text-gray-600">Odisha, India</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <div className="p-1.5 bg-amber-100 rounded-full text-amber-600 flex-shrink-0">
+                    <Clock size={14} />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xs font-semibold text-gray-800">Working Hours</h3>
+                    <p className="text-xs text-gray-600">Mon-Fri: 9AM-6PM</p>
+                    <p className="text-xs text-gray-600">Sat: 10AM-4PM</p>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Additional Info */}
-            <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-2xl shadow-xl p-8 border border-blue-100">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Need immediate help?</h2>
-              <p className="text-gray-600 mb-6">
-                Our customer support team is available 24/7 to assist with urgent inquiries. 
-                For technical emergencies, please call our support hotline.
-              </p>
-              <div className="bg-white p-6 rounded-xl border border-blue-100">
-                <h3 className="font-bold text-blue-600 mb-2">Emergency Support</h3>
-                <p className="text-gray-700 mb-3">+91 7606939833</p>
-                <p className="text-sm text-gray-500">Available 24 hours, 7 days a week</p>
-              </div>
-            </div>
-
-            {/* Social Media */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Connect With Us</h2>
-              <p className="text-gray-600 mb-6">
-                Follow us on social media to stay updated with our latest news and announcements.
-              </p>
-              <div className="flex space-x-4">
-                {['Twitter', 'LinkedIn', 'Facebook', 'Instagram'].map((platform) => (
+              {/* Social Media Section */}
+              <div className="mt-4 pt-3 border-t border-gray-100">
+                <h3 className="text-sm font-bold text-gray-800 mb-3">Follow Us</h3>
+                <div className="flex justify-between space-x-2">
                   <motion.a
-                    key={platform}
-                    whileHover={{ y: -3 }}
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     href="#"
-                    className="p-3 bg-gray-100 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    className="flex-1 p-2 bg-blue-50 rounded-lg text-blue-600 hover:bg-blue-100 transition-colors flex items-center justify-center"
+                    title="Twitter"
                   >
-                    {platform}
+                    <Twitter size={16} />
                   </motion.a>
-                ))}
+                  <motion.a
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="#"
+                    className="flex-1 p-2 bg-blue-50 rounded-lg text-blue-700 hover:bg-blue-100 transition-colors flex items-center justify-center"
+                    title="LinkedIn"
+                  >
+                    <Linkedin size={16} />
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://github.com/GyanaprakashKhandual"
+                    target='_blank'
+                    className="flex-1 p-2 bg-blue-50 rounded-lg text-black hover:bg-blue-100 transition-colors flex items-center justify-center"
+                    title="Github"
+                  >
+                    <Github size={16} />
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="#"
+                    className="flex-1 p-2 bg-pink-50 rounded-lg text-pink-600 hover:bg-pink-100 transition-colors flex items-center justify-center"
+                    title="Instagram"
+                  >
+                    <Instagram size={16} />
+                  </motion.a>
+                </div>
+              </div>
+            </div>
+
+            {/* Emergency Support - Compact */}
+            <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-xl shadow-lg p-4 border border-blue-100">
+              <h3 className="text-sm font-bold text-gray-800 mb-2">24/7 Emergency Support</h3>
+              <div className="bg-white p-3 rounded-lg border border-blue-100">
+                <p className="text-sm font-bold text-blue-600 cursor-pointer" onClick={number1Copied}>+91 7606939833</p>
+                <ToastContainer/>
+                <p className="text-xs text-gray-500">Available anytime</p>
               </div>
             </div>
           </motion.div>
         </div>
-
-        {/* Map Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100"
-        >
-          <div className="p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Our Location</h2>
-            <div className="aspect-w-16 aspect-h-9 bg-gray-200 rounded-xl overflow-hidden">
-              {/* Replace with actual map component or iframe */}
-              <div className="w-full h-96 flex items-center justify-center bg-gradient-to-br from-blue-100 to-emerald-100">
-                <p className="text-gray-500">Map would be displayed here</p>
-              </div>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-4">
-              <motion.a
-                whileHover={{ scale: 1.02 }}
-                href="#"
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium"
-              >
-                Get Directions
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.02 }}
-                href="#"
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium"
-              >
-                Parking Information
-              </motion.a>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </div>
   );
