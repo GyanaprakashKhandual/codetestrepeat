@@ -59,7 +59,7 @@ export default function ContactPage() {
             className="lg:col-span-2 bg-white rounded-xl shadow-lg border border-gray-100 flex flex-col"
           >
             <div className="p-4 flex-1 flex flex-col">
-              <h2 className="text-lg font-bold text-gray-800 mb-3">Send us a message</h2>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">Send me a message</h2>
               <form className="flex-1 flex flex-col">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                   <div>
@@ -145,7 +145,7 @@ export default function ContactPage() {
                   <div className="flex-1">
                     <h3 className="text-xs font-semibold text-gray-800">Phone</h3>
                     <p className="text-xs text-gray-600 cursor-pointer" onClick={number1Copied}>+91 7606939833</p>
-                    <p className="text-xs text-gray-600 cursor-pointer" onClick={number2Copied}>+91 7894174893 (Support)</p>
+                    <p className="text-xs text-gray-600 cursor-pointer" onClick={number2Copied}>+91 7894174893 (Whatsapp)</p>
                   </div>
                 </div>
                 
@@ -174,7 +174,7 @@ export default function ContactPage() {
 
               {/* Social Media Section */}
               <div className="mt-4 pt-3 border-t border-gray-100">
-                <h3 className="text-sm font-bold text-gray-800 mb-3">Follow Us</h3>
+                <h3 className="text-sm font-bold text-gray-800 mb-3">Follow Me On</h3>
                 <div className="flex justify-between space-x-2">
                   <motion.a
                     whileHover={{ y: -2, scale: 1.05 }}
@@ -219,7 +219,7 @@ export default function ContactPage() {
 
             {/* Emergency Support - Compact */}
             <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-xl shadow-lg p-4 border border-blue-100">
-              <h3 className="text-sm font-bold text-gray-800 mb-2">24/7 Emergency Support</h3>
+              <h3 className="text-sm font-bold text-gray-800 mb-2">Call me anytime</h3>
               <div className="bg-white p-3 rounded-lg border border-blue-100">
                 <p className="text-sm font-bold text-blue-600 cursor-pointer" onClick={number1Copied}>+91 7606939833</p>
                 <ToastContainer/>
