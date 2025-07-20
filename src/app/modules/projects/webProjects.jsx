@@ -12,13 +12,16 @@ import {
   Rocket, 
   ShieldCheck,
   Smartphone,
-  Users
+  Users,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react'
 
 const WebProjects = () => {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -38,6 +41,14 @@ const WebProjects = () => {
 
     fetchProjects()
   }, [])
+
+  const goToNextProject = () => {
+    setCurrentPage((prev) => (prev < projects.length - 1 ? prev + 1 : prev))
+  }
+
+  const goToPrevProject = () => {
+    setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev))
+  }
 
   if (loading) {
     return (
@@ -73,16 +84,52 @@ const WebProjects = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-purple-50 py-4 px-4 ">
       <div className="max-w-full mx-auto">
+        {/* Pagination controls */}
+        <div className="flex justify-between items-center mb-8">
+          <motion.button
+            onClick={goToPrevProject}
+            disabled={currentPage === 0}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg shadow-md transition-colors ${
+              currentPage === 0
+                ? 'bg-gray-300 cursor-not-allowed'
+                : 'bg-purple-600 text-white hover:bg-purple-700'
+            }`}
+          >
+            <ChevronLeft className="w-5 h-5" />
+            Previous Project
+          </motion.button>
 
+          <div className="text-gray-600 font-medium">
+            Project {currentPage + 1} of {projects.length}
+          </div>
+
+          <motion.button
+            onClick={goToNextProject}
+            disabled={currentPage === projects.length - 1}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg shadow-md transition-colors ${
+              currentPage === projects.length - 1
+                ? 'bg-gray-300 cursor-not-allowed'
+                : 'bg-purple-600 text-white hover:bg-purple-700'
+            }`}
+          >
+            Next Project
+            <ChevronRight className="w-5 h-5" />
+          </motion.button>
+        </div>
+
+        {/* Single project display */}
         <div className="grid gap-12">
-          {projects.map((project, index) => (
+          {projects.length > 0 && (
             <motion.div
-              key={index}
+              key={currentPage}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ 
                 duration: 0.5, 
-                delay: index * 0.15,
                 type: "spring",
                 stiffness: 100
               }}
@@ -90,16 +137,15 @@ const WebProjects = () => {
             >
               {/* Project Image at the top */}
               <motion.div 
-  className="w-full bg-gray-100 overflow-hidden"
-  whileHover={{ scale: 1.01 }}
->
-  <img 
-    src={project.imageURL} 
-    alt={project.name} 
-    className="w-full object-contain max-h-[500px] mx-auto"
-  />
-</motion.div>
-
+                className="w-full bg-gray-100 overflow-hidden"
+                whileHover={{ scale: 1.01 }}
+              >
+                <img 
+                  src={projects[currentPage].imageURL} 
+                  alt={projects[currentPage].name} 
+                  className="w-full object-contain max-h-[500px] mx-auto"
+                />
+              </motion.div>
 
               {/* Project Content below image */}
               <div className="p-8">
@@ -109,17 +155,17 @@ const WebProjects = () => {
                     whileHover={{ x: 5 }}
                     className="text-3xl font-bold text-gray-800 mb-2"
                   >
-                    {project.name}
+                    {projects[currentPage].name}
                   </motion.h2>
-                  <p className="text-gray-600 mb-6">{project.description}</p>
+                  <p className="text-gray-600 mb-6">{projects[currentPage].description}</p>
                 
                   {/* Three buttons in a row */}
                   <div className="flex flex-wrap gap-3 mb-8">
-                    {project.githubFrontend && (
+                    {projects[currentPage].githubFrontend && (
                       <motion.a
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        href={project.githubFrontend}
+                        href={projects[currentPage].githubFrontend}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg shadow-md hover:bg-gray-900 transition-colors flex-1 min-w-[200px] justify-center"
@@ -129,11 +175,11 @@ const WebProjects = () => {
                       </motion.a>
                     )}
 
-                    {project.githubBackend && (
+                    {projects[currentPage].githubBackend && (
                       <motion.a
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        href={project.githubBackend}
+                        href={projects[currentPage].githubBackend}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-800 transition-colors flex-1 min-w-[200px] justify-center"
@@ -143,11 +189,11 @@ const WebProjects = () => {
                       </motion.a>
                     )}
 
-                    {project.link && (
+                    {projects[currentPage].link && (
                       <motion.a
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        href={project.link}
+                        href={projects[currentPage].link}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition-colors flex-1 min-w-[200px] justify-center"
@@ -162,7 +208,7 @@ const WebProjects = () => {
                   <div className="mb-8">
                     <h3 className="text-xl font-semibold text-gray-800 mb-3">Tech Stack</h3>
                     <div className="flex flex-wrap gap-3">
-                      {project.techStack.map((tech, i) => (
+                      {projects[currentPage].techStack.map((tech, i) => (
                         <motion.span
                           key={i}
                           whileHover={{ 
@@ -184,27 +230,27 @@ const WebProjects = () => {
                   <FeatureSection 
                     icon={<Bug className="w-6 h-6 text-green-600" />}
                     title="Features"
-                    items={project.features}
+                    items={projects[currentPage].features}
                     color="green"
                   />
                   
                   <FeatureSection 
                     icon={<Users className="w-6 h-6 text-purple-600" />}
                     title="Use Cases"
-                    items={project.useCases}
+                    items={projects[currentPage].useCases}
                     color="purple"
                   />
                   
                   <FeatureSection 
                     icon={<Rocket className="w-6 h-6 text-indigo-600" />}
                     title="Future Plans"
-                    items={project.futurePlans}
+                    items={projects[currentPage].futurePlans}
                     color="indigo"
                   />
                 </div>
               </div>
             </motion.div>
-          ))}
+          )}
         </div>
       </div>
     </div>
