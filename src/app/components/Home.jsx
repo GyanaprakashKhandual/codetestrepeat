@@ -24,7 +24,8 @@ import {
   SiSelenium,
   SiTypescript,
   SiNextcloud,
-  SiAdguard
+  SiAdguard,
+  SiGrafana
 } from 'react-icons/si';
 
 const CounterAnimation = ({ end, duration = 2, suffix = "" }) => {
@@ -216,7 +217,7 @@ export default function Portfolio() {
     { Icon: FaGithub, href: "https://github.com/Gyanaprakashkhandual", label: "GitHub" },
     { Icon: FaLinkedin, href: "https://www.linkedin.com/in/gyana-prakash-khandual-79b205332/", label: "LinkedIn" },
     { Icon: FaCodeBranch, href: "https://leetcode.com/u/GyanaprakashKhandual/", label: "Leet Code" },
-    { Icon: FaTwitter, href: "https://twitter.com", label: "Twitter" }
+    { Icon: FaTwitter, href: "https://x.com/GyanaKhand77196", label: "Twitter" }
   ];
 
   return (

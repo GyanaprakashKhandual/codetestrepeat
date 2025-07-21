@@ -1,315 +1,206 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Menu, X, User, Video, Github,
-  Bookmark, Trophy, FileText, Heart,
-  Share2, Rss, Mic, Camera, Plus
-} from 'lucide-react';
-import { showSuccess, showError } from '../utils/alert.jsx';
-import About from '../modules/about/about.jsx';
-import GitHubPortfolio from '../modules/about/git.jsx';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import { useRef } from 'react';
 
-const ASidebar = () => {
-  const [isOpen, setIsOpen] = useState(false); // Always start collapsed
-  const [mounted, setMounted] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [hoveredItem, setHoveredItem] = useState(null);
-
-  const triggerToast = () => {
-    showSuccess("This is a success alert!", 3000); // Show for 3 seconds
-    setTimeout(() => {
-      showError("Now an error alert appears", 4000);
-    }, 4000);
-  }
+const About = () => {
+  const [activeSection, setActiveSection] = useState(0);
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth"});
-  }, []);
-
-  useEffect(() => {
-    setMounted(true);
-    // Retrieve selected menu item from localStorage if it exists
-    const savedItem = localStorage.getItem('selectedSidebarItem');
-    if (savedItem) {
-      try {
-        const parsedItem = JSON.parse(savedItem);
-        // Find the matching item in menuItems
-        const foundItem = menuItems.find(
-          item => item.text === parsedItem.text
-        );
-        if (foundItem) {
-          setSelectedItem(foundItem);
-        }
-      } catch (e) {
-        console.error('Failed to parse saved sidebar item', e);
-      }
+    if (isInView) {
+      controls.start("visible");
     }
-  }, []);
+  }, [controls, isInView]);
 
-
-  const menuItems = [
-    {
-      icon: Github,
-      text: 'GitHub',
-      color: 'text-gray-800',
-      bgGradient: 'bg-gradient-to-r from-gray-50 to-slate-100',
-      link: 'https://github.com',
-      component: <GitHubPortfolio />
-    },
-    {
-      icon: User,
-      text: 'Personal Info',
-      color: 'text-purple-600',
-      bgGradient: 'bg-gradient-to-r from-purple-50 to-violet-100',
-      component: <About />
-    },
-    {
-      icon: Video,
-      text: 'Vlogs',
-      color: 'text-red-600',
-      bgGradient: 'bg-gradient-to-r from-red-50 to-rose-100',
-      // component: <Vlogs /> 
-    },
-    {
-      icon: Bookmark,
-      text: 'Bookmarks',
-      color: 'text-green-600',
-      bgGradient: 'bg-gradient-to-r from-green-50 to-emerald-100',
-      // component: <Bookmarks /> 
-    },
-    {
-      icon: Trophy,
-      text: 'Achievements',
-      color: 'text-amber-600',
-      bgGradient: 'bg-gradient-to-r from-amber-50 to-yellow-100',
-      // component: <Achievements /> 
-    },
-    {
-      icon: FileText,
-      text: 'Resume',
-      color: 'text-cyan-600',
-      bgGradient: 'bg-gradient-to-r from-cyan-50 to-sky-100',
-      // component: <Resume /> 
-    },
-    {
-      icon: Heart,
-      text: 'Interests',
-      color: 'text-rose-600',
-      bgGradient: 'bg-gradient-to-r from-rose-50 to-pink-100',
-      // component: <Interests /> 
-    },
-    {
-      icon: Share2,
-      text: 'Social Media',
-      color: 'text-sky-600',
-      bgGradient: 'bg-gradient-to-r from-sky-50 to-cyan-100',
-      // component: <Social /> 
-    },
-    {
-      icon: Rss,
-      text: 'Blog',
-      color: 'text-orange-600',
-      bgGradient: 'bg-gradient-to-r from-orange-50 to-amber-100',
-      // component: <Blog /> 
-    },
-    {
-      icon: Mic,
-      text: 'Podcasts',
-      color: 'text-lime-600',
-      bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100',
-      // component: <Podcasts /> 
-    },
-    {
-      icon: Camera,
-      text: 'Gallery',
-      color: 'text-cyan-600',
-      bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100',
-      // component: <Gallery /> 
-    },
-  ];
-
-  const handleItemClick = (item) => {
-    if (item.external) {
-      window.open(item.link, '_blank');
-    } else {
-      setSelectedItem(item);
-      // Persist selected item in localStorage
-      localStorage.setItem('selectedSidebarItem', JSON.stringify({ text: item.text }));
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
     }
   };
 
-  if (!mounted) return null;
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { 
+      scale: 0.95, 
+      opacity: 0
+    },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  const aboutSections = [
+    {
+      icon: "🎯",
+      title: "Background & Philosophy",
+      content: "With a solid foundation in Physics and over 5 years of experience in the technology sector, I bring analytical precision to quality assurance and software development. My approach combines systematic problem-solving with innovative thinking to deliver reliable, high-quality solutions.",
+      borderColor: "border-blue-200",
+      accentColor: "text-blue-600"
+    },
+    {
+      icon: "⚡",
+      title: "Technical Expertise",
+      content: "Specialized in test automation frameworks, quality assurance methodologies, and front-end development. I focus on creating robust systems that maintain excellence at scale, with expertise in modern testing tools and development practices that ensure product reliability.",
+      borderColor: "border-green-200",
+      accentColor: "text-green-600"
+    },
+    {
+      icon: "🚀",
+      title: "Professional Growth",
+      content: "Committed to continuous learning and knowledge sharing within the tech community. I actively contribute to open-source projects, mentor emerging QA professionals, and stay current with industry best practices to deliver cutting-edge solutions.",
+      borderColor: "border-purple-200",
+      accentColor: "text-purple-600"
+    }
+  ];
 
   return (
-    <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen select-none">
-      {/* Sticky Sidebar - Always Collapsed */}
-      <div className="sticky top-14 self-start">
-        <div
-          className={`flex flex-col bg-gradient-to-b from-white/95 via-cyan-50/90 to-indigo-50/95 border-r border-cyan-200/50 shadow-lg transition-all duration-300 ${isOpen ? 'w-80' : 'w-20'
-            }`}
-          style={{ height: 'calc(100vh - 56px)' }}
-        >
-          {/* Header */}
-          <div className="p-4 border-b border-cyan-200/50">
-            <div className="flex items-center justify-between">
-              {isOpen && (
-                <div className="space-y-1">
-                  <h2 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    Personal Links
-                  </h2>
-                </div>
-              )}
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="ml-1 mt-1 p-2 rounded-lg bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white hover:shadow-lg transition-shadow duration-200"
-              >
-                {isOpen ? <X size={16} /> : <Menu size={16} />}
-              </button>
-            </div>
-          </div>
-
-          {/* Menu Items */}
-          <div className="flex-1 py-4 overflow-y-auto">
-            <nav className="space-y-2 px-3">
-              {menuItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.text}
-                    className="relative"
-                    onMouseEnter={() => setHoveredItem(item.text)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                  >
-                    <div
-                      onClick={() => handleItemClick(item)}
-                      className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
-                    >
-                      <div className="flex items-center p-3 space-x-3">
-                        <div className={`${item.color} group-hover:scale-105 transition-transform duration-200`}>
-                          <Icon size={20} strokeWidth={1.5} />
-                        </div>
-                        {isOpen && (
-                          <div className="flex-1">
-                            <span className="text-slate-700 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                              {item.text}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Tooltip - Only show when collapsed */}
-                    <AnimatePresence>
-                      {!isOpen && hoveredItem === item.text && (
-                        <motion.div
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -10 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 z-[9999]"
-                        >
-                          <div className="bg-slate-800 text-white text-sm px-3 py-2 rounded-lg shadow-xl whitespace-nowrap">
-                            {item.text}
-                            {/* Arrow */}
-                            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1">
-                              <div className="w-2 h-2 bg-slate-800 rotate-45"></div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </nav>
-          </div>
-
-          {/* Add More */}
-          <div className="border-t border-cyan-200/50 p-4">
-            <div
-              className="relative"
-              onMouseEnter={() => setHoveredItem('Add New Link')}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              <div
-                className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200"
-                onClick={triggerToast}
-              >
-                <div className="flex items-center p-3 space-x-3">
-                  <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
-                    <Plus size={20} strokeWidth={1.5} />
-                  </div>
-                  {isOpen && (
-                    <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                      Add New Link
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Tooltip for Add New Link - Only show when collapsed */}
-              <AnimatePresence>
-                {!isOpen && hoveredItem === 'Add New Link' && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 z-[9999]"
-                  >
-                    <div className="bg-slate-800 text-white text-sm px-3 py-2 rounded-lg shadow-xl whitespace-nowrap">
-                      Add New Link
-                      {/* Arrow */}
-                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1">
-                        <div className="w-2 h-2 bg-slate-800 rotate-45"></div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
+    <div className="bg-white min-h-screen">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,_rgba(0,0,0,0.05)_1px,_transparent_0)] bg-[size:24px_24px] opacity-30" />
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        <AnimatePresence mode="wait">
-          {selectedItem ? (
+      <div className="relative z-10">
+        {/* Header Section */}
+        <motion.div
+          className="text-center pt-16 pb-12 px-4 lg:px-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="w-full"
+          >
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+              About Me
+            </h1>
+            <div className="w-16 h-0.5 bg-gray-900 mx-auto mb-6" />
+            <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              QA Engineer & Developer focused on delivering quality solutions through systematic testing and innovative development practices.
+            </p>
+          </motion.div>
+        </motion.div>
+
+        {/* Main Content */}
+        <div className="w-full px-4 lg:px-8 pb-20" ref={ref}>
+          <motion.div
+            className="w-full max-w-6xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            animate={controls}
+          >
+            <div className="grid gap-6 lg:gap-8 w-full">
+              {aboutSections.map((section, index) => (
+                <motion.div
+                  key={index}
+                  className="group relative w-full"
+                  variants={cardVariants}
+                  whileHover={{ y: -2 }}
+                  onHoverStart={() => setActiveSection(index)}
+                >
+                  <div className={`bg-white rounded-lg border-2 ${section.borderColor} p-6 lg:p-8 shadow-sm hover:shadow-md transition-all duration-300 w-full`}>
+                    <div className="flex items-start gap-4 lg:gap-6 w-full">
+                      {/* Icon */}
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center border border-gray-200">
+                          <span className="text-xl">{section.icon}</span>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`text-lg font-semibold ${section.accentColor} mb-3`}>
+                          {section.title}
+                        </h3>
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                          {section.content}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Skills Summary */}
             <motion.div
-              key={selectedItem.text}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              className="mt-16 bg-gray-50 rounded-lg p-6 lg:p-8 border border-gray-200 w-full"
+              variants={itemVariants}
+              initial="hidden"
+              animate={controls}
             >
-              {selectedItem.component}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="default-content"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="max-w-4xl mx-auto">
-                <div className="bg-gradient-to-br from-white/90 via-cyan-50/80 to-indigo-50/90 rounded-xl shadow-lg p-8 border border-cyan-200/30">
-                  <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    Personal Explorer
-                  </h1>
-                  <p className="text-slate-600 text-lg leading-relaxed mb-8">
-                    Explore personal links, achievements, and more. Click on any item to visit the respective page or resource.
-                  </p>
-                </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">
+                Core Competencies
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center w-full">
+                {[
+                  'Test Automation',
+                  'Quality Assurance',
+                  'Frontend Development',
+                  'System Analysis',
+                  'Process Optimization',
+                  'Team Leadership',
+                  'Technical Documentation',
+                  'Continuous Integration'
+                ].map((skill, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white px-3 py-2 rounded-md border border-gray-200 text-xs font-medium text-gray-700"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    {skill}
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
+
+            {/* Professional Statement */}
+            <motion.div
+              className="mt-12 text-center w-full"
+              variants={itemVariants}
+              initial="hidden"
+              animate={controls}
+            >
+              <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-4 rounded-lg inline-block">
+                <p className="text-sm font-medium">
+                  Ready to contribute to your team's success through quality-driven development
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ASidebar;
+export default About;
