@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { 
   FaGithub, 
   FaLinkedin, 
   FaTwitter, 
-  FaInstagram, 
   FaCode, 
   FaBug, 
   FaShieldAlt,
@@ -16,14 +15,13 @@ import {
   FaCoffee,
   FaHeart,
   FaGraduationCap,
+  FaCodeBranch,
 } from 'react-icons/fa';
 import {  
   SiNodedotjs, 
   SiMongodb, 
   SiTailwindcss,
   SiSelenium,
-  SiCypress,
-  SiPostman,
   SiTypescript,
   SiNextcloud,
   SiAdguard
@@ -210,15 +208,15 @@ export default function Portfolio() {
     { Icon: SiMongodb, name: "MongoDB" },
     { Icon: SiTailwindcss, name: "Tailwind" },
     { Icon: SiSelenium, name: "Selenium" },
-    { Icon: SiCypress, name: "Cypress" },
+    { Icon: SiGrafana, name: "Grafana" },
     { Icon: SiAdguard, name: "New Map" }
   ];
 
   const socialLinks = [
-    { Icon: FaGithub, href: "https://github.com", label: "GitHub" },
-    { Icon: FaLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { Icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
-    { Icon: FaInstagram, href: "https://instagram.com", label: "Instagram" }
+    { Icon: FaGithub, href: "https://github.com/Gyanaprakashkhandual", label: "GitHub" },
+    { Icon: FaLinkedin, href: "https://www.linkedin.com/in/gyana-prakash-khandual-79b205332/", label: "LinkedIn" },
+    { Icon: FaCodeBranch, href: "https://leetcode.com/u/GyanaprakashKhandual/", label: "Leet Code" },
+    { Icon: FaTwitter, href: "https://twitter.com", label: "Twitter" }
   ];
 
   return (
