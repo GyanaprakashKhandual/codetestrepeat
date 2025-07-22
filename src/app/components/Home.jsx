@@ -320,7 +320,6 @@ export default function Portfolio() {
                 <div className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-8 text-lg md:text-xl text-gray-700">
                   <motion.div 
                     className="flex items-center gap-2"
-                    whileHover={{ scale: 1.1, rotate: 2 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <FaBug className="text-green-600" />
@@ -328,7 +327,6 @@ export default function Portfolio() {
                   </motion.div>
                   <motion.div 
                     className="flex items-center gap-2"
-                    whileHover={{ scale: 1.1, rotate: -2 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <FaCode className="text-sky-600" />
@@ -336,7 +334,6 @@ export default function Portfolio() {
                   </motion.div>
                   <motion.div 
                     className="flex items-center gap-2"
-                    whileHover={{ scale: 1.1, rotate: 2 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <FaShieldAlt className="text-red-600" />
