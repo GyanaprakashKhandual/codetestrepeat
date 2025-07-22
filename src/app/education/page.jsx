@@ -148,7 +148,7 @@ const page = () => {
               viewport={{ once: true }}
               className={`bg-gradient-to-br ${getColor(
                 item.type
-              )} rounded-xl shadow-md overflow-hidden border border-opacity-20 ${item.type === "professional"
+              )} rounded-xl   overflow-hidden border border-opacity-20 ${item.type === "professional"
                   ? "border-blue-200"
                   : item.type === "academic"
                     ? "border-pink-200"
