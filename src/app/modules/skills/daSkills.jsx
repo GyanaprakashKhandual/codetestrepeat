@@ -159,37 +159,44 @@ const DataAnalyiticsSkills = () => {
         />
       </svg>
 
-      <div className="relative z-10 container mx-auto px-4 py-12">
+      <div className="relative z-10 container mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <div className="flex items-center justify-center mb-4">
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              className="mr-3"
-            >
-              <Trophy className="w-8 h-8 text-yellow-500" />
-            </motion.div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Data Analytics Skills
-            </h1>
-          </div>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto ">
-            Explore my technical expertise and experience across various data refine technologies
-          </p>
-        </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="relative p-6 mb-12 bg-gradient-to-br from-green-100 via-blue-100 to-white backdrop-blur-sm"
+                >
+        
+        
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="flex items-center justify-center mb-4">
+                      <motion.div
+                        className="mr-3"
+                      >
+                        <FaDatabase className="w-12 h-12 text-blue-600" />
+                      </motion.div>
+                      <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        Data Analytics Skills
+                      </h1>
+                    </div>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.8 }}
+                      className="text-gray-600 text-lg max-w-2xl mx-auto text-center"
+                    >
+                      Explore my technical expertise across various Data Analytics technologies
+                    </motion.p>
+                  </div>
+                </motion.div>
 
         {/* Skills Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4"
         >
           {skills.map((skill, index) => {
             const IconComponent = getIcon(skill.tech);
@@ -201,9 +208,8 @@ const DataAnalyiticsSkills = () => {
                 variants={cardVariants}
                 whileHover={{ 
                   scale: 1.05,
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
                 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:border-blue-200 transition-all duration-300"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-blue-200 transition-all duration-300"
               >
                 {/* Tech Icon and Name */}
                 <div className="flex items-center mb-4">
@@ -254,7 +260,7 @@ const DataAnalyiticsSkills = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-16 text-center"
+          className="mt-16 text-center mb-3"
         >
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-white/20 max-w-4xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

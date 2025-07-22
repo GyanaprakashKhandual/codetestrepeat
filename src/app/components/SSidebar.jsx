@@ -18,7 +18,8 @@ import {
   BarChart3,
   Lock,
   TestTube2,
-  CircuitBoard
+  CircuitBoard,
+  SubscriptIcon
 } from 'lucide-react';
 // import WebDeveloper from '../modules/web-developer.jsx';
 import QAEngineer from '../modules/skills/qaSkills';
@@ -96,7 +97,7 @@ const ProfessionalSidebar = () => {
     <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen select-none">
       <div className='sticky top-14 self-start'>
         <div
-          className={`flex flex-col bg-gradient-to-b from-white/95 via-cyan-50/90 to-indigo-50/95 border-r border-cyan-200/50 shadow-lg transition-all duration-300 ${
+          className={`flex flex-col bg-gradient-to-b from-white/95 via-cyan-50/90 to-indigo-50/95 border-r border-cyan-200/50 transition-all duration-300 ${
             isOpen ? 'w-80' : 'w-20'
           }`}
           style={{ height: 'calc(100vh - 56px)' }}
@@ -150,11 +151,11 @@ const ProfessionalSidebar = () => {
             <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200">
               <div className="flex items-center p-3 space-x-3">
                 <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
-                  <Plus size={20} strokeWidth={1.5} />
+                  <SubscriptIcon size={20} strokeWidth={1.5} />
                 </div>
                 {isOpen && (
                   <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
-                    Add New Skill
+                    Subscribe
                   </span>
                 )}
               </div>
