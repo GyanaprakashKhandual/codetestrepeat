@@ -81,9 +81,9 @@ const About = () => {
   ];
 
   return (
-    <div className="bg-white min-w-full mx-auto">
+    <div className="mx-auto">
       {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white">
+      <div className="inset-0 bg-gradient-to-br from-gray-50 to-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,_rgba(0,0,0,0.05)_1px,_transparent_0)] bg-[size:24px_24px] opacity-30" />
       </div>
 

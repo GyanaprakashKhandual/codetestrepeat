@@ -1,206 +1,206 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import {
+  Menu,
+  X,
+  Code,
+  Bug,
+  Plus,
+} from 'lucide-react';
+import About from '../modules/about/about';
+import Git from '../modules/about/git';
+import { FaGithub, FaUser } from 'react-icons/fa';
 
-const About = () => {
-  const [activeSection, setActiveSection] = useState(0);
-  const controls = useAnimation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+const ASidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState(null);
 
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [controls, isInView]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { 
-      scale: 0.95, 
-      opacity: 0
-    },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }
-    }
-  };
-
-  const aboutSections = [
-    {
-      icon: "🎯",
-      title: "Background & Philosophy",
-      content: "With a solid foundation in Physics and over 5 years of experience in the technology sector, I bring analytical precision to quality assurance and software development. My approach combines systematic problem-solving with innovative thinking to deliver reliable, high-quality solutions.",
-      borderColor: "border-blue-200",
-      accentColor: "text-blue-600"
-    },
-    {
-      icon: "⚡",
-      title: "Technical Expertise",
-      content: "Specialized in test automation frameworks, quality assurance methodologies, and front-end development. I focus on creating robust systems that maintain excellence at scale, with expertise in modern testing tools and development practices that ensure product reliability.",
-      borderColor: "border-green-200",
-      accentColor: "text-green-600"
-    },
-    {
-      icon: "🚀",
-      title: "Professional Growth",
-      content: "Committed to continuous learning and knowledge sharing within the tech community. I actively contribute to open-source projects, mentor emerging QA professionals, and stay current with industry best practices to deliver cutting-edge solutions.",
-      borderColor: "border-purple-200",
-      accentColor: "text-purple-600"
-    }
+  const skillItems = [
+    { icon: FaUser, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <About/> },
+    { icon: FaGithub, text: 'QA Engineer', color: 'text-emerald-600', bgGradient: 'bg-gradient-to-r from-emerald-50 to-green-100', component: <Git/> },
   ];
 
-  return (
-    <div className="bg-white min-h-screen">
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,_rgba(0,0,0,0.05)_1px,_transparent_0)] bg-[size:24px_24px] opacity-30" />
+  const cardItems = [
+    { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code, component: <About/>, text: "About Me" },
+    { title: "Quality Assurance", desc: "Manual & Automated Testing", gradient: "from-emerald-100 to-green-100", border: "border-emerald-200", icon: Bug, component: <Git/>, text: "Github" },
+  ];
+
+  useEffect(() => {
+    setMounted(true);
+    
+    // Only access localStorage after component is mounted (client-side)
+    if (typeof window !== 'undefined') {
+      try {
+        const savedSkill = localStorage.getItem('selectedPSkill');
+        if (savedSkill) {
+          const parsedSkill = JSON.parse(savedSkill);
+          // Find the matching skill in skillItems and cardItems
+          const foundSkill = [...skillItems, ...cardItems].find(
+            item => item.text === parsedSkill.text || item.title === parsedSkill.text
+          );
+          if (foundSkill) {
+            setSelectedSkill(foundSkill);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to parse saved skill', e);
+      }
+    }
+  }, []);
+
+  const handleSkillClick = (skill) => {
+    setSelectedSkill(skill);
+    // Save the selected skill to localStorage only on client-side
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('selectedPSkill', JSON.stringify({
+          text: skill.text || skill.title
+        }));
+      } catch (e) {
+        console.error('Failed to save skill to localStorage', e);
+      }
+    }
+  };
+
+  // Don't render anything until mounted to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen">
+        <div className="flex-1 p-8 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
+        </div>
       </div>
+    );
+  }
 
-      <div className="relative z-10">
-        {/* Header Section */}
-        <motion.div
-          className="text-center pt-16 pb-12 px-4 lg:px-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+  return (
+    <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen select-none">
+      <div className='sticky top-14 self-start'>
+        <div
+          className={`flex flex-col bg-gradient-to-b from-white/95 via-cyan-50/90 to-indigo-50/95 border-r border-cyan-200/50 shadow-lg transition-all duration-300 ${
+            isOpen ? 'w-80' : 'w-20'
+          }`}
+          style={{ height: 'calc(100vh - 56px)' }}
         >
-          <motion.div
-            variants={itemVariants}
-            className="w-full"
-          >
-            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
-              About Me
-            </h1>
-            <div className="w-16 h-0.5 bg-gray-900 mx-auto mb-6" />
-            <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              QA Engineer & Developer focused on delivering quality solutions through systematic testing and innovative development practices.
-            </p>
-          </motion.div>
-        </motion.div>
+          {/* Header */}
+          <div className="p-4 border-b border-cyan-200/50">
+            <div className="flex items-center justify-between">
+              {isOpen && (
+                <h2 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Tech Roles & Skills
+                </h2>
+              )}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="ml-1 mt-1 p-2 rounded-lg bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white hover:shadow-lg transition-shadow duration-200"
+              >
+                {isOpen ? <X size={16} /> : <Menu size={16} />}
+              </button>
+            </div>
+          </div>
 
-        {/* Main Content */}
-        <div className="w-full px-4 lg:px-8 pb-20" ref={ref}>
-          <motion.div
-            className="w-full max-w-6xl mx-auto"
-            variants={containerVariants}
-            initial="hidden"
-            animate={controls}
-          >
-            <div className="grid gap-6 lg:gap-8 w-full">
-              {aboutSections.map((section, index) => (
-                <motion.div
-                  key={index}
-                  className="group relative w-full"
-                  variants={cardVariants}
-                  whileHover={{ y: -2 }}
-                  onHoverStart={() => setActiveSection(index)}
-                >
-                  <div className={`bg-white rounded-lg border-2 ${section.borderColor} p-6 lg:p-8 shadow-sm hover:shadow-md transition-all duration-300 w-full`}>
-                    <div className="flex items-start gap-4 lg:gap-6 w-full">
-                      {/* Icon */}
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center border border-gray-200">
-                          <span className="text-xl">{section.icon}</span>
-                        </div>
+          {/* Sidebar Items */}
+          <div className="flex-1 py-4 overflow-y-auto">
+            <nav className="space-y-2 px-3">
+              {skillItems.map((item, index) => {
+                const Icon = item.icon;
+                const isActive = selectedSkill && (selectedSkill.text === item.text || selectedSkill.title === item.text);
+                return (
+                  <div
+                    key={`${item.text}-${index}`}
+                    onClick={() => handleSkillClick(item)}
+                    className={`rounded-lg cursor-pointer group transition-colors duration-200 ${
+                      isActive 
+                        ? 'bg-white shadow-sm border border-cyan-200/70' 
+                        : 'hover:bg-white/50'
+                    }`}
+                  >
+                    <div className="flex items-center p-3 space-x-3">
+                      <div className={`${isActive ? 'text-cyan-600 scale-110' : item.color} group-hover:scale-105 transition-transform duration-200`}>
+                        <Icon size={20} />
                       </div>
-
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className={`text-lg font-semibold ${section.accentColor} mb-3`}>
-                          {section.title}
-                        </h3>
-                        <p className="text-sm text-gray-700 leading-relaxed">
-                          {section.content}
-                        </p>
-                      </div>
+                      {isOpen && (
+                        <span className={`font-medium text-sm transition-colors duration-200 ${
+                          isActive 
+                            ? 'text-cyan-700 font-semibold' 
+                            : 'text-slate-700 group-hover:text-cyan-700'
+                        }`}>
+                          {item.text}
+                        </span>
+                      )}
                     </div>
                   </div>
-                </motion.div>
-              ))}
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* Add More Section */}
+          <div className="border-t border-cyan-200/50 p-4">
+            <div className="rounded-lg cursor-pointer group hover:bg-white/50 transition-colors duration-200">
+              <div className="flex items-center p-3 space-x-3">
+                <div className="text-cyan-500 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-200">
+                  <Plus size={20} strokeWidth={1.5} />
+                </div>
+                {isOpen && (
+                  <span className="text-slate-600 font-medium text-sm group-hover:text-cyan-700 transition-colors duration-200">
+                    Add New Skill
+                  </span>
+                )}
+              </div>
             </div>
-
-            {/* Skills Summary */}
-            <motion.div
-              className="mt-16 bg-gray-50 rounded-lg p-6 lg:p-8 border border-gray-200 w-full"
-              variants={itemVariants}
-              initial="hidden"
-              animate={controls}
-            >
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">
-                Core Competencies
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center w-full">
-                {[
-                  'Test Automation',
-                  'Quality Assurance',
-                  'Frontend Development',
-                  'System Analysis',
-                  'Process Optimization',
-                  'Team Leadership',
-                  'Technical Documentation',
-                  'Continuous Integration'
-                ].map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white px-3 py-2 rounded-md border border-gray-200 text-xs font-medium text-gray-700"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    {skill}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Professional Statement */}
-            <motion.div
-              className="mt-12 text-center w-full"
-              variants={itemVariants}
-              initial="hidden"
-              animate={controls}
-            >
-              <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-4 rounded-lg inline-block">
-                <p className="text-sm font-medium">
-                  Ready to contribute to your team's success through quality-driven development
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-auto">
+        {selectedSkill ? (
+          selectedSkill.component
+        ) : (
+          <div className="max-w-4xl mx-auto p-4">
+            <div className="bg-gradient-to-br from-white/90 via-cyan-50/80 to-indigo-50/90 rounded-xl shadow-lg p-8 border border-cyan-200/30">
+              <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                Technical Skills Explorer
+              </h1>
+              <p className="text-slate-600 text-lg leading-relaxed mb-8">
+                Explore various technical roles and their required skill sets. Click on any role to discover learning paths,
+                recommended resources, and career opportunities in each specialization.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {cardItems.map((item, index) => {
+                  const Icon = item.icon;
+                  const isActive = selectedSkill && (selectedSkill.text === item.text || selectedSkill.title === item.title);
+                  return (
+                    <div
+                      key={`${item.title}-${index}`}
+                      onClick={() => handleSkillClick(item)}
+                      className={`bg-gradient-to-br ${item.gradient} p-6 rounded-lg border ${
+                        isActive 
+                          ? 'border-cyan-400 shadow-md ring-1 ring-cyan-200' 
+                          : item.border
+                      } hover:shadow-md transition-shadow duration-200 cursor-pointer group`}
+                    >
+                      <div className="flex items-center mb-3">
+                        <Icon className={`${
+                          isActive 
+                            ? 'text-cyan-600 scale-110' 
+                            : 'text-cyan-600'
+                        } mr-3 group-hover:scale-105 transition-transform duration-200`} size={24} />
+                        <h3 className="font-semibold text-slate-700 text-lg">{item.title}</h3>
+                      </div>
+                      <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default About;
+export default ASidebar;
