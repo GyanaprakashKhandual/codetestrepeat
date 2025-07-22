@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Code, Zap, Trophy, TrendingUp, Star, Globe, Layers, Palette, Database, Settings } from 'lucide-react';
+import { Code, Zap, TrendingUp, Star, Globe, Layers, Palette, Database, Settings } from 'lucide-react';
+import { FaCoffee } from 'react-icons/fa';
 
 const WebSkillsDashboard = () => {
   const [skills, setSkills] = useState([]);
@@ -74,13 +75,13 @@ const WebSkillsDashboard = () => {
   };
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 50,
       scale: 0.9
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -141,15 +142,15 @@ const WebSkillsDashboard = () => {
           cy="200"
           r="150"
           fill="url(#grad1)"
-          animate={{ 
-            cx: [200, 800, 200], 
+          animate={{
+            cx: [200, 800, 200],
             cy: [200, 600, 200],
             r: [150, 200, 150]
           }}
-          transition={{ 
-            duration: 20, 
-            repeat: Infinity, 
-            ease: "linear" 
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
           }}
         />
         <motion.circle
@@ -157,42 +158,49 @@ const WebSkillsDashboard = () => {
           cy="800"
           r="100"
           fill="url(#grad1)"
-          animate={{ 
-            cx: [800, 200, 800], 
+          animate={{
+            cx: [800, 200, 800],
             cy: [800, 200, 800],
             r: [100, 180, 100]
           }}
-          transition={{ 
-            duration: 15, 
-            repeat: Infinity, 
-            ease: "linear" 
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear"
           }}
         />
       </svg>
 
-      <div className="relative z-10 container mx-auto px-4 py-12">
+      <div className="relative z-10 container mx-auto rounded-b-2xl">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.6 }}
+          className="relative p-6 mb-12 bg-gradient-to-br from-green-100 via-blue-100 to-white backdrop-blur-sm"
         >
-          <div className="flex items-center justify-center mb-4">
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              className="mr-3"
+
+
+          <div className="flex flex-col items-center justify-center">
+            <div className="flex items-center justify-center mb-4">
+              <motion.div
+                className="mr-3"
+              >
+                <FaCoffee className="w-12 h-12 text-blue-600" />
+              </motion.div>
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Web Development Skills
+              </h1>
+            </div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="text-gray-600 text-lg max-w-2xl mx-auto text-center"
             >
-              <Trophy className="w-8 h-8 text-yellow-500" />
-            </motion.div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Web Development Skills
-            </h1>
+              Explore my technical expertise and experience across various web technologies
+            </motion.p>
           </div>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Explore my technical expertise and experience across various web technologies
-          </p>
         </motion.div>
 
         {/* Skills Grid */}
@@ -200,21 +208,21 @@ const WebSkillsDashboard = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4"
         >
           {skills.map((skill, index) => {
             const IconComponent = getIcon(skill.tech);
             const coveragePercentage = parseInt(skill.covered);
-            
+
             return (
               <motion.div
                 key={skill.tech}
                 variants={cardVariants}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+
                 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:border-blue-200 transition-all duration-300"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-blue-200 transition-all duration-300"
               >
                 {/* Tech Icon and Name */}
                 <div className="flex items-center mb-4">
@@ -232,7 +240,7 @@ const WebSkillsDashboard = () => {
                     <span className="text-sm text-gray-600">Projects</span>
                     <span className="font-semibold text-blue-600">{skill.project}</span>
                   </div>
-                  
+
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Experience</span>
                     <span className="font-semibold text-green-600">{skill.experience}</span>
@@ -265,7 +273,7 @@ const WebSkillsDashboard = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-16 text-center"
+          className="mt-16 text-center mb-3"
         >
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-white/20 max-w-4xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

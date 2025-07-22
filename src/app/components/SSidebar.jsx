@@ -164,7 +164,7 @@ const ProfessionalSidebar = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 p-1 overflow-auto">
+      <div className="flex-1 overflow-auto">
         {selectedSkill ? (
           selectedSkill.component
         ) : (
