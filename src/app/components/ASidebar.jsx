@@ -35,10 +35,9 @@ const ASidebar = () => {
         const savedSkill = localStorage.getItem('selectedPSkill');
         if (savedSkill) {
           const parsedSkill = JSON.parse(savedSkill);
-          // Find the matching skill in skillItems and cardItems
-          const foundSkill = [...skillItems, ...cardItems].find(
-            item => item.text === parsedSkill.text || item.title === parsedSkill.text
-          );
+          // Find the matching skill in skillItems first, then cardItems
+          const foundSkill = skillItems.find(item => item.text === parsedSkill.text) || 
+                            cardItems.find(item => item.text === parsedSkill.text || item.title === parsedSkill.text);
           if (foundSkill) {
             setSelectedSkill(foundSkill);
           }
@@ -105,7 +104,7 @@ const ASidebar = () => {
             <nav className="space-y-2 px-3">
               {skillItems.map((item, index) => {
                 const Icon = item.icon;
-                const isActive = selectedSkill && (selectedSkill.text === item.text || selectedSkill.title === item.text);
+                const isActive = selectedSkill?.text === item.text;
                 return (
                   <div
                     key={`${item.text}-${index}`}
@@ -171,7 +170,7 @@ const ASidebar = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {cardItems.map((item, index) => {
                   const Icon = item.icon;
-                  const isActive = selectedSkill && (selectedSkill.text === item.text || selectedSkill.title === item.title);
+                  const isActive = selectedSkill?.text === item.text || selectedSkill?.title === item.title;
                   return (
                     <div
                       key={`${item.title}-${index}`}
