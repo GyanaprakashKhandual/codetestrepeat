@@ -11,6 +11,7 @@ import About from '../modules/about/about';
 import Git from '../modules/about/git';
 import { FaGithub, FaUser } from 'react-icons/fa';
 
+
 const ASidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);

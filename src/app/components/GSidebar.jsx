@@ -22,7 +22,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import QA from '../modules/guides/qa';
-
+import CS from '../modules/guides/cs';
 const GSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -55,7 +55,7 @@ const GSidebar = () => {
     { icon: Code, text: 'Web Developer', color: 'text-sky-500', bgGradient: 'bg-gradient-to-r from-sky-50 to-blue-100' },
     { icon: Bug, text: 'QA Engineer', color: 'text-lime-500', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', component: <QA/> },
     { icon: BarChart3, text: 'Data Analyst', color: 'text-cyan-500', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' },
-    { icon: Shield, text: 'Cyber Security', color: 'text-blue-500', bgGradient: 'bg-gradient-to-r from-blue-50 to-indigo-100' },
+    { icon: Shield, text: 'Cyber Security', color: 'text-blue-500', bgGradient: 'bg-gradient-to-r from-blue-50 to-indigo-100', component: <CS/> },
     { icon: Gamepad, text: 'Game Engineer', color: 'text-emerald-500', bgGradient: 'bg-gradient-to-r from-emerald-50 to-teal-100' },
     { icon: Cpu, text: 'Computer Engineer', color: 'text-sky-600', bgGradient: 'bg-gradient-to-r from-sky-100 to-blue-100' },
     { icon: Brain, text: 'Machine Learning', color: 'text-lime-600', bgGradient: 'bg-gradient-to-r from-lime-100 to-green-100' },
@@ -78,7 +78,7 @@ const GSidebar = () => {
     <div className="flex mt-14 bg-gradient-to-br from-sky-50 via-white to-lime-50 min-h-screen select-none">
       <div className='sticky top-14 self-start'>
         <div
-          className={`flex flex-col bg-gradient-to-b from-white/95 via-sky-50/90 to-lime-50/95 border-r border-sky-200/50 shadow-lg transition-all duration-300 ${
+          className={`flex flex-col bg-gradient-to-b from-white/95 via-sky-50/90 to-lime-50/95 border-r border-sky-200/50 transition-all duration-300 ${
             isOpen ? 'w-80' : 'w-20'
           }`}
           style={{ height: 'calc(100vh - 56px)' }}
