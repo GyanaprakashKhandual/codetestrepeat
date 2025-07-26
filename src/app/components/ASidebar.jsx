@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import {
   Menu,
@@ -6,73 +5,76 @@ import {
   Code,
   Bug,
   Plus,
+  User,
+  Github
 } from 'lucide-react';
 import About from '../modules/about/about';
-import Git from '../modules/about/git';
-import { FaGithub, FaUser } from 'react-icons/fa';
+import Git from '../modules/about/git'
+
 
 
 const ASidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null);
 
   const skillItems = [
-    { icon: FaUser, text: 'Web Developer', color: 'text-blue-600', bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', component: <About/> },
-    { icon: FaGithub, text: 'QA Engineer', color: 'text-emerald-600', bgGradient: 'bg-gradient-to-r from-emerald-50 to-green-100', component: <Git/> },
+    { 
+      icon: User, 
+      text: 'Web Developer', 
+      id: 'web-dev',
+      color: 'text-blue-600', 
+      bgGradient: 'bg-gradient-to-r from-blue-50 to-sky-100', 
+      component: <About /> 
+    },
+    { 
+      icon: Github, 
+      text: 'QA Engineer', 
+      id: 'qa-engineer',
+      color: 'text-emerald-600', 
+      bgGradient: 'bg-gradient-to-r from-emerald-50 to-green-100', 
+      component: <Git /> 
+    },
   ];
 
   const cardItems = [
-    { title: "Web Development", desc: "Frontend, Backend & Fullstack", gradient: "from-blue-100 to-sky-100", border: "border-blue-200", icon: Code, component: <About/>, text: "About Me" },
-    { title: "Quality Assurance", desc: "Manual & Automated Testing", gradient: "from-emerald-100 to-green-100", border: "border-emerald-200", icon: Bug, component: <Git/>, text: "Github" },
+    { 
+      title: "Web Development", 
+      desc: "Frontend, Backend & Fullstack", 
+      gradient: "from-blue-100 to-sky-100", 
+      border: "border-blue-200", 
+      icon: Code, 
+      component: <About />, 
+      text: "Web Developer",
+      id: 'web-dev'
+    },
+    { 
+      title: "Quality Assurance", 
+      desc: "Manual & Automated Testing", 
+      gradient: "from-emerald-100 to-green-100", 
+      border: "border-emerald-200", 
+      icon: Bug, 
+      component: <Git />, 
+      text: "QA Engineer",
+      id: 'qa-engineer'
+    },
   ];
 
+  // Initialize with first skill selected by default
   useEffect(() => {
-    setMounted(true);
-    
-    // Only access localStorage after component is mounted (client-side)
-    if (typeof window !== 'undefined') {
-      try {
-        const savedSkill = localStorage.getItem('selectedPSkill');
-        if (savedSkill) {
-          const parsedSkill = JSON.parse(savedSkill);
-          // Find the matching skill in skillItems first, then cardItems
-          const foundSkill = skillItems.find(item => item.text === parsedSkill.text) || 
-                            cardItems.find(item => item.text === parsedSkill.text || item.title === parsedSkill.text);
-          if (foundSkill) {
-            setSelectedSkill(foundSkill);
-          }
-        }
-      } catch (e) {
-        console.error('Failed to parse saved skill', e);
-      }
+    if (skillItems.length > 0 && !selectedSkill) {
+      setSelectedSkill(skillItems[0]);
     }
   }, []);
 
   const handleSkillClick = (skill) => {
     setSelectedSkill(skill);
-    // Save the selected skill to localStorage only on client-side
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('selectedPSkill', JSON.stringify({
-          text: skill.text || skill.title
-        }));
-      } catch (e) {
-        console.error('Failed to save skill to localStorage', e);
-      }
-    }
   };
 
-  // Don't render anything until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return (
-      <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen">
-        <div className="flex-1 p-8 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
-        </div>
-      </div>
-    );
-  }
+  const isSkillActive = (skill) => {
+    return selectedSkill?.id === skill.id || 
+           selectedSkill?.text === skill.text || 
+           selectedSkill?.title === skill.title;
+  };
 
   return (
     <div className="flex mt-14 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 min-h-screen select-none">
@@ -93,7 +95,7 @@ const ASidebar = () => {
               )}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="ml-1 mt-1 p-2 rounded-lg bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white hover:shadow-lg transition-shadow duration-200"
+                className="ml-1 mt-1 p-2 rounded-lg bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white hover:shadow-lg transition-all duration-200 hover:scale-105"
               >
                 {isOpen ? <X size={16} /> : <Menu size={16} />}
               </button>
@@ -105,15 +107,15 @@ const ASidebar = () => {
             <nav className="space-y-2 px-3">
               {skillItems.map((item, index) => {
                 const Icon = item.icon;
-                const isActive = selectedSkill?.text === item.text;
+                const isActive = isSkillActive(item);
                 return (
                   <div
-                    key={`${item.text}-${index}`}
+                    key={item.id}
                     onClick={() => handleSkillClick(item)}
-                    className={`rounded-lg cursor-pointer group transition-colors duration-200 ${
+                    className={`rounded-lg cursor-pointer group transition-all duration-200 ${
                       isActive 
-                        ? 'bg-white shadow-sm border border-cyan-200/70' 
-                        : 'hover:bg-white/50'
+                        ? 'bg-white shadow-md border border-cyan-300/70 transform scale-[1.02]' 
+                        : 'hover:bg-white/50 hover:scale-[1.01]'
                     }`}
                   >
                     <div className="flex items-center p-3 space-x-3">
@@ -157,7 +159,9 @@ const ASidebar = () => {
       {/* Main Content Area */}
       <div className="flex-1 overflow-auto">
         {selectedSkill ? (
-          selectedSkill.component
+          <div className="animate-fadeIn">
+            {selectedSkill.component}
+          </div>
         ) : (
           <div className="max-w-4xl mx-auto p-4">
             <div className="bg-gradient-to-br from-white/90 via-cyan-50/80 to-indigo-50/90 rounded-xl shadow-lg p-8 border border-cyan-200/30">
@@ -171,16 +175,16 @@ const ASidebar = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {cardItems.map((item, index) => {
                   const Icon = item.icon;
-                  const isActive = selectedSkill?.text === item.text || selectedSkill?.title === item.title;
+                  const isActive = isSkillActive(item);
                   return (
                     <div
-                      key={`${item.title}-${index}`}
+                      key={item.id}
                       onClick={() => handleSkillClick(item)}
                       className={`bg-gradient-to-br ${item.gradient} p-6 rounded-lg border ${
                         isActive 
-                          ? 'border-cyan-400 shadow-md ring-1 ring-cyan-200' 
-                          : item.border
-                      } hover:shadow-md transition-shadow duration-200 cursor-pointer group`}
+                          ? 'border-cyan-400 shadow-lg ring-2 ring-cyan-200 transform scale-105' 
+                          : `${item.border} hover:shadow-md hover:scale-[1.02]`
+                      } transition-all duration-200 cursor-pointer group`}
                     >
                       <div className="flex items-center mb-3">
                         <Icon className={`${
@@ -199,6 +203,23 @@ const ASidebar = () => {
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };

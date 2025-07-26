@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import QA from '../modules/guides/qa';
 import CS from '../modules/guides/cs';
+import Web from '../modules/guides/web.jsx'
 const GSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -52,7 +53,7 @@ const GSidebar = () => {
   if (!mounted) return null;
 
   const skillItems = [
-    { icon: Code, text: 'Web Developer', color: 'text-sky-500', bgGradient: 'bg-gradient-to-r from-sky-50 to-blue-100' },
+    { icon: Code, text: 'Web Developer', color: 'text-sky-500', bgGradient: 'bg-gradient-to-r from-sky-50 to-blue-100', component: <Web/> },
     { icon: Bug, text: 'QA Engineer', color: 'text-lime-500', bgGradient: 'bg-gradient-to-r from-lime-50 to-green-100', component: <QA/> },
     { icon: BarChart3, text: 'Data Analyst', color: 'text-cyan-500', bgGradient: 'bg-gradient-to-r from-cyan-50 to-teal-100' },
     { icon: Shield, text: 'Cyber Security', color: 'text-blue-500', bgGradient: 'bg-gradient-to-r from-blue-50 to-indigo-100', component: <CS/> },
